@@ -1,34 +1,16 @@
 import * as React from 'react';
+import { IndexLink, Link } from 'react-router';
 import * as styles from './NavBar.scss';
 
-interface INavBarProps {
-	selection: string;
-	onSelectItem: (value: string) => void;
-}
-
-const items = ['Home', 'Leaderboards', 'Administration'];
-
-export default class NavBar extends React.PureComponent<INavBarProps, {}> {
-	handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-		const { selection, onSelectItem } = this.props;
-		const newSelection = e.currentTarget.text;
-		if (newSelection !== selection) {
-			onSelectItem(newSelection);
-		}
-	};
-
+export default class NavBar extends React.PureComponent<{}, {}> {
 	render() {
-		const { selection, onSelectItem } = this.props;
 		return(
 			<header>
 				<nav>
 					<ul className={styles.header}>
-						{items.map((item, i) => (
-							<li key={i}>
-								<a className={item === selection ? styles.active : null}
-									onClick={this.handleClick}>{item}</a>
-							</li>
-						))}
+						<li><IndexLink to='/' activeClassName={styles.active}>Home</IndexLink></li>
+						<li><Link to='/leader' activeClassName={styles.active}>Leaderboards</Link></li>
+						<li><Link to='/admin' activeClassName={styles.active}>Administration</Link></li>
 					</ul>
 				</nav>
 			</header>
