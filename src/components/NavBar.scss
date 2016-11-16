@@ -1,0 +1,31 @@
+.header {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: #f0f0f0;
+	overflow: hidden;
+
+	li {
+		float: left;
+		a {
+			display: block;
+			color: #777;
+			padding: 14px 16px;
+			font-family: Arial;
+			font-weight: 800;
+			font-variant: small-caps;
+			font-size: 1.5em;
+			text-align: center;
+			text-decoration: none;
+
+			&:hover {
+				color: blue;
+				cursor: pointer;
+			}
+
+			&.active {
+				border-bottom: 2px solid blue;
+			}
+		}
+	}
+}
