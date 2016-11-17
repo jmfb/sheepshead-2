@@ -17,7 +17,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-				test: /\.tsx$/,
+				test: /\.tsx?$/,
 				loader: 'ts-loader?{"silent":true}',
 				include: /src/
 			},
