@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { IUser } from '../models/user';
+import * as styles from './UserSelect.scss';
 
 interface IUserSelectProps {
 	users: IUser[];
@@ -39,7 +40,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		const { users } = this.props;
 		this.setState({
 			search: value,
-			users: users.filter(user => user.name.toLowerCase().indexOf(value) >= 0).slice(0, 5)
+			users: users.filter(user => user.name.toLowerCase().indexOf(value.toLowerCase()) >= 0).slice(0, 5)
 		} as IUserSelectState);
 	};
 
@@ -59,23 +60,26 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		const { open, search, user, users } = this.state;
 		const inputValue = open ? search : user ? user.name : '';
 		return(
-			<div>
+			<div className={styles.root}>
 				{!open && user === null &&
-					<div onClick={this.handleOpen}>{placeholder}</div>
+					<div className={styles.placeholder} onClick={this.handleOpen}>{placeholder}</div>
 				}
 				{!open && user !== null &&
-					<div onClick={this.handleOpen}>{user.name}</div>
+					<div className={styles.user} onClick={this.handleOpen}>{user.name}</div>
 				}
 				{open &&
-					<input
-						type='text'
-						placeholder={placeholder}
-						value={inputValue}
-						autoFocus
-						onChange={this.handleSearch} />
+					<span className={styles.searchWrapper}>
+						<input
+							className={styles.search}
+							type='text'
+							placeholder={placeholder}
+							value={inputValue}
+							autoFocus
+							onChange={this.handleSearch} />
+					</span>
 				}
 				{open && users.map((user, i) => (
-					<div key={i} onClick={this.handleSelect(user)}>{user.name}</div>
+					<div key={i} className={styles.user} onClick={this.handleSelect(user)}>{user.name}</div>
 				))}
 			</div>
 		);

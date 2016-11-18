@@ -1,0 +1,41 @@
+.root {
+	background-color: #f8f8f8;
+	margin: 1em 1em 1em 1em;
+	width: 12em;
+	// padding: 0.5em 0.5em 0.5em 0.5em;
+	box-shadow: 2px 2px 2px #444;
+}
+
+.placeholder {
+	color: #aaa;
+	padding: 0.5em;
+	&:hover {
+		color: black;
+		background-color: lightblue;
+	}
+}
+
+.searchWrapper {
+	display: block;
+	overflow: hidden;
+	padding: 0.5em;
+}
+
+.search {
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #333;
+	background-color: #f8f8f8;
+
+	&:focus {
+		outline: none;
+		border-bottom: 1px solid blue;
+	}
+}
+
+.user {
+	padding: 0.5em;
+	&:hover {
+		background-color: lightblue;
+	}
+}

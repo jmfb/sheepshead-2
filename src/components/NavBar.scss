@@ -29,3 +29,21 @@
 		}
 	}
 }
+
+@media (max-width: 548px) {
+	.small {
+		display: normal;
+	}
+	.large {
+		display: none;
+	}
+}
+
+@media (min-width: 549px) {
+	.small {
+		display: none;
+	}
+	.large {
+		display: normal;
+	}
+}
