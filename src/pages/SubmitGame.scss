@@ -1,0 +1,40 @@
+.root {
+	display: block;
+	width: 320px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+}
+
+.pointSpread {
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-weight: 500;
+	font-size: 1.5em;
+}
+
+.submit {
+	border: 0;
+	padding: 0.5em 1.5em;
+	font-size: 1.5em;
+	background-color: cornflowerblue;
+	box-shadow: 4px 4px 2px #333;
+	color: white;
+	text-shadow: 1px 1px 2px black;
+}
+
+.error {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	padding: 0.5em;
+	display: block;
+	width: 16em;
+	text-align: center;
+	background-color: pink;
+	border-left: 2px solid maroon;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #bbb;
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PlayerControl from './components/PlayerControl';
+import SubmitGame from './pages/SubmitGame';
 import { IUser, IPlayer } from './models/user';
 import { getUsers } from './api/users';
 
@@ -25,59 +25,48 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		getUsers().then(users => { this.setState({ users } as IHomeContainerState); });
 	}
 
-	handleSelectUser = (player: IPlayer) => {
-		return (user: IUser) => {
-			const { users, players } = this.state;
-			const index = players.indexOf(player);
-			const newPlayers = [...players];
-			newPlayers[index] = {
-				user,
-				score: player.score,
-				playerNumber: player.playerNumber
-			};
-
-			const userIndex = users.indexOf(user);
-			const newUsers = [...users];
-			newUsers.splice(userIndex, 1)
-			if (player.user !== null)
-				newUsers.push(player.user);
-
-			this.setState({
-				users: newUsers,
-				players: newPlayers
-			} as IHomeContainerState);
+	handleSelectUser = (player: IPlayer, user: IUser) => {
+		const { users, players } = this.state;
+		const index = players.indexOf(player);
+		const newPlayers = [...players];
+		newPlayers[index] = {
+			user,
+			score: player.score,
+			playerNumber: player.playerNumber
 		};
+
+		const userIndex = users.indexOf(user);
+		const newUsers = [...users];
+		newUsers.splice(userIndex, 1)
+		if (player.user !== null)
+			newUsers.push(player.user);
+
+		this.setState({
+			users: newUsers,
+			players: newPlayers
+		} as IHomeContainerState);
 	};
 
-	handleChangeScore = (player: IPlayer) => {
-		return (value: number) => {
-			const { players } = this.state;
-			const index = players.indexOf(player);
-			const newPlayers = [...players];
-			newPlayers[index] = {
-				user: player.user,
-				score: player.score + value,
-				playerNumber: player.playerNumber
-			};
-			this.setState({ players: newPlayers } as IHomeContainerState);
+	handleChangeScore = (player: IPlayer, value: number) => {
+		const { players } = this.state;
+		const index = players.indexOf(player);
+		const newPlayers = [...players];
+		newPlayers[index] = {
+			user: player.user,
+			score: player.score + value,
+			playerNumber: player.playerNumber
 		};
+		this.setState({ players: newPlayers } as IHomeContainerState);
 	};
 
 	render() {
 		const { users, players } = this.state;
 		return(
-			<div>
-				<form>
-					{players.map((player, i) => (
-						<PlayerControl
-							key={i}
-							users={users}
-							player={player}
-							onSelectUser={this.handleSelectUser(player)}
-							onChangeScore={this.handleChangeScore(player)} />
-					))}
-				</form>
-			</div>
+			<SubmitGame
+				users={users}
+				players={players}
+				onSelectUser={this.handleSelectUser}
+				onChangeScore={this.handleChangeScore} />
 		);
 	}
 }

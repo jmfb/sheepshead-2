@@ -11,10 +11,12 @@
   "license": "MIT",
   "dependencies": {
     "@types/classnames": "0.0.32",
+    "@types/lodash": "^4.14.39",
     "@types/react": "^0.14.44",
     "@types/react-dom": "^0.14.18",
     "@types/react-router": "^2.0.39",
     "classnames": "^2.2.5",
+    "lodash": "^4.17.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^3.0.0",
