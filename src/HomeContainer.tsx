@@ -29,11 +29,20 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 	handleSelectUser = (player: IPlayer) => {
 		return (user: IUser) => {
 			//TODO: save that info: player.user = user; but via setState
-		}
+		};
 	};
 
-	handleChangeScore = (value: number) => {
-		console.log('ChangeScore', value);
+	handleChangeScore = (player: IPlayer) => {
+		return (value: number) => {
+			const { players } = this.state;
+			const index = players.indexOf(player);
+			const newPlayers = [...players];
+			newPlayers[index] = {
+				user: player.user,
+				score: player.score + value
+			};
+			this.setState({ players: newPlayers } as IHomeContainerState);
+		};
 	};
 
 	render() {
@@ -46,9 +55,9 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 							key={i}
 							users={users}
 							playerNumber={i + 1}
-							score={0}
+							score={player.score}
 							onSelectUser={this.handleSelectUser(player)}
-							onChangeScore={this.handleChangeScore} />
+							onChangeScore={this.handleChangeScore(player)} />
 					))}
 				</form>
 			</div>
