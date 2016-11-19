@@ -5,13 +5,13 @@ import * as styles from './UserSelect.scss';
 interface IUserSelectProps {
 	users: IUser[];
 	placeholder: string;
+	user: IUser | null;
 	onSelect: (user: IUser) => void;
 }
 
 interface IUserSelectState {
 	open: boolean;
 	search: string;
-	user: IUser | null;
 	users: IUser[];
 }
 
@@ -21,7 +21,6 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		this.state = {
 			open: false,
 			search: '',
-			user: null,
 			users: []
 		};
 	}
@@ -49,15 +48,14 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 			const { onSelect } = this.props;
 			this.setState({
 				open: false,
-				user
 			} as IUserSelectState);
 			onSelect(user);
 		};
 	};
 
 	render() {
-		const { placeholder } = this.props;
-		const { open, search, user, users } = this.state;
+		const { placeholder, user } = this.props;
+		const { open, search, users } = this.state;
 		const inputValue = open ? search : user ? user.name : '';
 		return(
 			<div className={styles.root}>
