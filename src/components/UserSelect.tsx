@@ -12,7 +12,6 @@ interface IUserSelectProps {
 interface IUserSelectState {
 	open: boolean;
 	search: string;
-	users: IUser[];
 }
 
 export default class UserSelect extends React.PureComponent<IUserSelectProps, IUserSelectState> {
@@ -20,8 +19,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		super(props);
 		this.state = {
 			open: false,
-			search: '',
-			users: []
+			search: ''
 		};
 	}
 
@@ -29,8 +27,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		const { users } = this.props;
 		this.setState({
 			open: true,
-			search: '',
-			users: users.slice(0, 5)
+			search: ''
 		} as IUserSelectState);
 	};
 
@@ -38,8 +35,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		const { value } = e.currentTarget;
 		const { users } = this.props;
 		this.setState({
-			search: value,
-			users: users.filter(user => user.name.toLowerCase().indexOf(value.toLowerCase()) >= 0).slice(0, 5)
+			search: value
 		} as IUserSelectState);
 	};
 
@@ -54,9 +50,13 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 	};
 
 	render() {
-		const { placeholder, user } = this.props;
-		const { open, search, users } = this.state;
+		const { placeholder, user, users } = this.props;
+		const { open, search } = this.state;
+		const topUsers = users === null ? [] : open ?
+			users.filter(user => user.name.toLowerCase().indexOf(search.toLowerCase()) >= 0).slice(0, 5) :
+			users.slice(0, 5);
 		const inputValue = open ? search : user ? user.name : '';
+
 		return(
 			<div className={styles.root}>
 				{!open && user === null &&
@@ -76,7 +76,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 							onChange={this.handleSearch} />
 					</span>
 				}
-				{open && users.map((user, i) => (
+				{open && topUsers.map((user, i) => (
 					<div key={i} className={styles.user} onClick={this.handleSelect(user)}>{user.name}</div>
 				))}
 			</div>

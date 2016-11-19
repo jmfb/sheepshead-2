@@ -27,7 +27,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 
 	handleSelectUser = (player: IPlayer) => {
 		return (user: IUser) => {
-			const { players } = this.state;
+			const { users, players } = this.state;
 			const index = players.indexOf(player);
 			const newPlayers = [...players];
 			newPlayers[index] = {
@@ -35,7 +35,17 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 				score: player.score,
 				playerNumber: player.playerNumber
 			};
-			this.setState({ players: newPlayers } as IHomeContainerState);
+
+			const userIndex = users.indexOf(user);
+			const newUsers = [...users];
+			newUsers.splice(userIndex, 1)
+			if (player.user !== null)
+				newUsers.push(player.user);
+
+			this.setState({
+				users: newUsers,
+				players: newPlayers
+			} as IHomeContainerState);
 		};
 	};
 
