@@ -7,8 +7,10 @@ import * as styles from './SubmitGame.scss';
 interface ISubmitGameProps {
 	users: IUser[] | null;
 	players: IPlayer[];
+	submitting: boolean;
 	onSelectUser: (player: IPlayer, user: IUser) => void;
 	onChangeScore: (player: IPlayer, value: number) => void;
+	onSubmit: () => void;
 }
 
 export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}> {
@@ -46,10 +48,10 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 	};
 
 	render() {
-		const { users, players } = this.props;
+		const { users, players, submitting, onSubmit } = this.props;
 		const isValidCheckSum = this.getCheckSum() === 0;
 		const arePlayerSelectionsValid = this.arePlayerSelectionsValid();
-		const canSubmit = isValidCheckSum && arePlayerSelectionsValid;
+		const canSubmit = !submitting && isValidCheckSum && arePlayerSelectionsValid;
 		return(
 			<div className={styles.root}>
 				<form>
@@ -63,7 +65,10 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 					))}
 					<div className={styles.pointSpread}>P.S. {this.getPointSpread()}</div>
 					{canSubmit &&
-						<button className={styles.submit}>Submit</button>
+						<button className={styles.submit} onClick={onSubmit}>Submit</button>
+					}
+					{submitting &&
+						<div className={styles.submitting}>Submitting...</div>
 					}
 					{!isValidCheckSum &&
 						<div className={styles.error}>Scores do not add up to zero.</div>

@@ -1,11 +1,14 @@
 import * as React from 'react';
+import { hashHistory } from 'react-router';
 import SubmitGame from './pages/SubmitGame';
 import { IUser, IPlayer } from './models/user';
 import { getUsers } from './api/users';
+import { submitGame } from './api/games';
 
 interface IHomeContainerState {
 	users: IUser[] | null;
 	players: IPlayer[];
+	submitting: boolean;
 }
 
 export default class HomeContainer extends React.PureComponent<{}, IHomeContainerState> {
@@ -17,7 +20,8 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 				user: null,
 				score: 0,
 				playerNumber: i + 1
-			}))
+			})),
+			submitting: false
 		};
 	}
 
@@ -59,14 +63,26 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		this.setState({ players: newPlayers } as IHomeContainerState);
 	};
 
+	handleSubmit = () => {
+		const { players } = this.state;
+		const scores = players
+			.filter(player => player.user !== null)
+			.map(player => ({ user: player.user.name, score: player.score }));
+		this.setState({ submitting: true } as IHomeContainerState);
+		submitGame(scores)
+			.then(gameId => { hashHistory.push(`/game?id=${gameId}`); });
+	};
+
 	render() {
-		const { users, players } = this.state;
+		const { users, players, submitting } = this.state;
 		return(
 			<SubmitGame
 				users={users}
 				players={players}
+				submitting={submitting}
 				onSelectUser={this.handleSelectUser}
-				onChangeScore={this.handleChangeScore} />
+				onChangeScore={this.handleChangeScore}
+				onSubmit={this.handleSubmit} />
 		);
 	}
 }
