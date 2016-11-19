@@ -1,5 +1,5 @@
 import * as React from 'react';
-import UserSelect from './components/UserSelect';
+import PlayerControl from './components/PlayerControl';
 import { IUser } from './models/user';
 import { getUsers } from './api/users';
 
@@ -32,13 +32,23 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		}
 	};
 
+	handleChangeScore = (value: number) => {
+		console.log('ChangeScore', value);
+	};
+
 	render() {
 		const { users, players } = this.state;
 		return(
 			<div>
 				<form>
 					{players.map((player, i) => (
-						<UserSelect key={i} users={users} onSelect={this.handleSelectUser(player)} placeholder={`Player ${i + 1}`} />
+						<PlayerControl
+							key={i}
+							users={users}
+							playerNumber={i + 1}
+							score={0}
+							onSelectUser={this.handleSelectUser(player)}
+							onChangeScore={this.handleChangeScore} />
 					))}
 				</form>
 			</div>

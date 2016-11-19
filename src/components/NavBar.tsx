@@ -12,7 +12,7 @@ export default class NavBar extends React.PureComponent<{}, {}> {
 						<li>
 							<Link to='/leader' activeClassName={styles.active}>
 								<span className={styles.large}>Leaderboard</span>
-								<span className={styles.small}>Scores</span>
+								<span className={styles.small}>Score</span>
 							</Link>
 						</li>
 						<li>
