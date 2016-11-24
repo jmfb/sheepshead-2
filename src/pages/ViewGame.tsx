@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Button from '../components/Button';
+import PointSpread from '../components/PointSpread';
 import { IGame } from '../models/game';
 import * as moment from 'moment';
 import * as styles from './ViewGame.scss';
-import { sum } from 'lodash';
 
 interface IViewGameProps {
 	game: IGame | null;
@@ -26,9 +26,6 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 		const { deleted, submitting, onEdit, onDelete, onUndoDelete } = this.props;
 		const { id, when, scores } = game;
 		const whenDisplay = moment(when).utc().format('dddd, MMMM Do YYYY');
-		const pointSpread = sum(scores
-			.filter(score => score.score > 0)
-			.map(score => score.score));
 		return(
 			<div className={styles.root}>
 				<h1>Game #{game.id}</h1>
@@ -41,7 +38,7 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 						</div>
 					))}
 				</div>
-				<div className={styles.pointSpread}>P.S. {pointSpread}</div>
+				<PointSpread scores={scores} />
 				{submitting && deleted &&
 					<div className={styles.banner}>Resubmitting game...</div>
 				}

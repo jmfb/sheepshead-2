@@ -2,6 +2,7 @@ import * as React from 'react';
 import DateButton from '../components/DateButton';
 import PlayerControl from '../components/PlayerControl';
 import Button from '../components/Button';
+import PointSpread from '../components/PointSpread';
 import { IGame } from '../models/game';
 import { IUser, IPlayer } from '../models/user';
 import { sum } from 'lodash';
@@ -28,14 +29,6 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 	handleChangeScore = (player: IPlayer) => {
 		const { onChangeScore } = this.props;
 		return (value: number) => onChangeScore(player, value);
-	};
-
-	getPointSpread = () => {
-		const { players } = this.props;
-		const scores = players
-			.filter(player => player.score > 0)
-			.map(player => player.score);
-		return sum(scores);
 	};
 
 	getCheckSum = () => {
@@ -70,7 +63,7 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 						onSelectUser={this.handleSelectUser(player)}
 						onChangeScore={this.handleChangeScore(player)} />
 				))}
-				<div className={styles.pointSpread}>P.S. {this.getPointSpread()}</div>
+				<PointSpread scores={players} />
 				{canSubmit &&
 					<div className={styles.submit}>
 						<Button display='Submit' type='primary' onClick={onSubmit} />
