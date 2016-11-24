@@ -9,6 +9,14 @@ export function submitGame(when: string, scores: IScore[]) : Promise<number> {
 	});
 }
 
+export function updateGame(id: number, when: string, scores: IScore[]) : Promise<{}> {
+	//TODO: submit updated game to the server
+	return new Promise((resolve, reject) => {
+		console.log('Updated', id, when, scores);
+		resolve({});
+	});
+}
+
 export function getGame(id: number) : Promise<IGame> {
 	//TODO: get game from server
 	return new Promise((resolve, reject) => {

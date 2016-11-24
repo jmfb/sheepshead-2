@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { hashHistory } from 'react-router';
 import EditGame from './pages/EditGame';
 import { getUsers } from './api/users';
-import { getGame } from './api/games';
-import { IUser } from './models/user';
+import { getGame, updateGame } from './api/games';
+import { IUser, IPlayer } from './models/user';
 import { IGame } from './models/game';
 import * as moment from 'moment';
 
@@ -13,8 +14,9 @@ interface IEditGameContainerProps {
 interface IEditGameContainerState {
 	gameId: number;
 	users: IUser[] | null;
-	game: IGame | null;
 	when: string | null;
+	players: IPlayer[] | null;
+	submitting: boolean;
 }
 
 export default class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEditGameContainerState> {
@@ -23,21 +25,27 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 		this.state = {
 			gameId: +props.params.gameId,
 			users: null,
-			game: null,
-			when: null
+			when: null,
+			players: null,
+			submitting: false
 		};
 	}
 
 	componentDidMount() {
 		getUsers().then(users => {
-			this.setState({ users } as IEditGameContainerState);
-		});
-		const { gameId } = this.state;
-		getGame(gameId).then(game => {
-			this.setState({
-				game,
-				when: game.when
-			} as IEditGameContainerState);
+			const { gameId } = this.state;
+			getGame(gameId).then(game => {
+				const players = game.scores.map((score, i) => ({
+					user: users.splice(users.findIndex(user => user.name === score.user), 1)[0],
+					score: score.score,
+					playerNumber: i + 1
+				}));
+				this.setState({
+					users,
+					when: game.when,
+					players
+				} as IEditGameContainerState);
+			});
 		});
 	}
 
@@ -45,13 +53,63 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 		this.setState({ when } as IEditGameContainerState);
 	};
 
+	handleSelectUser = (player: IPlayer, user: IUser) => {
+		const { users, players } = this.state;
+		const index = players.indexOf(player);
+		const newPlayers = [...players];
+		newPlayers[index] = {
+			user,
+			score: player.score,
+			playerNumber: player.playerNumber
+		};
+
+		const userIndex = users.indexOf(user);
+		const newUsers = [...users];
+		newUsers.splice(userIndex, 1)
+		if (player.user !== null)
+			newUsers.push(player.user);
+
+		this.setState({
+			users: newUsers,
+			players: newPlayers
+		} as IEditGameContainerState);
+	};
+
+	handleChangeScore = (player: IPlayer, value: number) => {
+		const { players } = this.state;
+		const index = players.indexOf(player);
+		const newPlayers = [...players];
+		newPlayers[index] = {
+			user: player.user,
+			score: player.score + value,
+			playerNumber: player.playerNumber
+		};
+		this.setState({ players: newPlayers } as IEditGameContainerState);
+	};
+
+	handleSubmit = () => {
+		const { gameId, when, players } = this.state;
+		const scores = players
+			.map(player => ({ user: player.user.name, score: player.score }));
+		this.setState({ submitting: true } as IEditGameContainerState);
+		updateGame(gameId, when, scores).then(() => {
+			hashHistory.push(`/game/${gameId}`);
+		});
+	};
+
 	render() {
-		const { game, when } = this.state;
+		const { gameId, users, when, players, submitting } = this.state;
 		return(
 			<EditGame
-				gameId={game === null ? null : game.id}
+				gameId={gameId}
+				users={users}
 				when={when}
-				onEditWhen={this.handleEditWhen} />
+				players={players}
+				submitting={submitting}
+				onEditWhen={this.handleEditWhen}
+				onSelectUser={this.handleSelectUser}
+				onChangeScore={this.handleChangeScore}
+				onSubmit={this.handleSubmit} />
 		);
 	}
 }
