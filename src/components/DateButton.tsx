@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as moment from 'moment';
 import * as DatePicker from 'react-datepicker';
+import * as moment from 'moment';
 import * as styles from './DateButton.scss';
 
 require('react-datepicker/dist/react-datepicker.css');
@@ -12,11 +12,13 @@ let CustomDateButton = React.createClass({
 		value: React.PropTypes.string
 	},
 	render() {
+		const { value } = this.props;
+		const display = moment(value).utc().format('dddd, MMMM Do YYYY');
 		return(
 			<button
 				className={styles.customInput}
 				onClick={this.props.onClick}>
-				{moment(this.props.value).utc().format('dddd, MMMM Do YYYY')}
+				{display}
 			</button>
 		);
 	}

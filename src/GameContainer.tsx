@@ -78,9 +78,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 		const { game, deleted, submitting } = this.state;
 		return(
 			<ViewGame
-				game={game}
-				deleted={deleted}
-				submitting={submitting}
+				{...{game, deleted, submitting}}
 				onEdit={this.handleEdit}
 				onDelete={this.handleDelete}
 				onUndoDelete={this.handleUndoDelete} />

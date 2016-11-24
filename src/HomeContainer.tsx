@@ -79,9 +79,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		const { users, players, submitting } = this.state;
 		return(
 			<SubmitGame
-				users={users}
-				players={players}
-				submitting={submitting}
+				{...{users, players, submitting}}
 				onSelectUser={this.handleSelectUser}
 				onChangeScore={this.handleChangeScore}
 				onSubmit={this.handleSubmit} />

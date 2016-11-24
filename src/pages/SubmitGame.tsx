@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { IUser, IPlayer } from '../models/user';
 import PlayerControl from '../components/PlayerControl';
 import PointSpread from '../components/PointSpread';
 import Banner from '../components/Banner';
 import Button from '../components/Button';
+import { IUser, IPlayer } from '../models/user';
 import { sum } from 'lodash';
 import * as styles from './SubmitGame.scss';
 
@@ -25,14 +25,6 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 	handleChangeScore = (player: IPlayer) => {
 		const { onChangeScore } = this.props;
 		return (value: number) => onChangeScore(player, value);
-	};
-
-	getPointSpread = () => {
-		const { players } = this.props;
-		const scores = players
-			.filter(player => player.score > 0)
-			.map(player => player.score);
-		return sum(scores);
 	};
 
 	getCheckSum = () => {
@@ -60,8 +52,7 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 				{players.map((player, i) => (
 					<PlayerControl
 						key={i}
-						users={users}
-						player={player}
+						{...{users, player}}
 						onSelectUser={this.handleSelectUser(player)}
 						onChangeScore={this.handleChangeScore(player)} />
 				))}

@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { hashHistory } from 'react-router';
 import EditGame from './pages/EditGame';
-import { getUsers } from './api/users';
-import { getGame, updateGame } from './api/games';
 import { IUser, IPlayer } from './models/user';
 import { IGame } from './models/game';
-import * as moment from 'moment';
+import { getUsers } from './api/users';
+import { getGame, updateGame } from './api/games';
 
 interface IEditGameContainerProps {
 	params: { gameId: string };
@@ -101,11 +100,7 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 		const { gameId, users, when, players, submitting } = this.state;
 		return(
 			<EditGame
-				gameId={gameId}
-				users={users}
-				when={when}
-				players={players}
-				submitting={submitting}
+				{...{gameId, users, when, players, submitting}}
 				onEditWhen={this.handleEditWhen}
 				onSelectUser={this.handleSelectUser}
 				onChangeScore={this.handleChangeScore}

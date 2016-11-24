@@ -59,8 +59,7 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 				{players.map((player, i) => (
 					<PlayerControl
 						key={i}
-						users={users}
-						player={player}
+						{...{users, player}}
 						onSelectUser={this.handleSelectUser(player)}
 						onChangeScore={this.handleChangeScore(player)} />
 				))}
