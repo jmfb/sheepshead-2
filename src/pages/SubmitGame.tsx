@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IUser, IPlayer } from '../models/user';
 import PlayerControl from '../components/PlayerControl';
+import Button from '../components/Button';
 import { sum } from 'lodash';
 import * as styles from './SubmitGame.scss';
 
@@ -65,7 +66,9 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 					))}
 					<div className={styles.pointSpread}>P.S. {this.getPointSpread()}</div>
 					{canSubmit &&
-						<button className={styles.submit} onClick={onSubmit}>Submit</button>
+						<div className={styles.submit}>
+							<Button display='Submit' type='primary' onClick={onSubmit} />
+						</div>
 					}
 					{submitting &&
 						<div className={styles.submitting}>Submitting...</div>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import DateButton from '../components/DateButton';
 import PlayerControl from '../components/PlayerControl';
+import Button from '../components/Button';
 import { IGame } from '../models/game';
 import { IUser, IPlayer } from '../models/user';
 import { sum } from 'lodash';
@@ -71,7 +72,9 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 				))}
 				<div className={styles.pointSpread}>P.S. {this.getPointSpread()}</div>
 				{canSubmit &&
-					<button className={styles.submit} onClick={onSubmit}>Submit</button>
+					<div className={styles.submit}>
+						<Button display='Submit' type='primary' onClick={onSubmit} />
+					</div>
 				}
 				{submitting &&
 					<div className={styles.submitting}>Submitting...</div>

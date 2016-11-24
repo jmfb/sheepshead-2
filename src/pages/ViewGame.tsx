@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '../components/Button';
 import { IGame } from '../models/game';
 import * as moment from 'moment';
 import * as styles from './ViewGame.scss';
@@ -50,13 +51,13 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 				{!submitting && deleted &&
 					<div>
 						<div className={styles.banner}>Successfully deleted game.</div>
-						<button className={styles.edit} onClick={onUndoDelete}>Undo</button>
+						<Button display='Undo' type='primary' onClick={onUndoDelete} />
 					</div>
 				}
 				{!submitting && !deleted &&
-					<div>
-						<button className={styles.edit} onClick={onEdit}>Edit</button>
-						<button className={styles.delete} onClick={onDelete}>Delete</button>
+					<div className={styles.buttons}>
+						<Button display='Edit' type='primary' onClick={onEdit} />
+						<Button display='Delete' type='transaction' onClick={onDelete} />
 					</div>
 				}
 			</div>
