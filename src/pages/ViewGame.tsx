@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Button from '../components/Button';
 import PointSpread from '../components/PointSpread';
+import Banner from '../components/Banner';
 import { IGame } from '../models/game';
 import * as moment from 'moment';
 import * as styles from './ViewGame.scss';
@@ -19,7 +20,7 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 		const { game } = this.props;
 		if (game === null) {
 			return(
-				<div className={styles.banner}>Loading game data...</div>
+				<Banner type='message' display='Loading game data...' />
 			);
 		}
 
@@ -40,14 +41,14 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 				</div>
 				<PointSpread scores={scores} />
 				{submitting && deleted &&
-					<div className={styles.banner}>Resubmitting game...</div>
+					<Banner type='message' display='Resubmitting game...' />
 				}
 				{submitting && !deleted &&
-					<div className={styles.banner}>Deleting game...</div>
+					<Banner type='message' display='Deleting game...' />
 				}
 				{!submitting && deleted &&
 					<div>
-						<div className={styles.banner}>Successfully deleted game.</div>
+						<Banner type='message' display='Successfully deleted game.' />
 						<Button display='Undo' type='primary' onClick={onUndoDelete} />
 					</div>
 				}

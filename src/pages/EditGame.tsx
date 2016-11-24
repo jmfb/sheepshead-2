@@ -3,6 +3,7 @@ import DateButton from '../components/DateButton';
 import PlayerControl from '../components/PlayerControl';
 import Button from '../components/Button';
 import PointSpread from '../components/PointSpread';
+import Banner from '../components/Banner';
 import { IGame } from '../models/game';
 import { IUser, IPlayer } from '../models/user';
 import { sum } from 'lodash';
@@ -41,7 +42,7 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 		const { gameId, users, when, players, submitting, onEditWhen, onSubmit } = this.props;
 		if (players === null) {
 			return(
-				<div className={styles.banner}>Loading game data...</div>
+				<Banner type='message' display='Loading game data...' />
 			);
 		}
 
@@ -70,10 +71,10 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 					</div>
 				}
 				{submitting &&
-					<div className={styles.submitting}>Submitting...</div>
+					<Banner type='message' display='Submitting...' />
 				}
 				{!isValidCheckSum &&
-					<div className={styles.error}>Scores do not add up to zero.</div>
+					<Banner type='error' display='Scores do not add up to zero.' />
 				}
 			</div>
 		);

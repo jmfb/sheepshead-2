@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IUser, IPlayer } from '../models/user';
 import PlayerControl from '../components/PlayerControl';
 import PointSpread from '../components/PointSpread';
+import Banner from '../components/Banner';
 import Button from '../components/Button';
 import { sum } from 'lodash';
 import * as styles from './SubmitGame.scss';
@@ -72,13 +73,13 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 						</div>
 					}
 					{submitting &&
-						<div className={styles.submitting}>Submitting...</div>
+						<Banner type='message' display='Submitting...' />
 					}
 					{!isValidCheckSum &&
-						<div className={styles.error}>Scores do not add up to zero.</div>
+						<Banner type='error' display='Scores do not add up to zero.' />
 					}
 					{!arePlayerSelectionsValid &&
-						<div className={styles.error}>Finish selecting players to submit.</div>
+						<Banner type='error' display='Finish selecting players to submit.' />
 					}
 				</form>
 			</div>

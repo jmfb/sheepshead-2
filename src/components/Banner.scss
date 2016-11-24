@@ -1,0 +1,24 @@
+.root {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	padding: 0.5em;
+	display: block;
+	width: 16em;
+	text-align: center;
+	background-color: pink;
+	border-left: 2px solid maroon;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #bbb;
+}
+
+.error {
+	background-color: pink;
+	border-left: 2px solid maroon;
+}
+
+.message {
+	background-color: lightblue;
+	border-left: 2px solid navy;
+}
