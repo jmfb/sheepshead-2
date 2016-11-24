@@ -2,8 +2,8 @@ import * as React from 'react';
 import Button from '../components/Button';
 import PointSpread from '../components/PointSpread';
 import Banner from '../components/Banner';
+import DateDisplay from '../components/DateDisplay';
 import { IGame } from '../models/game';
-import * as moment from 'moment';
 import * as styles from './ViewGame.scss';
 
 interface IViewGameProps {
@@ -26,11 +26,10 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 
 		const { deleted, submitting, onEdit, onDelete, onUndoDelete } = this.props;
 		const { id, when, scores } = game;
-		const whenDisplay = moment(when).utc().format('dddd, MMMM Do YYYY');
 		return(
 			<div className={styles.root}>
 				<h1>Game #{game.id}</h1>
-				<div className={styles.when}>{whenDisplay}</div>
+				<DateDisplay value={when} />
 				<div className={styles.scores}>
 					{scores.map((score, i) => (
 						<div key={i} className={styles.row}>

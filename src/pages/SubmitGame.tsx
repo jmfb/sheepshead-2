@@ -57,31 +57,29 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 		const canSubmit = !submitting && isValidCheckSum && arePlayerSelectionsValid;
 		return(
 			<div className={styles.root}>
-				<form>
-					{players.map((player, i) => (
-						<PlayerControl
-							key={i}
-							users={users}
-							player={player}
-							onSelectUser={this.handleSelectUser(player)}
-							onChangeScore={this.handleChangeScore(player)} />
-					))}
-					<PointSpread scores={players} />
-					{canSubmit &&
-						<div className={styles.submit}>
-							<Button display='Submit' type='primary' onClick={onSubmit} />
-						</div>
-					}
-					{submitting &&
-						<Banner type='message' display='Submitting...' />
-					}
-					{!isValidCheckSum &&
-						<Banner type='error' display='Scores do not add up to zero.' />
-					}
-					{!arePlayerSelectionsValid &&
-						<Banner type='error' display='Finish selecting players to submit.' />
-					}
-				</form>
+				{players.map((player, i) => (
+					<PlayerControl
+						key={i}
+						users={users}
+						player={player}
+						onSelectUser={this.handleSelectUser(player)}
+						onChangeScore={this.handleChangeScore(player)} />
+				))}
+				<PointSpread scores={players} />
+				{canSubmit &&
+					<div className={styles.submit}>
+						<Button display='Submit' type='primary' onClick={onSubmit} />
+					</div>
+				}
+				{submitting &&
+					<Banner type='message' display='Submitting...' />
+				}
+				{!isValidCheckSum &&
+					<Banner type='error' display='Scores do not add up to zero.' />
+				}
+				{!arePlayerSelectionsValid &&
+					<Banner type='error' display='Finish selecting players to submit.' />
+				}
 			</div>
 		);
 	}
