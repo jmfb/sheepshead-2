@@ -29,6 +29,14 @@ module.exports = {
 					'sass-loader?{"sourceMap":true}'
 				]),
 				include: /src/
+			},
+			{
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract('style-loader', [
+					'css-loader?{"modules":false}',
+					'postcss-loader'
+				]),
+				include: /node_modules/
 			}
 		],
 		preLoaders: [

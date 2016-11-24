@@ -5,7 +5,7 @@ import { IGame } from './models/game';
 import { submitGame, getGame, deleteGame } from './api/games';
 
 interface IGameContainerProps {
-	params: { gameId: number };
+	params: { gameId: string };
 }
 
 interface IGameContainerState {
@@ -19,7 +19,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 	constructor(props: IGameContainerProps) {
 		super(props);
 		this.state = {
-			gameId: props.params.gameId,
+			gameId: +props.params.gameId,
 			game: null,
 			deleted: false,
 			submitting: false
@@ -35,14 +35,16 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 
 	componentWillReceiveProps(nextProps: IGameContainerProps) {
 		const { gameId } = this.state;
-		if (gameId !== nextProps.params.gameId) {
-			getGame(nextProps.params.gameId).then(game => {
-				this.setState({
-					gameId: game.id,
-					game,
-					deleted: false,
-					submitting: false
-				});
+		const nextGameId = +nextProps.params.gameId;
+		if (gameId !== nextGameId) {
+			this.setState({
+				gameId: nextGameId,
+				game: null,
+				deleted: false,
+				submitting: false
+			});
+			getGame(nextGameId).then(game => {
+				this.setState({ game } as IGameContainerState);
 			});
 		}
 	}

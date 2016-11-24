@@ -15,13 +15,14 @@ interface IViewGameProps {
 
 export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 	render() {
-		const { game, deleted, submitting, onEdit, onDelete, onUndoDelete } = this.props;
+		const { game } = this.props;
 		if (game === null) {
 			return(
 				<div className={styles.banner}>Loading game data...</div>
 			);
 		}
 
+		const { deleted, submitting, onEdit, onDelete, onUndoDelete } = this.props;
 		const { id, when, scores } = game;
 		const whenDisplay = moment(when).utc().format('dddd, MMMM Do YYYY');
 		const pointSpread = sum(scores
