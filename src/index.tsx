@@ -13,7 +13,7 @@ ReactDOM.render(
 			<IndexRoute component={HomeContainer} />
 			<Route path='/leader' component={LeaderContainer} />
 			<Route path='/admin' component={AdminContainer} />
-			<Route path='/game' component={GameContainer} />
+			<Route path='/game/:gameId' component={GameContainer} />
 		</Route>
 	</Router>,
 	document.getElementById('root')

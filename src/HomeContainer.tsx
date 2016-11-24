@@ -68,9 +68,11 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		const scores = players
 			.filter(player => player.user !== null)
 			.map(player => ({ user: player.user.name, score: player.score }));
+		const when = new Date().toISOString().substr(0, 10);
 		this.setState({ submitting: true } as IHomeContainerState);
-		submitGame(scores)
-			.then(gameId => { hashHistory.push(`/game?id=${gameId}`); });
+		submitGame(when, scores).then(gameId => {
+			hashHistory.push(`/game/${gameId}`);
+		});
 	};
 
 	render() {
