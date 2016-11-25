@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { hashHistory } from 'react-router';
 import EditGame from './pages/EditGame';
-import { IUser, IPlayer } from './models/user';
-import { IGame } from './models/game';
+import { IUser, IPlayer, IGame } from './models';
 import { getUsers } from './api/users';
 import { getGame, updateGame } from './api/games';
 

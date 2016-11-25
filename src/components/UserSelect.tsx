@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IUser } from '../models/user';
+import { IUser } from '../models';
 import * as styles from './UserSelect.scss';
 
 interface IUserSelectProps {

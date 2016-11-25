@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { hashHistory } from 'react-router';
 import ViewGame from './pages/ViewGame';
-import { IGame } from './models/game';
+import { IGame } from './models';
 import { submitGame, getGame, deleteGame } from './api/games';
 
 interface IGameContainerProps {

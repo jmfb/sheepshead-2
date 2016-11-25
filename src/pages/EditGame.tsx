@@ -4,8 +4,7 @@ import PlayerControl from '../components/PlayerControl';
 import Button from '../components/Button';
 import PointSpread from '../components/PointSpread';
 import Banner from '../components/Banner';
-import { IGame } from '../models/game';
-import { IUser, IPlayer } from '../models/user';
+import { IGame, IUser, IPlayer } from '../models';
 import { sum } from 'lodash';
 import * as styles from './EditGame.scss';
 
@@ -51,7 +50,7 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 		return(
 			<div>
 				<div className={styles.game}>
-					<h1>Game #{gameId}</h1>
+					<h1 className={styles.title}>Game #{gameId}</h1>
 					<DateButton
 						value={when}
 						onChange={onEditWhen} />

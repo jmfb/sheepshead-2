@@ -1,0 +1,29 @@
+.root {
+	display: block;
+	margin-bottom: 0.5em;
+	background-color: #f8f8f8;
+	box-shadow: 2px 2px 2px #ccc;
+	padding: 0.5em 1em;
+	cursor: pointer;
+}
+
+.period {
+	width: 8em;
+	display: inline-block;
+}
+
+.score {
+	width: 3em;
+	display: inline-block;
+	text-align: right;
+}
+
+.positive {
+	color: green;
+}
+
+.rank {
+	width: 3em;
+	display: inline-block;
+	text-align: right;
+}

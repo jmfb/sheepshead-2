@@ -1,9 +1,53 @@
 import * as React from 'react';
+import { hashHistory } from 'react-router';
+import ScoreView from './pages/ScoreView';
+import Banner from './components/Banner';
+import { ICurrentPeriodScores, IMonth } from './models';
+import { getCurrentPeriodScores } from './api/users';
 
-export default class LeaderContainer extends React.PureComponent<{}, {}> {
+interface ILeaderContainerState {
+	currentScores: ICurrentPeriodScores | null;
+}
+
+export default class LeaderContainer extends React.PureComponent<{}, ILeaderContainerState> {
+	constructor(props: any) {
+		super(props);
+		this.state = { currentScores: null };
+	}
+
+	componentDidMount() {
+		getCurrentPeriodScores().then(currentScores => {
+			this.setState({ currentScores });
+		});
+	}
+
+	handleClickMonth = () => {
+		const { currentScores } = this.state;
+		const { monthScore } = currentScores;
+		const month = monthScore.period as IMonth;
+		hashHistory.push(`/leader/${month.year}/${month.month}`);
+	};
+
+	handleClickYear = () => {
+		const { currentScores } = this.state;
+		const { yearScore } = currentScores;
+		const year = yearScore.period as number;
+		hashHistory.push(`/leader/${year}`);
+	};
+
 	render() {
+		const { currentScores } = this.state;
+		if (currentScores === null) {
+			return(
+				<Banner type='message' display='Loading scores...' />
+			);
+		}
+		const { user, monthScore, yearScore } = currentScores;
 		return(
-			<p>This is a leaderboard.</p>
+			<ScoreView
+				{...{user, monthScore, yearScore}}
+				onClickMonth={this.handleClickMonth}
+				onClickYear={this.handleClickYear} />
 		);
 	}
 }

@@ -1,4 +1,4 @@
-import { IScore, IGame } from '../models/game';
+import { IScore, IGame } from '../models';
 
 export function submitGame(when: string, scores: IScore[]) : Promise<number> {
 	//TODO: submit game to server

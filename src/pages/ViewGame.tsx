@@ -3,7 +3,7 @@ import Button from '../components/Button';
 import PointSpread from '../components/PointSpread';
 import Banner from '../components/Banner';
 import DateDisplay from '../components/DateDisplay';
-import { IGame } from '../models/game';
+import { IGame } from '../models';
 import * as styles from './ViewGame.scss';
 
 interface IViewGameProps {
@@ -28,7 +28,7 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 		const { id, when, scores } = game;
 		return(
 			<div className={styles.root}>
-				<h1>Game #{game.id}</h1>
+				<h1 className={styles.title}>Game #{game.id}</h1>
 				<DateDisplay value={when} />
 				<div className={styles.scores}>
 					{scores.map((score, i) => (
