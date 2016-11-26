@@ -48,7 +48,7 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 		const isValidCheckSum = this.getCheckSum() === 0;
 		const canSubmit = !submitting && isValidCheckSum;
 		return(
-			<div>
+			<div className={styles.root}>
 				<div className={styles.game}>
 					<h1 className={styles.title}>Game #{gameId}</h1>
 					<DateButton
