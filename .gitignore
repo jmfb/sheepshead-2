@@ -1,6 +1,5 @@
 dist
 node_modules
-packages
 api/bin
 api/obj
 api/.vs
