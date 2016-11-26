@@ -3,6 +3,7 @@ import Button from '../components/Button';
 import PointSpread from '../components/PointSpread';
 import Banner from '../components/Banner';
 import DateDisplay from '../components/DateDisplay';
+import ScoresTile from '../components/ScoresTile';
 import { IGame } from '../models';
 import * as styles from './ViewGame.scss';
 
@@ -30,14 +31,7 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 			<div className={styles.root}>
 				<h1 className={styles.title}>Game #{game.id}</h1>
 				<DateDisplay value={when} />
-				<div className={styles.scores}>
-					{scores.map((score, i) => (
-						<div key={i} className={styles.row}>
-							<div className={styles.user}>{score.user}</div>
-							<div className={styles.score}>{score.score}</div>
-						</div>
-					))}
-				</div>
+				<ScoresTile scores={scores} />
 				<PointSpread scores={scores} />
 				{submitting && deleted &&
 					<Banner type='message' display='Resubmitting game...' />

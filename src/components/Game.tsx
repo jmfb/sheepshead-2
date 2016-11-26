@@ -1,6 +1,7 @@
 import * as React from 'react';
 import DateDisplay from './DateDisplay';
 import PointSpread from './PointSpread';
+import ScoresTile from './ScoresTile';
 import { IGame } from '../models';
 import * as cx from 'classnames';
 import * as styles from './Game.scss';
@@ -17,14 +18,7 @@ export default class Game extends React.PureComponent<IGameProps, {}> {
 			<div className={styles.root}>
 				<div className={styles.title} onClick={onClick}>Game #{game.id}</div>
 				<DateDisplay value={game.when} />
-				<div className={styles.scores}>
-					{game.scores.map((score, i) => (
-						<div key={i} className={styles.row}>
-							<div className={styles.player}>{score.user}</div>
-							<div className={cx(styles.score, { [styles.negative]: score.score < 0 })}>{score.score}</div>
-						</div>
-					))}
-				</div>
+				<ScoresTile scores={game.scores} />
 				<PointSpread scores={game.scores} />
 			</div>
 		);
