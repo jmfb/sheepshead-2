@@ -11,6 +11,7 @@ import YearContainer from './YearContainer';
 import MonthContainer from './MonthContainer';
 import GamesContainer from './GamesContainer';
 import CreateUserContainer from './CreateUserContainer';
+import UploadGamesContainer from './UploadGamesContainer';
 
 ReactDOM.render(
 	<Router history={hashHistory}>
@@ -23,6 +24,7 @@ ReactDOM.render(
 			</Route>
 			<Route path='/admin' component={AdminContainer} />
 			<Route path='/admin/user/create' component={CreateUserContainer} />
+			<Route path='/admin/upload' component={UploadGamesContainer} />
 			<Route path='/game/:gameId' component={GameContainer} />
 			<Route path='/edit/:gameId' component={EditGameContainer} />
 		</Route>

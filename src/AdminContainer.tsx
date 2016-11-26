@@ -7,10 +7,15 @@ export default class AdminContainer extends React.PureComponent<{}, {}> {
 		hashHistory.push('/admin/user/create');
 	};
 
+	handleClickUploadGames = () => {
+		hashHistory.push('/admin/upload');
+	};
+
 	render() {
 		return(
 			<Administration
-				onClickAddUser={this.handleClickAddUser} />
+				onClickAddUser={this.handleClickAddUser}
+				onClickUploadGames={this.handleClickUploadGames} />
 		);
 	}
 }

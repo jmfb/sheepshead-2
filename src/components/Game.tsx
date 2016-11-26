@@ -8,7 +8,7 @@ import * as styles from './Game.scss';
 
 interface IGameProps {
 	game: IGame;
-	onClick: () => void;
+	onClick?: () => void;
 }
 
 export default class Game extends React.PureComponent<IGameProps, {}> {
@@ -16,7 +16,11 @@ export default class Game extends React.PureComponent<IGameProps, {}> {
 		const { game, onClick } = this.props;
 		return(
 			<div className={styles.root}>
-				<div className={styles.title} onClick={onClick}>Game #{game.id}</div>
+				<div
+					className={cx(styles.title, { [styles.link]: onClick !== undefined })}
+					onClick={onClick}>
+					Game #{game.id}
+				</div>
 				<DateDisplay value={game.when} />
 				<ScoresTile scores={game.scores} />
 				<PointSpread scores={game.scores} />

@@ -42,3 +42,15 @@ export interface ICurrentPeriodScores {
 	monthScore: IPeriodScore;
 	yearScore: IPeriodScore;
 }
+
+export interface IGameReport {
+	reports: {
+		gameId: number;
+		playerScores: {
+			name: string;
+			score: number;
+		}[];
+		pointSpread: number;
+		title: string;
+	}[];
+}
