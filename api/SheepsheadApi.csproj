@@ -15,7 +15,7 @@
     <AssemblyName>SheepsheadApi</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -143,7 +143,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>13457</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:13457/</IISUrl>
+          <IISUrl>http://localsheepshead.directs.com/api</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
