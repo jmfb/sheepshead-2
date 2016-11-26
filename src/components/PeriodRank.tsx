@@ -15,8 +15,8 @@ export default class PeriodRank extends React.PureComponent<IPeriodRankProps, {}
 		return(
 			<div className={styles.root} onClick={onClick}>
 				<div className={styles.period}>{period}</div>
-				<div className={cx(styles.score, { [styles.positive]: score >= 0 })}>{score}</div>
-				<div className={styles.rank}>#{Math.abs(rank)}</div>
+				<div className={cx(styles.score, { [styles.negative]: score < 0 })}>{score}</div>
+				<div className={styles.rank}>#{rank}</div>
 			</div>
 		);
 	}

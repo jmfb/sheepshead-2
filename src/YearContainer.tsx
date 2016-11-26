@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { hashHistory } from 'react-router';
+import YearView from './pages/YearView';
+import { IScore } from './models';
+import { getYearScores } from './api/users';
 
 interface IYearContainerProps {
 	params: { year: string }
@@ -6,19 +10,23 @@ interface IYearContainerProps {
 
 interface IYearContainerState {
 	year: number;
+	scores: IScore[] | null;
 }
 
 export default class YearContainer extends React.PureComponent<IYearContainerProps, IYearContainerState> {
 	constructor(props: IYearContainerProps) {
 		super(props);
 		this.state = {
-			year: +props.params.year
+			year: +props.params.year,
+			scores: null
 		};
 	}
 
 	componentDidMount() {
 		const { year } = this.state;
-		//TODO: load leader board for given year
+		getYearScores(year).then(scores => {
+			this.setState({ scores } as IYearContainerState);
+		});
 	}
 
 	componentWillReceiveProps(nextProps: IYearContainerProps) {
@@ -26,9 +34,32 @@ export default class YearContainer extends React.PureComponent<IYearContainerPro
 		const nextYear = +nextProps.params.year;
 		if (year !== nextYear) {
 			this.setState({
-				year: nextYear
+				year: nextYear,
+				scores: null
 			});
-			//TODO: load leader board for new year
+			getYearScores(nextYear).then(scores => {
+				this.setState({ scores } as IYearContainerState);
+			});
 		}
+	}
+
+	handleClickPreviousYear = () => {
+		const { year } = this.state;
+		hashHistory.push(`/leader/${year - 1}`);
+	};
+
+	handleClickNextYear = () => {
+		const { year } = this.state;
+		hashHistory.push(`/leader/${year + 1}`);
+	};
+
+	render() {
+		const { year, scores } = this.state;
+		return(
+			<YearView
+				{...{year, scores}}
+				onClickPreviousYear={this.handleClickPreviousYear}
+				onClickNextYear={this.handleClickNextYear} />
+		);
 	}
 }

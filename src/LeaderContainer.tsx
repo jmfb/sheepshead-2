@@ -43,9 +43,10 @@ export default class LeaderContainer extends React.PureComponent<{}, ILeaderCont
 			);
 		}
 		const { user, monthScore, yearScore } = currentScores;
+		const { children } = this.props;
 		return(
 			<ScoreView
-				{...{user, monthScore, yearScore}}
+				{...{user, monthScore, yearScore, children}}
 				onClickMonth={this.handleClickMonth}
 				onClickYear={this.handleClickYear} />
 		);

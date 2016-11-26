@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { IMonth } from './models';
+import { hashHistory } from 'react-router';
+import MonthView from './pages/MonthView';
+import { IMonth, IScore } from './models';
+import { getMonthScores } from './api/users';
+import * as moment from 'moment';
 
 interface IMonthContainerProps {
 	params: { month: string, year: string }
@@ -7,6 +11,7 @@ interface IMonthContainerProps {
 
 interface IMonthContainerState {
 	month: IMonth;
+	scores: IScore[] | null;
 }
 
 export default class MonthContainer extends React.PureComponent<IMonthContainerProps, IMonthContainerState> {
@@ -16,13 +21,18 @@ export default class MonthContainer extends React.PureComponent<IMonthContainerP
 			month: {
 				year: +props.params.year,
 				month: props.params.month
-			}
+			},
+			scores: null
 		};
 	}
 
 	componentDidMount() {
 		const { month } = this.state;
-		//TODO: load leader board for given month
+		getMonthScores(month).then(scores => {
+			this.setState({
+				scores
+			} as IMonthContainerState);
+		});
 	}
 
 	componentWillReceiveProps(nextProps: IMonthContainerProps) {
@@ -33,9 +43,38 @@ export default class MonthContainer extends React.PureComponent<IMonthContainerP
 		};
 		if (month.month !== nextMonth.month || month.year !== nextMonth.year) {
 			this.setState({
-				month: nextMonth
+				month: nextMonth,
+				scores: null
 			});
-			//TODO: load leader board for new month
+			getMonthScores(nextMonth).then(scores => {
+				this.setState({
+					scores
+				} as IMonthContainerState);
+			});
 		}
+	}
+
+	handleClickPreviousMonth = () => {
+		this.navigateToRelativeMonth(-1);
+	};
+
+	handleClickNextMonth = () => {
+		this.navigateToRelativeMonth(1);
+	};
+
+	navigateToRelativeMonth = (months: number) => {
+		const { month } = this.state;
+		const relativeMonth = moment(`${month.month} 1 ${month.year}`, 'MMMM d YYYY').add(months, 'months');
+		hashHistory.push(`/leader/${relativeMonth.format('YYYY/MMMM')}`);
+	};
+
+	render() {
+		const { month, scores } = this.state;
+		return(
+			<MonthView
+				{...{month, scores}}
+				onClickPreviousMonth={this.handleClickPreviousMonth}
+				onClickNextMonth={this.handleClickNextMonth} />
+		);
 	}
 }
