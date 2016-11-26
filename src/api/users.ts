@@ -1,5 +1,13 @@
 import { IUser, IMonth, IScore, ICurrentPeriodScores } from '../models';
 
+export function createUser(user: string) : Promise<{}> {
+	//TODO: Create user on the server
+	return new Promise((resolve, reject) => {
+		console.log('Create user', user);
+		resolve({});
+	});
+}
+
 export function getUsers() : Promise<IUser[]> {
 	//TODO: Retrieve user list from the server
 	return new Promise((resolve, reject) => {

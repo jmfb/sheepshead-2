@@ -1,0 +1,28 @@
+.root {
+	margin-left: auto;
+	margin-right: auto;
+	width: 16em;
+}
+
+.title {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 1em;
+}
+
+.label {
+	display: inline;
+}
+
+.input {
+	display: inline;
+	border: 0;
+	border-bottom: 1px solid blue;
+	margin-left: 0.5em;
+	&:focus {
+		outline: none;
+	}
+}
+
+.bottom {
+	margin-top: 1em;
+}
