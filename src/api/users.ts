@@ -1,75 +1,45 @@
 import { IUser, IMonth, IScore, ICurrentPeriodScores } from '../models';
+import { checkStatus, parseJson } from './helpers';
+import * as queryString from 'query-string';
 
 export function createUser(user: string) : Promise<{}> {
-	//TODO: Create user on the server
-	return new Promise((resolve, reject) => {
-		console.log('Create user', user);
-		resolve({});
-	});
+	const query = queryString.stringify({ user });
+	return fetch(`/api/Users/CreateUser?${query}`, {
+		credentials: 'same-origin',
+		method: 'POST',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus);
 }
 
 export function getUsers() : Promise<IUser[]> {
-	//TODO: Retrieve user list from the server
-	return new Promise((resolve, reject) => {
-		resolve([
-			{ name: 'Jacob Buysse' },
-			{ name: 'Jeff Cutler' },
-			{ name: 'Rebecca Vance' },
-			{ name: 'Austin Binish' },
-			{ name: 'Mark Centgraf' },
-			{ name: 'Blake Adams' },
-			{ name: 'Jon Detert' },
-			{ name: 'Penny Laferriere' }
-		]);
-	});
+	return fetch('/api/Users/GetUsers', {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus).then(parseJson);
 }
 
 export function getCurrentPeriodScores() : Promise<ICurrentPeriodScores> {
-	//TODO: Get current user period scores from the server
-	return new Promise((resolve, reject) => {
-		resolve({
-			user: 'Jacob Buysse',
-			monthScore: {
-				period: { month: 'November', year: 2016 },
-				score: 20,
-				rank: 2
-			},
-			yearScore: {
-				period: 2016,
-				score: 124,
-				rank: 4
-			}
-		});
-	});
+	return fetch('/api/Users/GetCurrentPeriodScores', {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus).then(parseJson);
 }
 
 export function getMonthScores(month: IMonth) : Promise<IScore[]> {
-	//TODO: Get player scores for given month
-	return new Promise((resolve, reject) => {
-		resolve([
-			{ user: 'Jacob Buysse', score: 100 },
-			{ user: 'Rebecca Vance', score: 20 },
-			{ user: 'Jeff Cutler', score: 10 },
-			{ user: 'Austin Binish', score: 0 },
-			{ user: 'Mark Centgraf', score: -10 },
-			{ user: 'Blake Adams', score: -20 },
-			{ user: 'Jon Detert', score: -100 }
-		]);
+	const query = queryString.stringify({
+		month: month.month,
+		year: month.year
 	});
+	return fetch(`/api/Users/GetMonthScores?${query}`, {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus).then(parseJson);
 }
 
 export function getYearScores(year: number) : Promise<IScore[]> {
-	//TODO: Get player scores for given year
-	return new Promise((resolve, reject) => {
-		resolve([
-			{ user: 'Jacob Buysse', score: 100 },
-			{ user: 'Greg Smith', score: 20 },
-			{ user: 'Rebecca Vance', score: 20 },
-			{ user: 'Jeff Cutler', score: 10 },
-			{ user: 'Austin Binish', score: 0 },
-			{ user: 'Mark Centgraf', score: -10 },
-			{ user: 'Blake Adams', score: -20 },
-			{ user: 'Jon Detert', score: -120 }
-		]);
-	});
+	const query = queryString.stringify({ year });
+	return fetch(`/api/Users/GetYearScores?${query}`, {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus).then(parseJson);
 }

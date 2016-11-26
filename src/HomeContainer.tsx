@@ -3,7 +3,7 @@ import { hashHistory } from 'react-router';
 import SubmitGame from './pages/SubmitGame';
 import { IUser, IPlayer } from './models';
 import { getUsers } from './api/users';
-import { submitGame } from './api/games';
+import { updateGame } from './api/games';
 
 interface IHomeContainerState {
 	users: IUser[] | null;
@@ -70,7 +70,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 			.map(player => ({ user: player.user.name, score: player.score }));
 		const when = new Date().toISOString().substr(0, 10);
 		this.setState({ submitting: true } as IHomeContainerState);
-		submitGame(when, scores).then(gameId => {
+		updateGame(0, when, scores).then(gameId => {
 			hashHistory.push(`/game/${gameId}`);
 		});
 	};

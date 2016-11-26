@@ -1,63 +1,44 @@
 import { IScore, IGame, IGames } from '../models';
+import { checkStatus, parseJson } from './helpers';
+import * as queryString from 'query-string';
 
-export function submitGame(when: string, scores: IScore[]) : Promise<number> {
-	//TODO: submit game to server
-	return new Promise((resolve, reject) => {
-		console.log('Submitted', when, scores);
-		//TODO: get gameId from server response
-		resolve(new Date().getMilliseconds());
-	});
-}
-
-export function updateGame(id: number, when: string, scores: IScore[]) : Promise<{}> {
-	//TODO: submit updated game to the server
-	return new Promise((resolve, reject) => {
-		console.log('Updated', id, when, scores);
-		resolve({});
-	});
+export function updateGame(id: number, when: string, scores: IScore[]) : Promise<number> {
+	return fetch(`/api/Games/UpdateGame`, {
+		credentials: 'same-origin',
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			['Content-Type']: 'application/json'
+		},
+		body: JSON.stringify({
+			id,
+			when,
+			scores
+		})
+	}).then(checkStatus).then(parseJson);
 }
 
 export function getGame(id: number) : Promise<IGame> {
-	//TODO: get game from server
-	return new Promise((resolve, reject) => {
-		resolve({
-			id,
-			when: '2016-11-20',
-			scores: [
-				{ user: 'Jacob Buysse', score: 10 },
-				{ user: 'Rebecca Vance', score: -20 },
-				{ user: 'Jeff Cutler', score: 7 },
-				{ user: 'Austin Binish', score: 3 },
-				{ user: 'Mark Centgraf', score: 0 }
-			]
-		});
-	});
+	const query = queryString.stringify({ id });
+	return fetch(`/api/Games/GetGame?${query}`, {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus).then(parseJson);
 }
 
 export function deleteGame(id: number) : Promise<{}> {
-	//TODO: delete game from the server
-	return new Promise((resolve, reject) => {
-		console.log('Deleted', id);
-		resolve({});
-	});
+	const query = queryString.stringify({ id });
+	return fetch(`/api/Games/DeleteGame?${query}`, {
+		credentials: 'same-origin',
+		method: 'DELETE',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus);
 }
 
 export function getGames(skip: number, take: number) : Promise<IGames> {
-	//TODO: get chunk of games from the server
-	return new Promise((resolve, reject) => {
-		resolve({
-			games: [...new Array(take)].map((u, i) => ({
-				id: skip + i + 1,
-				when: '2016-11-20',
-				scores: [
-					{ user: 'Jacob Buysse', score: 10 },
-					{ user: 'Rebecca Vance', score: -20 },
-					{ user: 'Jeff Cutler', score: 7 },
-					{ user: 'Austin Binish', score: 3 },
-					{ user: 'Mark Centgraf', score: 0 }
-				]
-			})),
-			moreGames: skip < 20
-		});
-	});
+	const query = queryString.stringify({ skip, take });
+	return fetch(`/api/Games/GetGames?${query}`, {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	}).then(checkStatus).then(parseJson);
 }

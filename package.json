@@ -12,12 +12,14 @@
   "dependencies": {
     "@types/classnames": "0.0.32",
     "@types/lodash": "^4.14.39",
-    "@types/query-string": "^3.0.29",
+    "@types/query-string": "3.0.28",
     "@types/react": "^0.14.44",
     "@types/react-datepicker": "^0.28.7",
     "@types/react-dom": "^0.14.18",
     "@types/react-router": "^2.0.39",
+    "@types/whatwg-fetch": "0.0.32",
     "classnames": "^2.2.5",
+    "core-js": "^2.4.1",
     "lodash": "^4.17.2",
     "moment": "^2.17.0",
     "query-string": "^4.2.3",
@@ -26,7 +28,8 @@
     "react-dom": "^15.3.2",
     "react-router": "^3.0.0",
     "typescript": "^2.0.7",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",

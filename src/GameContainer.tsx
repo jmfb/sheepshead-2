@@ -2,7 +2,7 @@ import * as React from 'react';
 import { hashHistory } from 'react-router';
 import ViewGame from './pages/ViewGame';
 import { IGame } from './models';
-import { submitGame, getGame, deleteGame } from './api/games';
+import { updateGame, getGame, deleteGame } from './api/games';
 
 interface IGameContainerProps {
 	params: { gameId: string };
@@ -67,10 +67,13 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 
 	handleUndoDelete = () => {
 		const { game } = this.state;
-		const { when, scores } = game;
+		const { id, when, scores } = game;
 		this.setState({ submitting: true } as IGameContainerState);
-		submitGame(when, scores).then(gameId => {
-			hashHistory.push(`/game/${gameId}`);
+		updateGame(id, when, scores).then(() => {
+			this.setState({
+				deleted: false,
+				submitting: false
+			} as IGameContainerState);
 		});
 	};
 

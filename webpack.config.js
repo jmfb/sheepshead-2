@@ -2,7 +2,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 
 module.exports = {
-	entry: './src/index.tsx',
+	entry: [
+		'core-js/es6/promise',
+		'core-js/es6/symbol',
+		'whatwg-fetch',
+		'./src/index.tsx'
+	],
 	output: {
 		filename: 'bundle.js',
 		path: __dirname + '/dist'
