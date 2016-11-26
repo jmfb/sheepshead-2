@@ -3,6 +3,7 @@ import Banner from '../components/Banner';
 import PeriodNavigator from '../components/PeriodNavigator';
 import Leaderboard from '../components/Leaderboard';
 import { IMonth, IScore } from '../models';
+import * as styles from './MonthView.scss';
 
 interface IMonthViewProps {
 	month: IMonth;
@@ -15,7 +16,7 @@ export default class MonthView extends React.PureComponent<IMonthViewProps, {}> 
 	render() {
 		const { month, scores, onClickPreviousMonth, onClickNextMonth } = this.props;
 		return(
-			<div>
+			<div className={styles.root}>
 				<PeriodNavigator
 					period={`${month.month} ${month.year}`}
 					onClickPreviousPeriod={onClickPreviousMonth}

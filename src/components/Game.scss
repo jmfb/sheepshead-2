@@ -1,0 +1,42 @@
+.root {
+	background-color: white;
+	border-radius: 1em;
+	box-shadow: 2px 2px 2px #ccc;
+	padding: 0.5em;
+	margin-top: 1em;
+}
+
+.title {
+	font-size: 1.5em;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+	color: blue;
+	margin-bottom: 0.25em;
+}
+
+.scores {
+	background: #eee;
+	padding: 0.5em 1em;
+	box-shadow: 2px 2px 2px #333;
+}
+
+.row {
+	display: block;
+	margin-bottom: 0.5em;
+}
+
+.player {
+	display: inline-block;
+	width: 11em;
+}
+
+.score {
+	color: green;
+	display: inline-block;
+	text-align: right;
+	width: 3em;
+}
+
+.negative {
+	color: maroon;
+}

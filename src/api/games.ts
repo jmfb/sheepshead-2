@@ -1,4 +1,4 @@
-import { IScore, IGame } from '../models';
+import { IScore, IGame, IGames } from '../models';
 
 export function submitGame(when: string, scores: IScore[]) : Promise<number> {
 	//TODO: submit game to server
@@ -39,5 +39,25 @@ export function deleteGame(id: number) : Promise<{}> {
 	return new Promise((resolve, reject) => {
 		console.log('Deleted', id);
 		resolve({});
+	});
+}
+
+export function getGames(skip: number, take: number) : Promise<IGames> {
+	//TODO: get chunk of games from the server
+	return new Promise((resolve, reject) => {
+		resolve({
+			games: [...new Array(take)].map((u, i) => ({
+				id: skip + i + 1,
+				when: '2016-11-20',
+				scores: [
+					{ user: 'Jacob Buysse', score: 10 },
+					{ user: 'Rebecca Vance', score: -20 },
+					{ user: 'Jeff Cutler', score: 7 },
+					{ user: 'Austin Binish', score: 3 },
+					{ user: 'Mark Centgraf', score: 0 }
+				]
+			})),
+			moreGames: skip < 20
+		});
 	});
 }

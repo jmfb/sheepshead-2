@@ -23,10 +23,11 @@
 .bottom {
 	height: calc(100vh - 59px - 10em);
 	overflow-y: scroll;
+	background-color: #f8f8f8;
 }
 
 .bottomInner {
 	margin-left: auto;
 	margin-right: auto;
-	width: 16em;
+	width: 17em;
 }

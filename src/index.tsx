@@ -9,12 +9,14 @@ import GameContainer from './GameContainer';
 import EditGameContainer from './EditGameContainer';
 import YearContainer from './YearContainer';
 import MonthContainer from './MonthContainer';
+import GamesContainer from './GamesContainer';
 
 ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path='/' component={ApplicationContainer}>
 			<IndexRoute component={HomeContainer} />
 			<Route path='/leader' component={LeaderContainer}>
+				<IndexRoute component={GamesContainer} />
 				<Route path='/leader/:year' component={YearContainer} />
 				<Route path='/leader/:year/:month' component={MonthContainer} />
 			</Route>

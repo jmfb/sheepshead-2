@@ -9,6 +9,11 @@ export interface IGame {
 	scores: IScore[];
 }
 
+export interface IGames {
+	games: IGame[];
+	moreGames: boolean;
+}
+
 export interface IUser {
 	name: string;
 }

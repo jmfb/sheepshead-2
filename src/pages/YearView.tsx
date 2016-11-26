@@ -3,6 +3,7 @@ import Banner from '../components/Banner';
 import PeriodNavigator from '../components/PeriodNavigator';
 import Leaderboard from '../components/Leaderboard';
 import { IScore } from '../models';
+import * as styles from './YearView.scss';
 
 interface IYearViewProps {
 	year: number;
@@ -15,7 +16,7 @@ export default class YearView extends React.PureComponent<IYearViewProps, {}> {
 	render() {
 		const { year, scores, onClickPreviousYear, onClickNextYear } = this.props;
 		return(
-			<div>
+			<div className={styles.root}>
 				<PeriodNavigator
 					period={year.toString()}
 					onClickPreviousPeriod={onClickPreviousYear}
