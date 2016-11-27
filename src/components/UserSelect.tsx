@@ -76,9 +76,13 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 							onChange={this.handleSearch} />
 					</span>
 				}
-				{open && topUsers.map((user, i) => (
-					<div key={i} className={styles.user} onClick={this.handleSelect(user)}>{user.name}</div>
-				))}
+				{open &&
+					<div className={styles.users}>
+						{topUsers.map((user, i) => (
+							<div key={i} className={styles.user} onClick={this.handleSelect(user)}>{user.name}</div>
+						))}
+					</div>
+				}
 			</div>
 		);
 	}

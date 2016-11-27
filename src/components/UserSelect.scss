@@ -4,6 +4,8 @@
 	width: 8em;
 	box-shadow: 2px 2px 2px #444;
 	display: inline-block;
+	position: relative;
+	vertical-align: top;
 }
 
 .placeholder {
@@ -31,6 +33,15 @@
 		outline: none;
 		border-bottom: 1px solid blue;
 	}
+}
+
+.users {
+	position: absolute;
+	z-index: 1;
+	background-color: #f8f8f8;
+	box-shadow: 2px 2px 2px #333;
+	width: 8em;
+	top: 2em;
 }
 
 .user {
