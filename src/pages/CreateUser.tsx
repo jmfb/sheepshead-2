@@ -5,9 +5,11 @@ import * as styles from './CreateUser.scss';
 
 interface ICreateUserProps {
 	user: string;
+	account: string;
 	submitting: boolean;
 	created: string | null;
 	onUpdateUser: (value: string) => void;
+	onUpdateAccount: (value: string) => void;
 	onClickCreate: () => void;
 }
 
@@ -18,8 +20,14 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, {}
 		onUpdateUser(value);
 	};
 
+	handleUpdateAccount = (e: React.FormEvent<HTMLInputElement>) => {
+		const { onUpdateAccount } = this.props;
+		const { value } = e.currentTarget;
+		onUpdateAccount(value);
+	};
+
 	render() {
-		const { user, submitting, created, onClickCreate } = this.props;
+		const { user, account, submitting, created, onClickCreate } = this.props;
 		return(
 			<div className={styles.root}>
 				<h1 className={styles.title}>Create User</h1>
@@ -31,8 +39,15 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, {}
 					autoFocus
 					placeholder='e.g. John Doe'
 					onChange={this.handleUpdateUser} />
+				<div className={styles.label}>Account:</div>
+				<input
+					className={styles.input}
+					type='text'
+					value={account}
+					placeholder='e.g. jdoe'
+					onChange={this.handleUpdateAccount} />
 				<div className={styles.bottom}>
-					{user !== '' && !submitting &&
+					{!submitting &&
 						<Button type='primary' display='Submit' onClick={onClickCreate} />
 					}
 					{submitting &&
@@ -40,9 +55,6 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, {}
 					}
 					{!submitting && created !== null &&
 						<Banner type='message' display={`Created ${created}.`} />
-					}
-					{!submitting && user === '' &&
-						<Banner type='error' display='Enter a valid user.' />
 					}
 				</div>
 			</div>

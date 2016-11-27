@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataBridge.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -119,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <None Include="LocalSqlDeploy.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup />

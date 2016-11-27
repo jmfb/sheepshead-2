@@ -4,6 +4,7 @@ import SubmitGame from './pages/SubmitGame';
 import { IUser, IPlayer } from './models';
 import { getUsers } from './api/users';
 import { updateGame } from './api/games';
+import * as moment from 'moment';
 
 interface IHomeContainerState {
 	users: IUser[] | null;
@@ -68,7 +69,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		const scores = players
 			.filter(player => player.user !== null)
 			.map(player => ({ user: player.user.name, score: player.score }));
-		const when = new Date().toISOString().substr(0, 10);
+		const when = moment().format('YYYY-MM-DD');
 		this.setState({ submitting: true } as IHomeContainerState);
 		updateGame(0, when, scores).then(gameId => {
 			hashHistory.push(`/game/${gameId}`);

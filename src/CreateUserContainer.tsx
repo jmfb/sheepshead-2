@@ -4,6 +4,7 @@ import { createUser } from './api/users';
 
 interface ICreateUserContainerState {
 	user: string;
+	account: string;
 	submitting: boolean;
 	created: string | null;
 }
@@ -13,6 +14,7 @@ export default class CreateUserContainer extends React.PureComponent<{}, ICreate
 		super(props);
 		this.state = {
 			user: '',
+			account: '',
 			submitting: false,
 			created: null
 		};
@@ -25,14 +27,22 @@ export default class CreateUserContainer extends React.PureComponent<{}, ICreate
 		} as ICreateUserContainerState);
 	};
 
+	handleUpdateAccount = (value: string) => {
+		this.setState({
+			account: value,
+			created: null
+		} as ICreateUserContainerState);
+	};
+
 	handleCreateUser = () => {
-		const { user } = this.state;
+		const { user, account } = this.state;
 		this.setState({
 			user: '',
+			account: '',
 			submitting: true,
 			created: user
 		} as ICreateUserContainerState);
-		createUser(user).then(() => {
+		createUser(user, account).then(() => {
 			this.setState({
 				submitting: false
 			} as ICreateUserContainerState);
@@ -40,11 +50,12 @@ export default class CreateUserContainer extends React.PureComponent<{}, ICreate
 	};
 
 	render() {
-		const { user, submitting, created } = this.state;
+		const { user, account, submitting, created } = this.state;
 		return(
 			<CreateUser
-				{...{user, submitting, created}}
+				{...{user, account, submitting, created}}
 				onUpdateUser={this.handleUpdateUser}
+				onUpdateAccount={this.handleUpdateAccount}
 				onClickCreate={this.handleCreateUser} />
 		);
 	}

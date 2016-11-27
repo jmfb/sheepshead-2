@@ -2,8 +2,8 @@ import { IUser, IMonth, IScore, ICurrentPeriodScores } from '../models';
 import { checkStatus, parseJson } from './helpers';
 import * as queryString from 'query-string';
 
-export function createUser(user: string) : Promise<{}> {
-	const query = queryString.stringify({ user });
+export function createUser(name: string, account: string) : Promise<{}> {
+	const query = queryString.stringify({ name, account });
 	return fetch(`/api/Users/CreateUser?${query}`, {
 		credentials: 'same-origin',
 		method: 'POST',
