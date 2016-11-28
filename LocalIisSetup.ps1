@@ -7,6 +7,7 @@ $site = "IIS:\Sites\$name"
 $api = "IIS:\Sites\$name\api"
 $hostName = "localsheepshead.directs.com"
 $path = Get-Location
+$webPath = Join-Path $path "web"
 $apiPath = Join-Path $path "api"
 
 if (Test-Path -Path $pool) {
@@ -21,7 +22,7 @@ Set-ItemProperty -Path $pool -Name ManagedPipelineMode -Value ([int] [Microsoft.
 Set-ItemProperty -Path $pool -Name ProcessModel.IdentityType -Value ([int] [Microsoft.Web.Administration.ProcessModelIdentityType]::NetworkService)
 
 Write-Host "Creating site $name (forced)..."
-New-Website -Name $name -ApplicationPool $name -PhysicalPath "$path" -HostHeader $hostName -Force
+New-Website -Name $name -ApplicationPool $name -PhysicalPath "$webPath" -HostHeader $hostName -Force
 
 Write-Host "Creating api application (forced)..."
 New-WebApplication -Site $name -Name "Api" -PhysicalPath "$apiPath" -ApplicationPool $name -Force

@@ -4,6 +4,7 @@
     <UseIISExpress>false</UseIISExpress>
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <NameOfLastUsedPublishProfile>sheepshead</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

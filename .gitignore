@@ -1,6 +1,12 @@
-dist
-node_modules
+.vs
 api/bin
 api/obj
-api/.vs
-api/packages
+node_modules
+packages
+web/*.css
+web/*.css.map
+web/*.js
+web/*.js.map
+*.pubxml
+*.pubxml.user
+*.publishproj
