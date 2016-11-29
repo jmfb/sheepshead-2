@@ -1,5 +1,20 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+const tsConfig = {
+	silent: true
+};
+
+const sassConfig = {
+	sourceMap: true
+};
+
+function cssConfig(modules) {
+	return {
+		localIdentName: '[name]_[local]_[hash:base64:3]',
+		modules
+	};
+}
 
 module.exports = {
 	entry: [
@@ -20,32 +35,32 @@ module.exports = {
 	},
 
 	module: {
+		preLoaders: [
+			{ test: /\.js$/, loader: 'source-map-loader' }
+		],
 		loaders: [
 			{
 				test: /\.tsx?$/,
-				loader: 'ts-loader?{"silent":true}',
+				loader: `ts-loader?${JSON.stringify(tsConfig)}`,
 				include: /src/
 			},
 			{
 				test: /\.scss$/,
 				loader: ExtractTextPlugin.extract('style-loader', [
-					'css-loader?{"modules":true}',
+					`css-loader?${JSON.stringify(cssConfig(true))}`,
 					'postcss-loader',
-					'sass-loader?{"sourceMap":true}'
+					`sass-loader?${JSON.stringify(sassConfig)}`
 				]),
 				include: /src/
 			},
 			{
 				test: /\.css$/,
 				loader: ExtractTextPlugin.extract('style-loader', [
-					'css-loader?{"modules":false}',
+					`css-loader?${JSON.stringify(cssConfig(false))}`,
 					'postcss-loader'
 				]),
 				include: /node_modules/
 			}
-		],
-		preLoaders: [
-			{ test: /\.js$/, loader: 'source-map-loader' }
 		]
 	},
 
