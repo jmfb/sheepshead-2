@@ -1,0 +1,19 @@
+$color-background: #f8f8f8;
+$color-header: #f0f0f0;
+$color-primary: #5386e4;
+
+$breakpoint-s: 320px;
+$breakpoint-m: 640px;
+$breakpoints: ($breakpoint-s $breakpoint-m);
+
+@mixin clearfix() {
+	&::before,
+	&::after {
+		display: table;
+		content: " ";
+	}
+
+	&::after {
+		clear: both;
+	}
+}

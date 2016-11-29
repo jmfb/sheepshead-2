@@ -1,47 +1,43 @@
+@import "../variables";
+
 .header {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	background-color: #f0f0f0;
-	overflow: hidden;
+	overflow: visible;
 
 	li {
 		float: left;
+
 		a {
 			display: block;
+			margin-bottom: -1px;
 			color: #777;
 			padding: 0.5em;
 			font-size: 1.5em;
 			text-align: center;
-			text-decoration: none;
 			text-transform: uppercase;
 
-			&:hover {
-				color: blue;
-				cursor: pointer;
+			&:hover:not(.active) {
+				color: $color-primary;
+				background-color: white;
+				border-bottom: 2px solid $color-primary;
 			}
 
 			&.active {
-				border-bottom: 2px solid blue;
+				cursor: default;
+				border-bottom: 2px solid $color-primary;
 			}
 		}
 	}
+
+	@include clearfix();
 }
 
-@media (max-width: 548px) {
-	.small {
-		display: normal;
-	}
-	.large {
-		display: none;
-	}
-}
+.small { display: block; }
+.large { display: none; }
 
-@media (min-width: 549px) {
-	.small {
-		display: none;
-	}
-	.large {
-		display: normal;
-	}
+@media (min-width: $breakpoint-m) {
+	.small { display: none; }
+	.large { display: block; }
 }

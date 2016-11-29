@@ -6,7 +6,9 @@ export default class ApplicationContainer extends React.PureComponent<{}, {}> {
 		return(
 			<div>
 				<NavBar />
-				{this.props.children}
+				<main>
+					{this.props.children}
+				</main>
 			</div>
 		);
 	}
