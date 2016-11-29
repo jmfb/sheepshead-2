@@ -25,7 +25,7 @@ export default class UploadGamesContainer extends React.PureComponent<{}, IUploa
 	}
 
 	componentDidMount() {
-		this.fileReader.onload = (ev: Event) => {
+		this.fileReader.onload = () => {
 			const { result } = this.fileReader;
 			const report = JSON.parse(result) as IGameReport;
 			this.loadGames(report);

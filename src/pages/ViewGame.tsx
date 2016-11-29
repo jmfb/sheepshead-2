@@ -26,7 +26,7 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 		}
 
 		const { deleted, submitting, onEdit, onDelete, onUndoDelete } = this.props;
-		const { id, when, scores } = game;
+		const { when, scores } = game;
 		return(
 			<div className={styles.root}>
 				<h1 className={styles.title}>Game #{game.id}</h1>

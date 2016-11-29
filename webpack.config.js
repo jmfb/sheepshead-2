@@ -1,10 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-const tsConfig = {
-	silent: true
-};
-
 const sassConfig = {
 	sourceMap: true
 };
@@ -49,7 +45,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.tsx?$/,
-				loader: `ts-loader?${JSON.stringify(tsConfig)}`,
+				loader: 'ts-loader',
 				include: /src/
 			},
 			{

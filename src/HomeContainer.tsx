@@ -17,7 +17,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		super();
 		this.state = {
 			users: null,
-			players: [...new Array(6)].map((u, i) => ({
+			players: [...new Array(6)].map((_, i) => ({
 				user: null,
 				score: 0,
 				playerNumber: i + 1

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import EditGame from './pages/EditGame';
-import { IUser, IPlayer, IGame } from './models';
+import { IUser, IPlayer } from './models';
 import { getUsers } from './api/users';
 import { getGame, updateGame } from './api/games';
 
