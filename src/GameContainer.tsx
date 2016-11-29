@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import ViewGame from './pages/ViewGame';
 import { IGame } from './models';
 import { updateGame, getGame, deleteGame } from './api/games';
@@ -51,7 +51,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 
 	handleEdit = () => {
 		const { gameId } = this.state;
-		hashHistory.push(`/edit/${gameId}`);
+		browserHistory.push(`/edit/${gameId}`);
 	};
 
 	handleDelete = () => {

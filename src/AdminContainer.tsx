@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import Administration from './pages/Administration';
 
 export default class AdminContainer extends React.PureComponent<{}, {}> {
 	handleClickAddUser = () => {
-		hashHistory.push('/admin/user/create');
+		browserHistory.push('/admin/user/create');
 	};
 
 	handleClickUploadGames = () => {
-		hashHistory.push('/admin/upload');
+		browserHistory.push('/admin/upload');
 	};
 
 	render() {

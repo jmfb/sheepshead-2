@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import ApplicationContainer from './ApplicationContainer';
 import HomeContainer from './HomeContainer';
 import LeaderContainer from './LeaderContainer';
@@ -14,7 +14,7 @@ import CreateUserContainer from './CreateUserContainer';
 import UploadGamesContainer from './UploadGamesContainer';
 
 ReactDOM.render(
-	<Router history={hashHistory}>
+	<Router history={browserHistory}>
 		<Route path='/' component={ApplicationContainer}>
 			<IndexRoute component={HomeContainer} />
 			<Route path='/leader' component={LeaderContainer}>

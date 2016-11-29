@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import MonthView from './pages/MonthView';
 import { IMonth, IScore } from './models';
 import { getMonthScores } from './api/users';
@@ -65,7 +65,7 @@ export default class MonthContainer extends React.PureComponent<IMonthContainerP
 	navigateToRelativeMonth = (months: number) => {
 		const { month } = this.state;
 		const relativeMonth = moment(`${month.month} 1 ${month.year}`, 'MMMM d YYYY').add(months, 'months');
-		hashHistory.push(`/leader/${relativeMonth.format('YYYY/MMMM')}`);
+		browserHistory.push(`/leader/${relativeMonth.format('YYYY/MMMM')}`);
 	};
 
 	render() {

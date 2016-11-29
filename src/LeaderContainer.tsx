@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import ScoreView from './pages/ScoreView';
 import Banner from './components/Banner';
 import { ICurrentPeriodScores, IMonth } from './models';
@@ -25,14 +25,14 @@ export default class LeaderContainer extends React.PureComponent<{}, ILeaderCont
 		const { currentScores } = this.state;
 		const { monthScore } = currentScores;
 		const month = monthScore.period as IMonth;
-		hashHistory.push(`/leader/${month.year}/${month.month}`);
+		browserHistory.push(`/leader/${month.year}/${month.month}`);
 	};
 
 	handleClickYear = () => {
 		const { currentScores } = this.state;
 		const { yearScore } = currentScores;
 		const year = yearScore.period as number;
-		hashHistory.push(`/leader/${year}`);
+		browserHistory.push(`/leader/${year}`);
 	};
 
 	render() {

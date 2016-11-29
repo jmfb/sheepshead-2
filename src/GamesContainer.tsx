@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import GamesView from './pages/GamesView';
 import { IGame } from './models';
 import { getGames } from './api/games';
@@ -44,7 +44,7 @@ export default class GamesContainer extends React.PureComponent<{}, IGamesContai
 	};
 
 	handleClickGame = (id: number) => {
-		hashHistory.push(`/game/${id}`);
+		browserHistory.push(`/game/${id}`);
 	};
 
 	render() {

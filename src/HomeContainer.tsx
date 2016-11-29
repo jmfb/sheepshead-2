@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import SubmitGame from './pages/SubmitGame';
 import { IUser, IPlayer } from './models';
 import { getUsers } from './api/users';
@@ -72,7 +72,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		const when = moment().format('YYYY-MM-DD');
 		this.setState({ submitting: true } as IHomeContainerState);
 		updateGame(0, when, scores).then(gameId => {
-			hashHistory.push(`/game/${gameId}`);
+			browserHistory.push(`/game/${gameId}`);
 		});
 	};
 

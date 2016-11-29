@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import YearView from './pages/YearView';
 import { IScore } from './models';
 import { getYearScores } from './api/users';
@@ -45,12 +45,12 @@ export default class YearContainer extends React.PureComponent<IYearContainerPro
 
 	handleClickPreviousYear = () => {
 		const { year } = this.state;
-		hashHistory.push(`/leader/${year - 1}`);
+		browserHistory.push(`/leader/${year - 1}`);
 	};
 
 	handleClickNextYear = () => {
 		const { year } = this.state;
-		hashHistory.push(`/leader/${year + 1}`);
+		browserHistory.push(`/leader/${year + 1}`);
 	};
 
 	render() {

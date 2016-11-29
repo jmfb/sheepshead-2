@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import EditGame from './pages/EditGame';
 import { IUser, IPlayer, IGame } from './models';
 import { getUsers } from './api/users';
@@ -91,7 +91,7 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 			.map(player => ({ user: player.user.name, score: player.score }));
 		this.setState({ submitting: true } as IEditGameContainerState);
 		updateGame(gameId, when, scores).then(() => {
-			hashHistory.push(`/game/${gameId}`);
+			browserHistory.push(`/game/${gameId}`);
 		});
 	};
 
