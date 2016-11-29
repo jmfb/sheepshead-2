@@ -10,22 +10,22 @@ export default class ScorePicker extends React.PureComponent<IScorePickerProps, 
 	handleBigDown = () => {
 		const { onChange } = this.props;
 		onChange(-5);
-	};
+	}
 
 	handleSmallDown = () => {
 		const { onChange } = this.props;
 		onChange(-1);
-	};
+	}
 
 	handleSmallUp = () => {
 		const { onChange } = this.props;
 		onChange(1);
-	};
+	}
 
 	handleBigUp = () => {
 		const { onChange } = this.props;
 		onChange(5);
-	};
+	}
 
 	render() {
 		const { value } = this.props;

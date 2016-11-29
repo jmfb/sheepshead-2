@@ -42,15 +42,16 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 
 		const userIndex = users.indexOf(user);
 		const newUsers = [...users];
-		newUsers.splice(userIndex, 1)
-		if (player.user !== null)
+		newUsers.splice(userIndex, 1);
+		if (player.user !== null) {
 			newUsers.push(player.user);
+		}
 
 		this.setState({
 			users: newUsers,
 			players: newPlayers
 		} as IHomeContainerState);
-	};
+	}
 
 	handleChangeScore = (player: IPlayer, value: number) => {
 		const { players } = this.state;
@@ -62,7 +63,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 			playerNumber: player.playerNumber
 		};
 		this.setState({ players: newPlayers } as IHomeContainerState);
-	};
+	}
 
 	handleSubmit = () => {
 		const { players } = this.state;
@@ -74,7 +75,7 @@ export default class HomeContainer extends React.PureComponent<{}, IHomeContaine
 		updateGame(0, when, scores).then(gameId => {
 			browserHistory.push(`/game/${gameId}`);
 		});
-	};
+	}
 
 	render() {
 		const { users, players, submitting } = this.state;

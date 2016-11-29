@@ -27,74 +27,71 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 	}
 
 	handleOpen = () => {
-		const { users } = this.props;
 		this.setState({
 			open: true,
 			search: '',
 			selection: 0
 		} as IUserSelectState);
-	};
+	}
 
 	handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
-		const { users } = this.props;
 		this.setState({
 			search: value,
 			selection: 0
 		} as IUserSelectState);
-	};
+	}
 
 	handleSelect = (user: IUser) => {
 		return () => {
 			const { onSelect } = this.props;
 			this.setState({
-				open: false,
+				open: false
 			} as IUserSelectState);
 			onSelect(user);
 		};
-	};
+	}
 
 	handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		switch (e.keyCode) {
 			case 13: {
 				this.handleEnter();
-				break;
-			}
+			} break;
+
 			case 27: {
 				this.handleEscape();
-				break;
-			}
+			} break;
+
 			case 38: {
 				this.handleUpArrow();
-				break;
-			}
+			} break;
+
 			case 40: {
 				this.handleDownArrow();
-				break;
-			}
+			} break;
 		}
-	};
+	}
 
 	handleEnter = () => {
 		const topUsers = this.getTopUsers();
 		if (topUsers.length > 0) {
 			this.handleSelect(topUsers[this.getSelectedIndex(topUsers.length)])();
 		}
-	};
+	}
 
 	handleEscape = () => {
 		this.setState({ open: false } as IUserSelectState);
-	};
+	}
 
 	handleUpArrow = () => {
 		const { selection } = this.state;
 		this.setState({ selection: selection - 1 } as IUserSelectState);
-	};
+	}
 
 	handleDownArrow = () => {
 		const { selection } = this.state;
 		this.setState({ selection: selection + 1 } as IUserSelectState);
-	};
+	}
 
 	getTopUsers = () => {
 		const { users } = this.props;
@@ -102,12 +99,12 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		return users === null ? [] : open ?
 			users.filter(user => user.name.toLowerCase().indexOf(search.toLowerCase()) >= 0).slice(0, 5) :
 			users.slice(0, 5);
-	};
+	}
 
 	getSelectedIndex = (count: number) => {
 		const { selection } = this.state;
 		return (((selection % count) + count) % count);
-	};
+	}
 
 	render() {
 		const { placeholder, user } = this.props;

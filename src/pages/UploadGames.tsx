@@ -24,7 +24,7 @@ export default class UploadGames extends React.PureComponent<IUploadGamesProps, 
 		for (let index = 0; index < files.length; ++index) {
 			onChooseFile(files[index]);
 		}
-	};
+	}
 
 	render() {
 		const { games, pendingFileCount, submitting, onClickSubmit } = this.props;

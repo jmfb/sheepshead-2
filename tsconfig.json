@@ -4,6 +4,8 @@
 		"sourceMap": true,
 		"noImplicitAny": true,
 		"module": "commonjs",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"target": "es6",
 		"jsx": "react",
 		"types": ["whatwg-fetch"]

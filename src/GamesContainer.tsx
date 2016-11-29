@@ -41,11 +41,11 @@ export default class GamesContainer extends React.PureComponent<{}, IGamesContai
 				loading: false
 			});
 		});
-	};
+	}
 
 	handleClickGame = (id: number) => {
 		browserHistory.push(`/game/${id}`);
-	};
+	}
 
 	render() {
 		const { games, moreGames, loading } = this.state;

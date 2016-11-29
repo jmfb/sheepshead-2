@@ -18,13 +18,13 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, {}
 		const { onUpdateUser } = this.props;
 		const { value } = e.currentTarget;
 		onUpdateUser(value);
-	};
+	}
 
 	handleUpdateAccount = (e: React.FormEvent<HTMLInputElement>) => {
 		const { onUpdateAccount } = this.props;
 		const { value } = e.currentTarget;
 		onUpdateAccount(value);
-	};
+	}
 
 	render() {
 		const { user, account, submitting, created, onClickCreate } = this.props;

@@ -20,18 +20,18 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 	handleSelectUser = (player: IPlayer) => {
 		const { onSelectUser } = this.props;
 		return (user: IUser) => onSelectUser(player, user);
-	};
+	}
 
 	handleChangeScore = (player: IPlayer) => {
 		const { onChangeScore } = this.props;
 		return (value: number) => onChangeScore(player, value);
-	};
+	}
 
 	getCheckSum = () => {
 		const { players } = this.props;
 		const scores = players.map(player => player.score);
 		return sum(scores);
-	};
+	}
 
 	arePlayerSelectionsValid = () => {
 		const { players } = this.props;
@@ -40,7 +40,7 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 				player.user !== null :
 				player.user !== null || player.score === 0;
 		});
-	};
+	}
 
 	render() {
 		const { users, players, submitting, onSubmit } = this.props;

@@ -5,7 +5,7 @@ import { IScore } from './models';
 import { getYearScores } from './api/users';
 
 interface IYearContainerProps {
-	params: { year: string }
+	params: { year: string };
 }
 
 interface IYearContainerState {
@@ -46,12 +46,12 @@ export default class YearContainer extends React.PureComponent<IYearContainerPro
 	handleClickPreviousYear = () => {
 		const { year } = this.state;
 		browserHistory.push(`/leader/${year - 1}`);
-	};
+	}
 
 	handleClickNextYear = () => {
 		const { year } = this.state;
 		browserHistory.push(`/leader/${year + 1}`);
-	};
+	}
 
 	render() {
 		const { year, scores } = this.state;

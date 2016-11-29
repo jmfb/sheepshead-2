@@ -11,7 +11,7 @@ export default class Leaderboard extends React.PureComponent<ILeaderboardProps, 
 	computeRank = (score: number) => {
 		const { scores } = this.props;
 		return 1 + scores.filter(s => s.score > score).length;
-	};
+	}
 
 	render() {
 		const { scores } = this.props;

@@ -6,7 +6,7 @@ import { getMonthScores } from './api/users';
 import * as moment from 'moment';
 
 interface IMonthContainerProps {
-	params: { month: string, year: string }
+	params: { month: string, year: string };
 }
 
 interface IMonthContainerState {
@@ -56,17 +56,17 @@ export default class MonthContainer extends React.PureComponent<IMonthContainerP
 
 	handleClickPreviousMonth = () => {
 		this.navigateToRelativeMonth(-1);
-	};
+	}
 
 	handleClickNextMonth = () => {
 		this.navigateToRelativeMonth(1);
-	};
+	}
 
 	navigateToRelativeMonth = (months: number) => {
 		const { month } = this.state;
 		const relativeMonth = moment(`${month.month} 1 ${month.year}`, 'MMMM d YYYY').add(months, 'months');
 		browserHistory.push(`/leader/${relativeMonth.format('YYYY/MMMM')}`);
-	};
+	}
 
 	render() {
 		const { month, scores } = this.state;

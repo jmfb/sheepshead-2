@@ -24,18 +24,18 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 	handleSelectUser = (player: IPlayer) => {
 		const { onSelectUser } = this.props;
 		return (user: IUser) => onSelectUser(player, user);
-	};
+	}
 
 	handleChangeScore = (player: IPlayer) => {
 		const { onChangeScore } = this.props;
 		return (value: number) => onChangeScore(player, value);
-	};
+	}
 
 	getCheckSum = () => {
 		const { players } = this.props;
 		const scores = players.map(player => player.score);
 		return sum(scores);
-	};
+	}
 
 	render() {
 		const { gameId, users, when, players, submitting, onEditWhen, onSubmit } = this.props;

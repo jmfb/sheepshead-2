@@ -19,10 +19,10 @@ export default class GamesView extends React.PureComponent<IGamesViewProps, {}> 
 		return () => {
 			onClickGame(id);
 		};
-	};
+	}
 
 	render() {
-		const { games, moreGames, loading, onLoadMoreGames, onClickGame } = this.props;
+		const { games, moreGames, loading, onLoadMoreGames } = this.props;
 		return(
 			<div>
 				{games.map((game, i) => (

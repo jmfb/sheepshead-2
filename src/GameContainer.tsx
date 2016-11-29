@@ -52,7 +52,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 	handleEdit = () => {
 		const { gameId } = this.state;
 		browserHistory.push(`/edit/${gameId}`);
-	};
+	}
 
 	handleDelete = () => {
 		const { gameId } = this.state;
@@ -63,7 +63,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 				submitting: false
 			} as IGameContainerState);
 		});
-	};
+	}
 
 	handleUndoDelete = () => {
 		const { game } = this.state;
@@ -75,7 +75,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 				submitting: false
 			} as IGameContainerState);
 		});
-	};
+	}
 
 	render() {
 		const { game, deleted, submitting } = this.state;

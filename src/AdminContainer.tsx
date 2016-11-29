@@ -5,11 +5,11 @@ import Administration from './pages/Administration';
 export default class AdminContainer extends React.PureComponent<{}, {}> {
 	handleClickAddUser = () => {
 		browserHistory.push('/admin/user/create');
-	};
+	}
 
 	handleClickUploadGames = () => {
 		browserHistory.push('/admin/upload');
-	};
+	}
 
 	render() {
 		return(

@@ -26,14 +26,14 @@ export default class LeaderContainer extends React.PureComponent<{}, ILeaderCont
 		const { monthScore } = currentScores;
 		const month = monthScore.period as IMonth;
 		browserHistory.push(`/leader/${month.year}/${month.month}`);
-	};
+	}
 
 	handleClickYear = () => {
 		const { currentScores } = this.state;
 		const { yearScore } = currentScores;
 		const year = yearScore.period as number;
 		browserHistory.push(`/leader/${year}`);
-	};
+	}
 
 	render() {
 		const { currentScores } = this.state;

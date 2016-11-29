@@ -3,14 +3,14 @@ import * as DatePicker from 'react-datepicker';
 import * as moment from 'moment';
 import * as styles from './DateButton.scss';
 
-require('react-datepicker/dist/react-datepicker.css');
+import 'react-datepicker/dist/react-datepicker.css';
 
-let CustomDateButton = React.createClass({
-	displayName: 'CustomDateButton',
-	propTypes: {
-		onClick: React.PropTypes.func,
-		value: React.PropTypes.string
-	},
+interface ICustomDateButtonProps {
+	value?: string;
+	onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
+}
+
+class CustomDateButton extends React.Component<ICustomDateButtonProps, void> {
 	render() {
 		const { value } = this.props;
 		const display = moment(value).utc().format('dddd, MMMM Do YYYY');
@@ -22,7 +22,7 @@ let CustomDateButton = React.createClass({
 			</button>
 		);
 	}
-});
+}
 
 interface IDateButtonProps {
 	value: string;
@@ -33,7 +33,7 @@ export default class DateButton extends React.PureComponent<IDateButtonProps, {}
 	handleEdit = (date?: moment.Moment) => {
 		const { onChange } = this.props;
 		onChange(date.utc().format('YYYY-MM-DD'));
-	};
+	}
 
 	render() {
 		const { value } = this.props;

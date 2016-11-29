@@ -7,7 +7,7 @@ interface IUploadGamesContainerState {
 	games: IGame[];
 	pendingFileCount: number;
 	submitting: boolean;
-};
+}
 
 export default class UploadGamesContainer extends React.PureComponent<{}, IUploadGamesContainerState> {
 	fileReader: FileReader;
@@ -27,7 +27,7 @@ export default class UploadGamesContainer extends React.PureComponent<{}, IUploa
 	componentDidMount() {
 		this.fileReader.onload = (ev: Event) => {
 			const { result } = this.fileReader;
-			const report = JSON.parse(result) as IGameReport
+			const report = JSON.parse(result) as IGameReport;
 			this.loadGames(report);
 			this.pendingFiles.splice(0, 1);
 			this.setState({
@@ -52,7 +52,7 @@ export default class UploadGamesContainer extends React.PureComponent<{}, IUploa
 			console.log('loading file');
 			this.fileReader.readAsText(this.pendingFiles[0]);
 		}
-	};
+	}
 
 	handleClickSubmit = () => {
 		const { games } = this.state;
@@ -61,7 +61,7 @@ export default class UploadGamesContainer extends React.PureComponent<{}, IUploa
 		}
 		this.setState({ submitting: true } as IUploadGamesContainerState);
 		setTimeout(this.uploadNextGame, 0);
-	};
+	}
 
 	uploadNextGame = () => {
 		const { games } = this.state;
@@ -76,7 +76,7 @@ export default class UploadGamesContainer extends React.PureComponent<{}, IUploa
 				setTimeout(this.uploadNextGame, 0);
 			}
 		});
-	};
+	}
 
 	loadGames = (report: IGameReport) => {
 		const newGames = report.reports.map(game => ({
@@ -91,7 +91,7 @@ export default class UploadGamesContainer extends React.PureComponent<{}, IUploa
 		this.setState({
 			games: [...games, ...newGames]
 		} as IUploadGamesContainerState);
-	};
+	}
 
 	render() {
 		const { games, pendingFileCount, submitting } = this.state;

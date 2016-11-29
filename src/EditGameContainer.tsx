@@ -49,7 +49,7 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 
 	handleEditWhen = (when: string) => {
 		this.setState({ when } as IEditGameContainerState);
-	};
+	}
 
 	handleSelectUser = (player: IPlayer, user: IUser) => {
 		const { users, players } = this.state;
@@ -63,15 +63,16 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 
 		const userIndex = users.indexOf(user);
 		const newUsers = [...users];
-		newUsers.splice(userIndex, 1)
-		if (player.user !== null)
+		newUsers.splice(userIndex, 1);
+		if (player.user !== null) {
 			newUsers.push(player.user);
+		}
 
 		this.setState({
 			users: newUsers,
 			players: newPlayers
 		} as IEditGameContainerState);
-	};
+	}
 
 	handleChangeScore = (player: IPlayer, value: number) => {
 		const { players } = this.state;
@@ -83,7 +84,7 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 			playerNumber: player.playerNumber
 		};
 		this.setState({ players: newPlayers } as IEditGameContainerState);
-	};
+	}
 
 	handleSubmit = () => {
 		const { gameId, when, players } = this.state;
@@ -93,7 +94,7 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 		updateGame(gameId, when, scores).then(() => {
 			browserHistory.push(`/game/${gameId}`);
 		});
-	};
+	}
 
 	render() {
 		const { gameId, users, when, players, submitting } = this.state;

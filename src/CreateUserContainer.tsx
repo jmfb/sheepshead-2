@@ -25,14 +25,14 @@ export default class CreateUserContainer extends React.PureComponent<{}, ICreate
 			user: value,
 			created: null
 		} as ICreateUserContainerState);
-	};
+	}
 
 	handleUpdateAccount = (value: string) => {
 		this.setState({
 			account: value,
 			created: null
 		} as ICreateUserContainerState);
-	};
+	}
 
 	handleCreateUser = () => {
 		const { user, account } = this.state;
@@ -47,7 +47,7 @@ export default class CreateUserContainer extends React.PureComponent<{}, ICreate
 				submitting: false
 			} as ICreateUserContainerState);
 		});
-	};
+	}
 
 	render() {
 		const { user, account, submitting, created } = this.state;
