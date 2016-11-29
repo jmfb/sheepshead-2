@@ -13,12 +13,11 @@ interface ICustomDateButtonProps {
 class CustomDateButton extends React.Component<ICustomDateButtonProps, void> {
 	render() {
 		const { value } = this.props;
-		const display = moment(value).utc().format('dddd, MMMM Do YYYY');
 		return(
 			<button
 				className={styles.customInput}
 				onClick={this.props.onClick}>
-				{display}
+				{value}
 			</button>
 		);
 	}
@@ -40,6 +39,7 @@ export default class DateButton extends React.PureComponent<IDateButtonProps, {}
 		return(
 			<DatePicker
 				customInput={<CustomDateButton />}
+				dateFormat='dddd, MMMM Do YYYY'
 				selected={moment(value)}
 				onChange={this.handleEdit} />
 		);
