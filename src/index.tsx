@@ -12,6 +12,7 @@ import MonthContainer from './MonthContainer';
 import GamesContainer from './GamesContainer';
 import CreateUserContainer from './CreateUserContainer';
 import UploadGamesContainer from './UploadGamesContainer';
+import './index.scss';
 
 ReactDOM.render(
 	<Router history={browserHistory}>
