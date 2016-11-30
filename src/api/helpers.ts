@@ -6,6 +6,6 @@ export function checkStatus(response: Response) {
 	}
 }
 
-export function parseJson(response: Response) {
+export function parseJson(response: Response): Promise<any> {
 	return response.json();
 }

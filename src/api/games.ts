@@ -2,7 +2,7 @@ import { IScore, IGame, IGames } from '../models';
 import { checkStatus, parseJson } from './helpers';
 import * as queryString from 'query-string';
 
-export function updateGame(id: number, when: string, scores: IScore[]) : Promise<number> {
+export function updateGame(id: number, when: string, scores: IScore[]) {
 	return fetch(`/api/Games/UpdateGame`, {
 		credentials: 'same-origin',
 		method: 'POST',
@@ -15,30 +15,37 @@ export function updateGame(id: number, when: string, scores: IScore[]) : Promise
 			when,
 			scores
 		})
-	}).then(checkStatus).then(parseJson);
+	})
+	.then(checkStatus)
+	.then<number>(parseJson);
 }
 
-export function getGame(id: number) : Promise<IGame> {
+export function getGame(id: number) {
 	const query = queryString.stringify({ id });
 	return fetch(`/api/Games/GetGame?${query}`, {
 		credentials: 'same-origin',
 		headers: { Accept: 'application/json' }
-	}).then(checkStatus).then(parseJson);
+	})
+	.then(checkStatus)
+	.then<IGame>(parseJson);
 }
 
-export function deleteGame(id: number) : Promise<{}> {
+export function deleteGame(id: number) {
 	const query = queryString.stringify({ id });
 	return fetch(`/api/Games/DeleteGame?${query}`, {
 		credentials: 'same-origin',
 		method: 'DELETE',
 		headers: { Accept: 'application/json' }
-	}).then(checkStatus);
+	})
+	.then(checkStatus);
 }
 
-export function getGames(skip: number, take: number) : Promise<IGames> {
+export function getGames(skip: number, take: number) {
 	const query = queryString.stringify({ skip, take });
 	return fetch(`/api/Games/GetGames?${query}`, {
 		credentials: 'same-origin',
 		headers: { Accept: 'application/json' }
-	}).then(checkStatus).then(parseJson);
+	})
+	.then(checkStatus)
+	.then<IGames>(parseJson);
 }
