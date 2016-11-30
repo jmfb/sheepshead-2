@@ -1,8 +1,10 @@
+@import "../variables";
+
 .root {
 	display: block;
 	margin-bottom: 0.5em;
 	background-color: #f8f8f8;
-	box-shadow: 2px 2px 2px #ccc;
+	box-shadow: $box-shadow;
 	padding: 0.5em 1em;
 	cursor: pointer;
 }

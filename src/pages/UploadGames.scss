@@ -1,45 +1,13 @@
-.root {
-	height: calc(100vh - 59px);
-}
-
-.top {
-	height: 10em;
-	border-bottom: 1px solid #ccc;
-}
-
-.topInner {
-	padding-top: 0.5em;
-	margin-left: auto;
-	margin-right: auto;
-	width: 16em;
-}
-
-.title {
-	margin-top: 0;
-	margin-bottom: 0.25em;
-	border-bottom: 1px solid #ccc;
-}
+@import "../variables";
 
 .progress {
 	margin-top: 0.5em;
 }
 
-.bottom {
-	height: calc(100vh - 59px - 10em);
-	overflow-y: scroll;
-	background-color: #f8f8f8;
-}
-
-.bottomInner {
-	margin-left: auto;
-	margin-right: auto;
-	width: 17em;
-}
-
 .count {
 	background-color: white;
-	border-radius: 1em;
-	box-shadow: 2px 2px 2px #ccc;
+	border-radius: 4px;
+	box-shadow: $box-shadow;
 	padding: 0.5em;
 	margin-top: 1em;
 	font-size: 1.5em;

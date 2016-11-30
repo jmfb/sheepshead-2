@@ -3,17 +3,43 @@
 .button {
 	border: 0;
 	padding: 0.5em 1em;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	box-shadow: $box-shadow;
 	color: white;
 	border-radius: 4px;
+	cursor: pointer;
+	transition:
+		background-color $timing-reactive linear,
+		box-shadow $timing-reactive linear;
+
+	&:hover,
+	&:focus {
+		box-shadow: $box-shadow-active;
+	}
+
+	&:active {
+		transition-timing-function: ease-out;
+		box-shadow: none;
+	}
+}
+
+@mixin button($color) {
+	background-color: $color;
+
+	&:hover,
+	&:focus {
+		background-color: lighten($color, 5%);
+	}
+
+	&:active:not([disabled]) {
+		background-color: darken($color, 5%);
+	}
 }
 
 .primary {
-	background-color: $color-primary;
-	color: white;
+	@include button($color-primary);
 }
 
 .danger {
-	background-color: $color-danger;
+	@include button($color-danger);
 }

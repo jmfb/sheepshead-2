@@ -1,7 +1,9 @@
+@import "../variables";
+
 .root {
 	background: #eee;
 	padding: 0.5em 1em;
-	box-shadow: 2px 2px 2px #333;
+	box-shadow: $box-shadow;
 }
 
 .row {

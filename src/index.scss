@@ -47,4 +47,12 @@ a {
 	}
 }
 
+h1 {
+	border-bottom: 1px solid #ccc;
+}
+
+h1:first-child {
+	margin-top: 0;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Lato:400italic,600italic,400,600,300);

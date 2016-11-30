@@ -1,7 +1,9 @@
+@import "../variables";
+
 .customInput {
 	cursor: pointer;
 	padding: 0.5em 1.5em;
 	border: 0;
 	background-color: #f8f8f8;
-	box-shadow: 2px 2px 2px #444;
+	box-shadow: $box-shadow;
 }
