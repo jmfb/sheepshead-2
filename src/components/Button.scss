@@ -1,16 +1,19 @@
+@import "../variables";
+
 .button {
 	border: 0;
 	padding: 0.5em 1em;
 	font-size: 1.5em;
-	box-shadow: 4px 4px 2px #333;
+	box-shadow: $box-shadow;
 	color: white;
-	text-shadow: 1px 1px 2px black;
+	border-radius: 4px;
 }
 
 .primary {
-	background-color: cornflowerblue;
+	background-color: $color-primary;
+	color: white;
 }
 
-.transaction {
-	background-color: firebrick;
+.danger {
+	background-color: $color-danger;
 }

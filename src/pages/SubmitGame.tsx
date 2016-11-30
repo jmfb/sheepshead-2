@@ -58,9 +58,7 @@ export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}
 				))}
 				<PointSpread scores={players} />
 				{canSubmit &&
-					<div className={styles.submit}>
-						<Button display='Submit' type='primary' onClick={onSubmit} />
-					</div>
+					<Button className={styles.submit} display='Submit' type='primary' onClick={onSubmit} />
 				}
 				{submitting &&
 					<Banner type='message' display='Submitting...' />

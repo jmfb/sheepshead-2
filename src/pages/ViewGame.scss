@@ -1,16 +1,17 @@
-.root {
-	margin-left: auto;
-	margin-right: auto;
-	width: 16em;
-}
-
 .title {
 	margin-bottom: 0.25em;
 	border-bottom: 1px solid #ccc;
 }
 
 .buttons {
+	display: flex;
+	flex-direction: row;
+
 	button {
-		margin-right: 0.5em;
+		flex: 1;
+	}
+
+	button + button {
+		margin-left: 0.5em;
 	}
 }

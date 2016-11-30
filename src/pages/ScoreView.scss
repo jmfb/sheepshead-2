@@ -1,33 +1,5 @@
-.root {
-	height: calc(100vh - 59px);
-}
-
-.top {
-	height: 10em;
-	border-bottom: 1px solid #ccc;
-}
-
-.topInner {
-	padding-top: 0.5em;
-	margin-left: auto;
-	margin-right: auto;
-	width: 16em;
-}
-
 .title {
 	margin-top: 0;
 	margin-bottom: 0.25em;
 	border-bottom: 1px solid #ccc;
-}
-
-.bottom {
-	height: calc(100vh - 59px - 10em);
-	overflow-y: scroll;
-	background-color: #f8f8f8;
-}
-
-.bottomInner {
-	margin-left: auto;
-	margin-right: auto;
-	width: 17em;
 }

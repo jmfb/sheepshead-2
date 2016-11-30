@@ -1,24 +1,25 @@
+@import "../variables";
+
 .root {
-	margin-left: auto;
-	margin-right: auto;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 	padding: 0.5em;
 	display: block;
-	width: 16em;
+	width: 100%;
 	text-align: center;
-	background-color: pink;
-	border-left: 2px solid maroon;
 	border-radius: 4px;
-	box-shadow: 2px 2px 2px #bbb;
+	box-shadow: $box-shadow;
+	border-left: 2px solid transparent;
 }
 
 .error {
-	background-color: pink;
-	border-left: 2px solid maroon;
+	color: darken($color-warning, 25%);
+	background-color: lighten($color-warning, 25%);
+	border-left-color: $color-warning;
 }
 
 .message {
+	color: darken(lightblue, 25%);
 	background-color: lightblue;
-	border-left: 2px solid navy;
+	border-left-color: navy;
 }

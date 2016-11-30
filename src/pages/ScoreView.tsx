@@ -18,26 +18,18 @@ export default class ScoreView extends React.PureComponent<IScoreViewProps, {}> 
 		const year = yearScore.period as number;
 		return(
 			<div className={styles.root}>
-				<div className={styles.top}>
-					<div className={styles.topInner}>
-						<h1 className={styles.title}>{user}</h1>
-						<PeriodRank
-							period={month.month}
-							score={monthScore.score}
-							rank={monthScore.rank}
-							onClick={onClickMonth} />
-						<PeriodRank
-							period={year.toString()}
-							score={yearScore.score}
-							rank={yearScore.rank}
-							onClick={onClickYear} />
-					</div>
-				</div>
-				<div className={styles.bottom}>
-					<div className={styles.bottomInner}>
-						{this.props.children}
-					</div>
-				</div>
+				<h1 className={styles.title}>{user}</h1>
+				<PeriodRank
+					period={month.month}
+					score={monthScore.score}
+					rank={monthScore.rank}
+					onClick={onClickMonth} />
+				<PeriodRank
+					period={year.toString()}
+					score={yearScore.score}
+					rank={yearScore.rank}
+					onClick={onClickYear} />
+				{this.props.children}
 			</div>
 		);
 	}

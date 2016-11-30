@@ -48,7 +48,7 @@ export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
 				{!submitting && !deleted &&
 					<div className={styles.buttons}>
 						<Button display='Edit' type='primary' onClick={onEdit} />
-						<Button display='Delete' type='transaction' onClick={onDelete} />
+						<Button display='Delete' type='danger' onClick={onDelete} />
 					</div>
 				}
 			</div>

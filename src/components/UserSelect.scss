@@ -51,6 +51,10 @@
 
 .user {
 	padding: 0.5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
 	&:hover {
 		background-color: lightblue;
 	}

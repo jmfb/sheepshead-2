@@ -64,9 +64,7 @@ export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
 				))}
 				<PointSpread scores={players} />
 				{canSubmit &&
-					<div className={styles.submit}>
-						<Button display='Submit' type='primary' onClick={onSubmit} />
-					</div>
+					<Button className={styles.submit} display='Submit' type='primary' onClick={onSubmit} />
 				}
 				{submitting &&
 					<Banner type='message' display='Submitting...' />
