@@ -2,6 +2,7 @@ import * as React from 'react';
 import Game from '../components/Game';
 import Button from '../components/Button';
 import Banner from '../components/Banner';
+import FileInput from '../components/FileInput';
 import { IGame } from '../models';
 import * as styles from './UploadGames.scss';
 
@@ -31,11 +32,12 @@ export default class UploadGames extends React.PureComponent<IUploadGamesProps, 
 		return(
 			<div className={styles.root}>
 				<h1>Upload Games</h1>
-				<input
-					type='file'
+				<FileInput
 					multiple
 					accept='*.json'
-					onChange={this.handleChooseFile} />
+					onChange={this.handleChooseFile}>
+					<Button element='div' type='primary' display='Select files' />
+				</FileInput>
 				<div className={styles.progress}>
 					{games.length > 0 && pendingFileCount === 0 && !submitting &&
 						<Button type='primary' display='Submit' onClick={onClickSubmit} />

@@ -7,19 +7,20 @@ type ButtonType = 'primary' | 'danger';
 interface IButtonProps {
 	className?: string;
 	display: string;
+	element?: 'button' | 'div';
 	type: ButtonType;
-	onClick: () => void;
+	onClick?: () => void;
 }
 
 export default class Button extends React.PureComponent<IButtonProps, void> {
 	render() {
-		const { className, display, type, onClick } = this.props;
-		return(
-			<button
-				className={cx(styles.button, styles[type], className)}
-				onClick={onClick} >
-				{display}
-			</button>
-		);
+		const { className, display, element, type, onClick } = this.props;
+		const buttonProps = {
+			className: cx(styles.button, styles[type], className),
+			onClick
+		};
+		return element === 'div' ?
+			<div {...buttonProps}>{display}</div> :
+			<button {...buttonProps}>{display}</button>;
 	}
 }
