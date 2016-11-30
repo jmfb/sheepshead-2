@@ -12,7 +12,7 @@ interface IHomeContainerState {
 	submitting: boolean;
 }
 
-export default class HomeContainer extends React.PureComponent<{}, IHomeContainerState> {
+export default class HomeContainer extends React.PureComponent<void, IHomeContainerState> {
 	constructor() {
 		super();
 		this.state = {

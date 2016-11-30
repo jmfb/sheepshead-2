@@ -11,7 +11,7 @@ interface IScoreViewProps {
 	onClickYear: () => void;
 };
 
-export default class ScoreView extends React.PureComponent<IScoreViewProps, {}> {
+export default class ScoreView extends React.PureComponent<IScoreViewProps, void> {
 	render() {
 		const { user, monthScore, yearScore, onClickMonth, onClickYear } = this.props;
 		const month = monthScore.period as IMonth;

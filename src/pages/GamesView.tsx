@@ -13,7 +13,7 @@ interface IGamesViewProps {
 	onClickGame: (id: number) => void;
 }
 
-export default class GamesView extends React.PureComponent<IGamesViewProps, {}> {
+export default class GamesView extends React.PureComponent<IGamesViewProps, void> {
 	handleClickGame = (id: number) => {
 		const { onClickGame } = this.props;
 		return () => {

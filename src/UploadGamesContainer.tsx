@@ -9,7 +9,7 @@ interface IUploadGamesContainerState {
 	submitting: boolean;
 }
 
-export default class UploadGamesContainer extends React.PureComponent<{}, IUploadGamesContainerState> {
+export default class UploadGamesContainer extends React.PureComponent<void, IUploadGamesContainerState> {
 	fileReader: FileReader;
 	pendingFiles: File[];
 

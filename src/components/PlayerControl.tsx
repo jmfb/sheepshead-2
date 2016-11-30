@@ -11,7 +11,7 @@ interface IPlayerControlProps {
 	onChangeScore: (value: number) => void;
 }
 
-export default class PlayerControl extends React.PureComponent<IPlayerControlProps, {}> {
+export default class PlayerControl extends React.PureComponent<IPlayerControlProps, void> {
 	render() {
 		const { users, player, onSelectUser, onChangeScore } = this.props;
 		return(

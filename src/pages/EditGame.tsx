@@ -20,7 +20,7 @@ interface IEditGameProps {
 	onSubmit: () => void;
 }
 
-export default class EditGame extends React.PureComponent<IEditGameProps, {}> {
+export default class EditGame extends React.PureComponent<IEditGameProps, void> {
 	handleSelectUser = (player: IPlayer) => {
 		const { onSelectUser } = this.props;
 		return (user: IUser) => onSelectUser(player, user);

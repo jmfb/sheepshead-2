@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
 import * as styles from './NavBar.scss';
 
-export default class NavBar extends React.PureComponent<{}, {}> {
+export default class NavBar extends React.PureComponent<void, void> {
 	render() {
 		return(
 			<header>

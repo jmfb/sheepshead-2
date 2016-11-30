@@ -10,7 +10,7 @@ interface IGamesContainerState {
 	loading: boolean;
 }
 
-export default class GamesContainer extends React.PureComponent<{}, IGamesContainerState> {
+export default class GamesContainer extends React.PureComponent<void, IGamesContainerState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {

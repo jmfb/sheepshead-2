@@ -12,7 +12,7 @@ interface IYearViewProps {
 	onClickNextYear: () => void;
 }
 
-export default class YearView extends React.PureComponent<IYearViewProps, {}> {
+export default class YearView extends React.PureComponent<IYearViewProps, void> {
 	render() {
 		const { year, scores, onClickPreviousYear, onClickNextYear } = this.props;
 		return(

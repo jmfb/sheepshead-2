@@ -28,7 +28,7 @@ interface IDateButtonProps {
 	onChange: (value: string) => void;
 }
 
-export default class DateButton extends React.PureComponent<IDateButtonProps, {}> {
+export default class DateButton extends React.PureComponent<IDateButtonProps, void> {
 	handleEdit = (date?: moment.Moment) => {
 		const { onChange } = this.props;
 		onChange(date.utc().format('YYYY-MM-DD'));

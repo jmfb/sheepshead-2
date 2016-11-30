@@ -9,7 +9,7 @@ interface ILeaderContainerState {
 	currentScores: ICurrentPeriodScores | null;
 }
 
-export default class LeaderContainer extends React.PureComponent<{}, ILeaderContainerState> {
+export default class LeaderContainer extends React.PureComponent<void, ILeaderContainerState> {
 	constructor(props: any) {
 		super(props);
 		this.state = { currentScores: null };

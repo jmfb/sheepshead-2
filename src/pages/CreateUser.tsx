@@ -13,7 +13,7 @@ interface ICreateUserProps {
 	onClickCreate: () => void;
 }
 
-export default class CreateUser extends React.PureComponent<ICreateUserProps, {}> {
+export default class CreateUser extends React.PureComponent<ICreateUserProps, void> {
 	handleUpdateUser = (e: React.FormEvent<HTMLInputElement>) => {
 		const { onUpdateUser } = this.props;
 		const { value } = e.currentTarget;

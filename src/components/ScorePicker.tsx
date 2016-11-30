@@ -8,7 +8,7 @@ interface IScorePickerProps {
 	onChange: (value: number) => void;
 }
 
-export default class ScorePicker extends React.PureComponent<IScorePickerProps, {}> {
+export default class ScorePicker extends React.PureComponent<IScorePickerProps, void> {
 	handleBigDown = () => {
 		const { onChange } = this.props;
 		onChange(-5);

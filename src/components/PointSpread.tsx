@@ -9,7 +9,7 @@ interface IPointSpreadProps {
 	scores: IScoreOrPlayer[];
 }
 
-export default class PointSpread extends React.PureComponent<IPointSpreadProps, {}> {
+export default class PointSpread extends React.PureComponent<IPointSpreadProps, void> {
 	render() {
 		const { scores } = this.props;
 		const pointSpread = sum(scores.filter(score => score.score > 0).map(score => score.score));

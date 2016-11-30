@@ -9,7 +9,7 @@ interface ICreateUserContainerState {
 	created: string | null;
 }
 
-export default class CreateUserContainer extends React.PureComponent<{}, ICreateUserContainerState> {
+export default class CreateUserContainer extends React.PureComponent<void, ICreateUserContainerState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {

@@ -11,7 +11,7 @@ interface IButtonProps {
 	onClick: () => void;
 }
 
-export default class Button extends React.PureComponent<IButtonProps, {}> {
+export default class Button extends React.PureComponent<IButtonProps, void> {
 	render() {
 		const { className, display, type, onClick } = this.props;
 		return(

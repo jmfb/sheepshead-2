@@ -16,7 +16,7 @@ interface ISubmitGameProps {
 	onSubmit: () => void;
 }
 
-export default class SubmitGame extends React.PureComponent<ISubmitGameProps, {}> {
+export default class SubmitGame extends React.PureComponent<ISubmitGameProps, void> {
 	handleSelectUser = (player: IPlayer) => {
 		const { onSelectUser } = this.props;
 		return (user: IUser) => onSelectUser(player, user);

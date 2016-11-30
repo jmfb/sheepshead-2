@@ -12,7 +12,7 @@ interface IMonthViewProps {
 	onClickNextMonth: () => void;
 }
 
-export default class MonthView extends React.PureComponent<IMonthViewProps, {}> {
+export default class MonthView extends React.PureComponent<IMonthViewProps, void> {
 	render() {
 		const { month, scores, onClickPreviousMonth, onClickNextMonth } = this.props;
 		return(

@@ -16,7 +16,7 @@ interface IViewGameProps {
 	onUndoDelete: () => void;
 }
 
-export default class ViewGame extends React.PureComponent<IViewGameProps, {}> {
+export default class ViewGame extends React.PureComponent<IViewGameProps, void> {
 	render() {
 		const { game } = this.props;
 		if (game === null) {

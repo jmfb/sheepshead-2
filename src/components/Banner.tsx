@@ -9,7 +9,7 @@ interface IBannerProps {
 	display: string;
 }
 
-export default class Banner extends React.PureComponent<IBannerProps, {}> {
+export default class Banner extends React.PureComponent<IBannerProps, void> {
 	render() {
 		const { type, display } = this.props;
 		return(
