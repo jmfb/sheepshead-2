@@ -18,16 +18,18 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path='/' component={ApplicationContainer}>
 			<IndexRoute component={HomeContainer} />
-			<Route path='/leader' component={LeaderContainer}>
+			<Route path='leader' component={LeaderContainer}>
 				<IndexRoute component={GamesContainer} />
-				<Route path='/leader/:year' component={YearContainer} />
-				<Route path='/leader/:year/:month' component={MonthContainer} />
+				<Route path=':year' component={YearContainer} />
+				<Route path=':year/:month' component={MonthContainer} />
 			</Route>
-			<Route path='/admin' component={AdminContainer} />
-			<Route path='/admin/user/create' component={CreateUserContainer} />
-			<Route path='/admin/upload' component={UploadGamesContainer} />
-			<Route path='/game/:gameId' component={GameContainer} />
-			<Route path='/edit/:gameId' component={EditGameContainer} />
+			<Route path='admin'>
+				<IndexRoute component={AdminContainer} />
+				<Route path='user/create' component={CreateUserContainer} />
+				<Route path='upload' component={UploadGamesContainer} />
+			</Route>
+			<Route path='game/:gameId' component={GameContainer} />
+			<Route path='edit/:gameId' component={EditGameContainer} />
 		</Route>
 	</Router>,
 	document.getElementById('root')
