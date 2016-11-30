@@ -17,16 +17,17 @@
 			font-size: 1.5em;
 			text-align: center;
 			text-transform: uppercase;
+			border-bottom: 2px solid transparent;
 
 			&:hover:not(.active) {
 				color: $color-primary;
 				background-color: white;
-				border-bottom: 2px solid $color-primary;
+				border-bottom-color: $color-primary;
 			}
 
 			&.active {
 				cursor: default;
-				border-bottom: 2px solid $color-primary;
+				border-bottom-color: $color-primary;
 			}
 		}
 	}
