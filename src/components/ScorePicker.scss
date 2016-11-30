@@ -1,3 +1,5 @@
+@import "../variables";
+
 .root {
 	display: inline-block;
 	margin: 0.5em;
@@ -16,9 +18,15 @@
 	border-radius: 50%;
 	background-color: #f8f8f8;
 	border: none;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: $box-shadow;
 	padding: 0;
 	text-align: center;
+	cursor: pointer;
+	transition: background-color $timing-reactive linear;
+
+	&:hover {
+		background-color: white;
+	}
 }
 
 .value {

@@ -1,8 +1,10 @@
+@import "../variables";
+
 .root {
 	background-color: #f8f8f8;
 	margin: 0.5em;
 	width: 8em;
-	box-shadow: 2px 2px 2px #444;
+	box-shadow: $box-shadow;
 	display: inline-block;
 	position: relative;
 	vertical-align: top;
@@ -11,9 +13,12 @@
 .placeholder {
 	color: #aaa;
 	padding: 0.5em;
+	cursor: pointer;
+
+	transition: background-color $timing-reactive linear;
+
 	&:hover {
-		color: black;
-		background-color: lightblue;
+		background-color: white;
 	}
 }
 

@@ -1,7 +1,9 @@
 import * as React from 'react';
+import * as cx from 'classnames';
 import * as styles from './ScorePicker.scss';
 
 interface IScorePickerProps {
+	className?: string;
 	value: number;
 	onChange: (value: number) => void;
 }
@@ -28,9 +30,9 @@ export default class ScorePicker extends React.PureComponent<IScorePickerProps, 
 	}
 
 	render() {
-		const { value } = this.props;
+		const { className, value } = this.props;
 		return(
-			<div className={styles.root}>
+			<div className={cx(styles.root, className)}>
 				<span className={styles.container}>
 					<button className={styles.button} onClick={this.handleBigDown}>&lt;&lt;</button>
 					<button className={styles.button} onClick={this.handleSmallDown}>&lt;</button>

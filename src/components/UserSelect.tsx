@@ -4,6 +4,7 @@ import * as styles from './UserSelect.scss';
 import * as cx from 'classnames';
 
 interface IUserSelectProps {
+	className?: string;
 	users: IUser[];
 	placeholder: string;
 	user: IUser | null;
@@ -107,14 +108,14 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 	}
 
 	render() {
-		const { placeholder, user } = this.props;
+		const { className, placeholder, user } = this.props;
 		const { open, search } = this.state;
 		const topUsers = this.getTopUsers();
 		const selectedIndex = this.getSelectedIndex(topUsers.length);
 		const inputValue = open ? search : user ? user.name : '';
 
 		return(
-			<div className={styles.root}>
+			<div className={cx(styles.root, className)}>
 				{!open && user === null &&
 					<div className={styles.placeholder} onClick={this.handleOpen}>{placeholder}</div>
 				}
