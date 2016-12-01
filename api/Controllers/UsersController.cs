@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using SheepsheadApi.Models;
@@ -20,10 +21,18 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpGet]
+		[Obsolete("This method is deprecated since Azure SQL databases use UTC.  Call GetPeriodScores with client month/year instead.")]
 		public virtual object GetCurrentPeriodScores()
 		{
 			//TODO: enable authorization and get read account
 			return DataBridge.GetCurrentPeriodScores("jacobb");
+		}
+
+		[HttpGet]
+		public virtual object GetPeriodScores(string month, int year)
+		{
+			//TODO: enable authorization and get read account
+			return DataBridge.GetPeriodScores("jacobb", month, year);
 		}
 
 		[HttpGet]

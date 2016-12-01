@@ -54,34 +54,51 @@ namespace SheepsheadApi
 			using (var command = connection.CreateCommand("usp_CurrentPeriodScores_S"))
 			{
 				command.Parameters.AddWithValue("@account", account);
-				using (var reader = command.ExecuteReader())
+				return ReadPeriodScores(command);
+			}
+		}
+
+		public static object GetPeriodScores(string account, string month, int year)
+		{
+			using (var connection = CreateConnection())
+			using (var command = connection.CreateCommand("usp_PeriodScores_S"))
+			{
+				command.Parameters.AddWithValue("@account", account);
+				command.Parameters.AddWithValue("@month", month);
+				command.Parameters.AddWithValue("@year", year);
+				return ReadPeriodScores(command);
+			}
+		}
+
+		private static object ReadPeriodScores(SqlCommand command)
+		{
+			using (var reader = command.ExecuteReader())
+			{
+				if (!reader.Read())
+					throw new InvalidOperationException("Missing result.");
+				var name = (string) reader["Name"];
+				var month = (string) reader["Month"];
+				var year = (int) reader["Year"];
+				var monthScore = (int) reader["MonthScore"];
+				var monthRank = (int) reader["MonthRank"];
+				var yearScore = (int) reader["YearScore"];
+				var yearRank = (int) reader["YearRank"];
+				return new
 				{
-					if (!reader.Read())
-						throw new InvalidOperationException("Missing result.");
-					var name = (string)reader["Name"];
-					var month = (string)reader["Month"];
-					var year = (int)reader["Year"];
-					var monthScore = (int)reader["MonthScore"];
-					var monthRank = (int)reader["MonthRank"];
-					var yearScore = (int)reader["YearScore"];
-					var yearRank = (int)reader["YearRank"];
-					return new
+					User = name,
+					MonthScore = new
 					{
-						User = name,
-						MonthScore = new
-						{
-							Period = new { Month = month, Year = year },
-							Score = monthScore,
-							Rank = monthRank
-						},
-						YearScore = new
-						{
-							Period = year,
-							Score = yearScore,
-							Rank = yearRank
-						}
-					};
-				}
+						Period = new {Month = month, Year = year},
+						Score = monthScore,
+						Rank = monthRank
+					},
+					YearScore = new
+					{
+						Period = year,
+						Score = yearScore,
+						Rank = yearRank
+					}
+				};
 			}
 		}
 

@@ -1,6 +1,7 @@
 import { IUser, IMonth, IScore, ICurrentPeriodScores } from '../models';
 import { checkStatus, parseJson } from './helpers';
 import * as queryString from 'query-string';
+import * as moment from 'moment';
 
 export function createUser(name: string, account: string) {
 	const query = queryString.stringify({ name, account });
@@ -22,7 +23,12 @@ export function getUsers() {
 }
 
 export function getCurrentPeriodScores() {
-	return fetch('/api/Users/GetCurrentPeriodScores', {
+	const now = moment();
+	const query = queryString.stringify({
+		month: now.format('MMMM'),
+		year: now.year()
+	});
+	return fetch(`/api/Users/GetPeriodScores?${query}`, {
 		credentials: 'same-origin',
 		headers: { Accept: 'application/json' }
 	})
