@@ -7,12 +7,14 @@ interface IFileInputProps extends React.HTMLProps<HTMLInputElement> {
 
 export default class FileInput extends React.PureComponent<IFileInputProps, void> {
 	render() {
-		const { children, ...props } = this.props;
+		const { children } = this.props;
+		const inputProps = Object.assign({}, this.props);
+		delete inputProps.children;
 		return(
 			<label className={styles.root}>
 				<input
 					type='file'
-					{...props} />
+					{...inputProps} />
 				{children}
 			</label>
 		);
