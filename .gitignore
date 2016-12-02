@@ -10,3 +10,5 @@ web/*.js.map
 *.pubxml
 *.pubxml.user
 *.publishproj
+deploy
+build-cold.cmd

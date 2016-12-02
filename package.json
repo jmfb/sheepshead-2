@@ -48,6 +48,7 @@
   },
   "scripts": {
     "start": "webpack --watch",
+    "build": "webpack",
     "proxy": "node proxy.js"
   }
 }
