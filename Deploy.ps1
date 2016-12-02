@@ -3,6 +3,11 @@ param (
 	[string]$ftpPassword = $( Read-Host "Ftp password" )
 )
 
+Write-Host "Replacing cache busting version in index.html..."
+$contents = Get-Content .\deploy\wwwroot\index.html
+$newContents = $contents | ForEach-Object { $_ -replace '\?v=\d+', ('?v={0:yyyyMMdd}' -f (Get-Date)) }
+$newContents | Set-Content .\deploy\wwwroot\index.html
+
 Write-Host "Replacing connection string in Web.config..."
 $properties = `
 	"Server=tcp:sheepshead.database.windows.net,1433", `
