@@ -14,6 +14,12 @@ export class AuthenticationService {
 		this.authenticated = true;
 		this.account = account;
 	}
+
+	logout = () => {
+		this.authenticated = false;
+		this.account = null;
+		localStorage.removeItem('refreshToken');
+	}
 }
 
 export const authenticationService = new AuthenticationService();
