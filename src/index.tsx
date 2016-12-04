@@ -1,6 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import {
+	Router,
+	Route,
+	IndexRoute,
+	RouterState,
+	RedirectFunction,
+	browserHistory
+} from 'react-router';
 import ApplicationContainer from './ApplicationContainer';
 import HomeContainer from './HomeContainer';
 import LeaderContainer from './LeaderContainer';
@@ -12,11 +19,23 @@ import MonthContainer from './MonthContainer';
 import GamesContainer from './GamesContainer';
 import CreateUserContainer from './CreateUserContainer';
 import UploadGamesContainer from './UploadGamesContainer';
+import AuthenticateContainer from './AuthenticateContainer';
+import LoginContainer from './LoginContainer';
+import { authenticationService } from './services/AuthenticationService';
 import './index.scss';
+
+function authenticate(nextState: RouterState, redirect: RedirectFunction) {
+	nextState = null; // TODO: How am I supposed to suppress the 'nextState' tslint error?
+	if (!authenticationService.isAuthenticated()) {
+		redirect({ pathname: '/login' });
+	}
+};
 
 ReactDOM.render(
 	<Router history={browserHistory}>
-		<Route path='/' component={ApplicationContainer}>
+		<Route path='/login' component={LoginContainer} />
+		<Route path='/authenticate' component={AuthenticateContainer} />
+		<Route path='/' component={ApplicationContainer} onEnter={authenticate}>
 			<IndexRoute component={HomeContainer} />
 			<Route path='leader' component={LeaderContainer}>
 				<IndexRoute component={GamesContainer} />

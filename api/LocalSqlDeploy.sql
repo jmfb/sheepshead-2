@@ -58,15 +58,26 @@ exec Sheepshead.Scores.usp_User_I 'Jacob Buysse', 'jacobb';
 rollback;
 */
 
-insert into Sheepshead.Scores.Users (
-	Id,
-	Name,
-	Account
-) values (
-	next value for Sheepshead.Scores.UserId,
-	@name,
-	@account
-);
+declare @id int = (select Id from Sheepshead.Scores.Users where Name = @name);
+if (@id is null)
+  begin
+	insert into Sheepshead.Scores.Users (
+		Id,
+		Name,
+		Account
+	) values (
+		next value for Sheepshead.Scores.UserId,
+		@name,
+		@account
+	);
+  end;
+else
+  begin
+	update	Sheepshead.Scores.Users
+	set	Account = @account
+	where	Id = @id
+	and	Account <> @account;
+  end;
 go
 create procedure Scores.usp_Users_S
 as
@@ -80,7 +91,7 @@ select	Name
 from	Sheepshead.Scores.Users
 order by Name;
 go
-create procedure Scores.usp_CurrentPeriodScores_S
+create procedure Scores.usp_IsValidUser_S
 (
 	@account varchar(30)
 )
@@ -88,52 +99,17 @@ as
 set nocount on;
 
 /*
-exec Sheepshead.Scores.usp_CurrentPeriodScores_S 'jacobb';
+exec Sheepshead.Scores.usp_IsValidUser_S 'jacobb';
 */
 
-declare @now date = getdate();
-declare @bom date = dateadd(month, datediff(month, 0, @now), 0);
-declare @boy date = dateadd(year, datediff(year, 0, @now), 0);
-
-select	Users.Name,
-	[Month] = datename(month, @now),
-	[Year] = datepart(year, @now),
-	MonthScore = isnull(MonthScores.Score, 0),
-	MonthRank = convert(int, isnull(MonthScores.[Rank], 0)),
-	YearScore = isnull(YearScores.Score, 0),
-	YearRank = convert(int, isnull(YearScores.[Rank], 0))
-from	Sheepshead.Scores.Users as Users
-	left outer join (
-		select	RankedScores.UserId,
-			RankedScores.Score,
-			[Rank] = rank() over (order by RankedScores.Score desc)
-		from	(	select	Players.UserId,
-					Score = sum(Players.Score)
-				from	Sheepshead.Scores.Games as Games
-					inner join Sheepshead.Scores.Players as Players
-					on	Players.GameId = Games.Id
-				where	Games.[When] >= @bom
-				and	Games.[When] < dateadd(month, 1, @bom)
-				group by Players.UserId
-			) as RankedScores
-	) as MonthScores
-	on	MonthScores.UserId = Users.Id
-	left outer join (
-		select	RankedScores.UserId,
-			RankedScores.Score,
-			[Rank] = rank() over (order by RankedScores.Score desc)
-		from	(	select	Players.UserId,
-					Score = sum(Players.Score)
-				from	Sheepshead.Scores.Games as Games
-					inner join Sheepshead.Scores.Players as Players
-					on	Players.GameId = Games.Id
-				where	Games.[When] >= @boy
-				and	Games.[When] < dateadd(year, 1, @boy)
-				group by Players.UserId
-			) as RankedScores
-	) as YearScores
-	on	YearScores.UserId = Users.Id
-where	Users.Account = @account;
+select	IsValidUser = convert(bit, case
+		when exists(
+			select	0
+			from	Sheepshead.Scores.Users as Users
+			where	Users.Account = @account)
+		then	1
+		else	0
+		end);
 go
 create procedure Scores.usp_PeriodScores_S
 (
@@ -152,8 +128,6 @@ declare @bom date = convert(date, @month + ' 1, ' + convert(varchar, @year));
 declare @boy date = dateadd(year, datediff(year, 0, @bom), 0);
 
 select	Users.Name,
-	[Month] = datename(month, @bom),
-	[Year] = datepart(year, @bom),
 	MonthScore = isnull(MonthScores.Score, 0),
 	MonthRank = convert(int, isnull(MonthScores.[Rank], 0)),
 	YearScore = isnull(YearScores.Score, 0),
@@ -440,52 +414,52 @@ from	@games as Games
 order by Games.Id,
 	Users.Name;
 go
-exec Sheepshead.Scores.usp_User_I 'Andrew Bender', 'andrewb';
-exec Sheepshead.Scores.usp_User_I 'Anne Sechtig', 'annes';
-exec Sheepshead.Scores.usp_User_I 'Austin Binish', 'austinb';
-exec Sheepshead.Scores.usp_User_I 'Ben Dixon', 'bend';
-exec Sheepshead.Scores.usp_User_I 'Ben Harbach', 'benh';
-exec Sheepshead.Scores.usp_User_I 'Beth Duerr', 'bethd';
-exec Sheepshead.Scores.usp_User_I 'Blake Adams', 'blakea';
-exec Sheepshead.Scores.usp_User_I 'Brian Echtner', 'briane';
-exec Sheepshead.Scores.usp_User_I 'Brian Skibinski', 'briansk';
-exec Sheepshead.Scores.usp_User_I 'Charles Fastner', 'charlesf';
-exec Sheepshead.Scores.usp_User_I 'Dave Peters', 'davep';
-exec Sheepshead.Scores.usp_User_I 'Denise Barchus', 'deniseb';
-exec Sheepshead.Scores.usp_User_I 'Ezra McNichols', 'ezram';
-exec Sheepshead.Scores.usp_User_I 'Greg Matthews', 'gregma';
-exec Sheepshead.Scores.usp_User_I 'Greg Schreiner', 'gregs';
-exec Sheepshead.Scores.usp_User_I 'Greg Smith', 'gregsm';
-exec Sheepshead.Scores.usp_User_I 'Jacob Buysse', 'jacobb';
-exec Sheepshead.Scores.usp_User_I 'Jim Strassburg', 'jamesst';
-exec Sheepshead.Scores.usp_User_I 'Jeff Cutler', 'jeffcu';
-exec Sheepshead.Scores.usp_User_I 'Jenny Bucek', 'jennyb';
-exec Sheepshead.Scores.usp_User_I 'Jeremy Stangel', 'jeremys';
-exec Sheepshead.Scores.usp_User_I 'Jim Cincotta', 'jamesc';
-exec Sheepshead.Scores.usp_User_I 'John Bartosch', 'johnba';
-exec Sheepshead.Scores.usp_User_I 'Jon Burbey', 'jonb';
-exec Sheepshead.Scores.usp_User_I 'Jon Detert', 'jonde';
-exec Sheepshead.Scores.usp_User_I 'Jonathan Lampe', 'jonathal';
-exec Sheepshead.Scores.usp_User_I 'Kim Schmoldt', 'kims';
-exec Sheepshead.Scores.usp_User_I 'Kyle Salewski', 'kyles';
-exec Sheepshead.Scores.usp_User_I 'Mark Centgraf', 'markc';
-exec Sheepshead.Scores.usp_User_I 'Matt Herman', 'matth';
-exec Sheepshead.Scores.usp_User_I 'Mike Belger', 'mikebel';
-exec Sheepshead.Scores.usp_User_I 'Mike Krautkramer', 'mikekr';
-exec Sheepshead.Scores.usp_User_I 'Mike Miller', 'mikem';
-exec Sheepshead.Scores.usp_User_I 'Mike Sullivan', 'mikesu';
-exec Sheepshead.Scores.usp_User_I 'Nhat Nguyen', 'nhatn';
-exec Sheepshead.Scores.usp_User_I 'Paul Clarke', 'paulc';
-exec Sheepshead.Scores.usp_User_I 'Penny Laferriere', 'pennyl';
-exec Sheepshead.Scores.usp_User_I 'Rebecca Vance', 'rebeccav';
-exec Sheepshead.Scores.usp_User_I 'Rob Berken', 'robb';
-exec Sheepshead.Scores.usp_User_I 'Scott Murphy', 'scottm';
-exec Sheepshead.Scores.usp_User_I 'Steve McGranahan', 'stevenm';
-exec Sheepshead.Scores.usp_User_I 'Tim Ernst', 'timer';
-exec Sheepshead.Scores.usp_User_I 'Tom Kiebzak', 'tomk';
-exec Sheepshead.Scores.usp_User_I 'Tom Strong', 'tomst';
-exec Sheepshead.Scores.usp_User_I 'Tony Roberts', 'tony';
-exec Sheepshead.Scores.usp_User_I 'Tracy Mueller', 'tracym';
-exec Sheepshead.Scores.usp_User_I 'Viet Vu', 'vietv';
-exec Sheepshead.Scores.usp_User_I 'Zach Nanfelt', 'zachn';
+exec Sheepshead.Scores.usp_User_I 'Andrew Bender', 'abender@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Anne Sechtig', 'asechtig@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Austin Binish', 'abinish@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Ben Dixon', 'bdixon@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Ben Harbach', 'bharbach@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Beth Duerr', 'bduerr@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Blake Adams', 'badams@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Brian Echtner', 'bechtner@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Brian Skibinski', 'bskibinski@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Charles Fastner', 'cfastner@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Dave Peters', 'dpeters@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Denise Barchus', 'dbarchus@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Ezra McNichols', 'emcnichols@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Greg Matthews', 'gmatthews@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Greg Schreiner', 'gschreiner@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Greg Smith', 'gsmith@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jacob Buysse', 'jbuysse@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jim Strassburg', 'jstrassburg@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jeff Cutler', 'jcutler@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jenny Bucek', 'jbucek@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jeremy Stangel', 'jstangel@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jim Cincotta', 'jcincotta@directs.com';
+exec Sheepshead.Scores.usp_User_I 'John Bartosch', 'jbartosch@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jon Burbey', 'jburbey@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jon Detert', 'jdetert@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Jonathan Lampe', 'jlampe@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Kim Schmoldt', 'kschmoldt@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Kyle Salewski', 'ksalewski@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Mark Centgraf', 'mcentgraf@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Matt Herman', 'mherman@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Mike Belger', 'mbelger@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Mike Krautkramer', 'mkrautkramer@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Mike Miller', 'mmiller@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Mike Sullivan', 'msullivan@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Nhat Nguyen', 'nnguyen@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Paul Clarke', 'pclarke@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Penny Laferriere', 'plaferriere@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Rebecca Vance', 'rvance@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Rob Berken', 'rberken@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Scott Murphy', 'smurphy@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Steve McGranahan', 'smcgranahan@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Tim Ernst', 'ternst@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Tom Kiebzak', 'tkiebzak@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Tom Strong', 'tstrong@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Tony Roberts', 'troberts@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Tracy Mueller', 'tmueller@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Viet Vu', 'vvu@directs.com';
+exec Sheepshead.Scores.usp_User_I 'Zach Nanfelt', 'znanfelt@directs.com';
 go

@@ -48,13 +48,18 @@ namespace SheepsheadApi
 			}
 		}
 
-		public static object GetCurrentPeriodScores(string account)
+		public static bool IsValidUser(string account)
 		{
 			using (var connection = CreateConnection())
-			using (var command = connection.CreateCommand("usp_CurrentPeriodScores_S"))
+			using (var command = connection.CreateCommand("usp_IsValidUser_S"))
 			{
 				command.Parameters.AddWithValue("@account", account);
-				return ReadPeriodScores(command);
+				using (var reader = command.ExecuteReader())
+				{
+					if (!reader.Read())
+						throw new InvalidOperationException("Missing result.");
+					return (bool)reader["IsValidUser"];
+				}
 			}
 		}
 
@@ -66,39 +71,32 @@ namespace SheepsheadApi
 				command.Parameters.AddWithValue("@account", account);
 				command.Parameters.AddWithValue("@month", month);
 				command.Parameters.AddWithValue("@year", year);
-				return ReadPeriodScores(command);
-			}
-		}
-
-		private static object ReadPeriodScores(SqlCommand command)
-		{
-			using (var reader = command.ExecuteReader())
-			{
-				if (!reader.Read())
-					throw new InvalidOperationException("Missing result.");
-				var name = (string) reader["Name"];
-				var month = (string) reader["Month"];
-				var year = (int) reader["Year"];
-				var monthScore = (int) reader["MonthScore"];
-				var monthRank = (int) reader["MonthRank"];
-				var yearScore = (int) reader["YearScore"];
-				var yearRank = (int) reader["YearRank"];
-				return new
+				using (var reader = command.ExecuteReader())
 				{
-					User = name,
-					MonthScore = new
+					if (!reader.Read())
+						throw new InvalidOperationException("Missing result.");
+					var name = (string)reader["Name"];
+					var monthScore = (int)reader["MonthScore"];
+					var monthRank = (int)reader["MonthRank"];
+					var yearScore = (int)reader["YearScore"];
+					var yearRank = (int)reader["YearRank"];
+					return new
 					{
-						Period = new {Month = month, Year = year},
-						Score = monthScore,
-						Rank = monthRank
-					},
-					YearScore = new
-					{
-						Period = year,
-						Score = yearScore,
-						Rank = yearRank
-					}
-				};
+						User = name,
+						MonthScore = new
+						{
+							Period = new { Month = month, Year = year },
+							Score = monthScore,
+							Rank = monthRank
+						},
+						YearScore = new
+						{
+							Period = year,
+							Score = yearScore,
+							Rank = yearRank
+						}
+					};
+				}
 			}
 		}
 

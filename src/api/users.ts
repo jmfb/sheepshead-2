@@ -22,9 +22,20 @@ export function getUsers() {
 	.then<IUser[]>(parseJson);
 }
 
-export function getCurrentPeriodScores() {
+export function isValidUser(account: string) {
+	const query = queryString.stringify({ account });
+	return fetch(`/api/Users/IsValidUser?${query}`, {
+		credentials: 'same-origin',
+		headers: { Accept: 'application/json' }
+	})
+	.then(checkStatus)
+	.then<boolean>(parseJson);
+}
+
+export function getPeriodScores(account: string) {
 	const now = moment();
 	const query = queryString.stringify({
+		account,
 		month: now.format('MMMM'),
 		year: now.year()
 	});
