@@ -45,7 +45,8 @@ export default class LoginContainer extends React.PureComponent<void, ILoginCont
 		isValidUser(userInfo.email).then(isValid => {
 			if (isValid) {
 				authenticationService.setAccount(userInfo.email);
-				browserHistory.push('/');
+				const state = browserHistory.getCurrentLocation().state as { returnTo?: string };
+				browserHistory.push(state && state.returnTo ? state.returnTo : '/');
 			} else {
 				localStorage.removeItem('refreshToken');
 				this.setState({

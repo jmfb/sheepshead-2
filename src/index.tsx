@@ -25,9 +25,11 @@ import { authenticationService } from './services/AuthenticationService';
 import './index.scss';
 
 function authenticate(nextState: RouterState, redirect: RedirectFunction) {
-	nextState = null; // TODO: How am I supposed to suppress the 'nextState' tslint error?
 	if (!authenticationService.isAuthenticated()) {
-		redirect({ pathname: '/login' });
+		redirect({
+			pathname: '/login',
+			state: { returnTo: nextState.location.pathname }
+		});
 	}
 };
 
