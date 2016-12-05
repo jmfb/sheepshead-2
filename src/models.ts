@@ -54,30 +54,3 @@ export interface IGameReport {
 		title: string;
 	}[];
 }
-
-export interface IToken {
-	access_token: string;
-	token_type: string;
-	expires_in: number;
-	refresh_token: string;
-	id_token: string;
-}
-
-export interface IRefreshToken {
-	access_token: string;
-	token_type: string;
-	expires_in: number;
-	id_token: string;
-}
-
-export interface IUserInfo {
-	family_name: string;
-	name: string;
-	picture: string;
-	gender: string;
-	email: string;
-	link: string;
-	given_name: string;
-	id: string;
-	verified_email: boolean;
-}

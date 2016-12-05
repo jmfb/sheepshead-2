@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using SheepsheadApi.Models;
 
 namespace SheepsheadApi.Controllers
 {
-	public class UsersController : ApiController
+	public class UsersController : AuthorizedController
 	{
 		[HttpPost]
 		public virtual void CreateUser(string name, string account)
@@ -21,15 +20,9 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpGet]
-		public virtual bool IsValidUser(string account)
+		public virtual object GetPeriodScores(string month, int year)
 		{
-			return DataBridge.IsValidUser(account);
-		}
-
-		[HttpGet]
-		public virtual object GetPeriodScores(string account, string month, int year)
-		{
-			return DataBridge.GetPeriodScores(account, month, year);
+			return DataBridge.GetPeriodScores(Account, month, year);
 		}
 
 		[HttpGet]

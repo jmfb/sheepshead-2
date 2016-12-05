@@ -8,7 +8,10 @@ export function createUser(name: string, account: string) {
 	return fetch(`/api/Users/CreateUser?${query}`, {
 		credentials: 'same-origin',
 		method: 'POST',
-		headers: { Accept: 'application/json' }
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
 	})
 	.then(checkStatus);
 }
@@ -16,32 +19,27 @@ export function createUser(name: string, account: string) {
 export function getUsers() {
 	return fetch('/api/Users/GetUsers', {
 		credentials: 'same-origin',
-		headers: { Accept: 'application/json' }
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
 	})
 	.then(checkStatus)
 	.then<IUser[]>(parseJson);
 }
 
-export function isValidUser(account: string) {
-	const query = queryString.stringify({ account });
-	return fetch(`/api/Users/IsValidUser?${query}`, {
-		credentials: 'same-origin',
-		headers: { Accept: 'application/json' }
-	})
-	.then(checkStatus)
-	.then<boolean>(parseJson);
-}
-
-export function getPeriodScores(account: string) {
+export function getPeriodScores() {
 	const now = moment();
 	const query = queryString.stringify({
-		account,
 		month: now.format('MMMM'),
 		year: now.year()
 	});
 	return fetch(`/api/Users/GetPeriodScores?${query}`, {
 		credentials: 'same-origin',
-		headers: { Accept: 'application/json' }
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
 	})
 	.then(checkStatus)
 	.then<ICurrentPeriodScores>(parseJson);
@@ -54,7 +52,10 @@ export function getMonthScores(month: IMonth) {
 	});
 	return fetch(`/api/Users/GetMonthScores?${query}`, {
 		credentials: 'same-origin',
-		headers: { Accept: 'application/json' }
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
 	})
 	.then(checkStatus)
 	.then<IScore[]>(parseJson);
@@ -64,7 +65,10 @@ export function getYearScores(year: number) {
 	const query = queryString.stringify({ year });
 	return fetch(`/api/Users/GetYearScores?${query}`, {
 		credentials: 'same-origin',
-		headers: { Accept: 'application/json' }
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
 	})
 	.then(checkStatus)
 	.then<IScore[]>(parseJson);

@@ -4,7 +4,6 @@ import ScoreView from './pages/ScoreView';
 import Banner from './components/Banner';
 import { ICurrentPeriodScores, IMonth } from './models';
 import { getPeriodScores } from './api/users';
-import { authenticationService } from './services/AuthenticationService';
 
 interface ILeaderContainerState {
 	currentScores: ICurrentPeriodScores | null;
@@ -17,7 +16,7 @@ export default class LeaderContainer extends React.PureComponent<void, ILeaderCo
 	}
 
 	componentDidMount() {
-		getPeriodScores(authenticationService.getAccount()).then(currentScores => {
+		getPeriodScores().then(currentScores => {
 			this.setState({ currentScores });
 		});
 	}

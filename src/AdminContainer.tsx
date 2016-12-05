@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import Administration from './pages/Administration';
-import { authenticationService } from './services/AuthenticationService';
 
 export default class AdminContainer extends React.PureComponent<void, void> {
 	handleClickAddUser = () => {
@@ -13,7 +12,7 @@ export default class AdminContainer extends React.PureComponent<void, void> {
 	}
 
 	handleClickLogout = () => {
-		authenticationService.logout();
+		localStorage.removeItem('token');
 		browserHistory.push('/login');
 	}
 

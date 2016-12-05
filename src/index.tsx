@@ -21,11 +21,10 @@ import CreateUserContainer from './CreateUserContainer';
 import UploadGamesContainer from './UploadGamesContainer';
 import AuthenticateContainer from './AuthenticateContainer';
 import LoginContainer from './LoginContainer';
-import { authenticationService } from './services/AuthenticationService';
 import './index.scss';
 
 function authenticate(nextState: RouterState, redirect: RedirectFunction) {
-	if (!authenticationService.isAuthenticated()) {
+	if (localStorage.getItem('token') == null) {
 		redirect({
 			pathname: '/login',
 			state: { returnTo: nextState.location.pathname }

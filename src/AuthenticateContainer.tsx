@@ -2,59 +2,53 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import Banner from './components/Banner';
 import SignInButton from './components/SignInButton';
-import { getToken, getUserInfo, navigateToAuthenticator } from './api/auth';
-import { isValidUser } from './api/users';
-import { IToken, IUserInfo } from './models';
-import { authenticationService } from './services/AuthenticationService';
+import { getToken, getAuthenticationUrl } from './api/auth';
 import * as queryString from 'query-string';
 
 interface IAuthenticationContainerState {
-	invalidAccount: string;
+	errorMessage: string;
 }
 
 export default class AuthenticateContainer extends React.PureComponent<void, IAuthenticationContainerState> {
 	constructor(props: void) {
 		super(props);
-		this.state = { invalidAccount: '' };
+		this.state = { errorMessage: '' };
 	}
 
 	componentDidMount() {
 		const { code } = queryString.parse(location.search);
-		console.log('authenticate container', 'code', code);
 		browserHistory.replace('/authenticate');
-		getToken(code).then(this.handleToken);
+		getToken(code).then(token => {
+			localStorage.setItem('token', token);
+			browserHistory.push('/');
+		}).catch(() => {
+			// TODO: look into where the exception is being hidden, reason is {} at this point.
+			this.setState({ errorMessage: 'Your Google account is not valid for Sheepshead.' });
+		});
 	}
 
-	handleToken = (token: IToken) => {
-		localStorage.setItem('refreshToken', token.refresh_token);
-		getUserInfo(token.token_type, token.access_token).then(this.handleUserInfo);
-	}
-
-	handleUserInfo = (userInfo: IUserInfo) => {
-		isValidUser(userInfo.email).then(isValid => {
-			if (isValid) {
-				authenticationService.setAccount(userInfo.email);
-				browserHistory.push('/');
-			} else {
-				localStorage.removeItem('refreshToken');
-				this.setState({ invalidAccount: userInfo.email });
-			}
+	handleClickSignIn = () => {
+		this.setState({ errorMessage: '' });
+		getAuthenticationUrl().then(url => {
+			window.location.href = url;
 		});
 	}
 
 	render() {
-		const { invalidAccount } = this.state;
-		return invalidAccount ?
-			this.renderInvalidAccount() :
+		const { errorMessage } = this.state;
+		return errorMessage ?
+			this.renderError() :
 			<Banner type='message' display='Authenticating...' />;
 	}
 
-	renderInvalidAccount = () => {
-		const { invalidAccount } = this.state;
+	renderError = () => {
+		const { errorMessage } = this.state;
 		return (
 			<div>
-				<Banner type='error' display={`${invalidAccount} is not a valid account.  Please contact Jacob Buysse.`} />
-				<SignInButton style='dark' disabled={false} onClick={navigateToAuthenticator} />
+				<Banner type='error' display={errorMessage} />
+				<Banner type='message' display='Please contact Jacob Buysse to create your account.' />
+				<p>Please sign in with your directs.com Google account.</p>
+				<SignInButton style='dark' disabled={false} onClick={this.handleClickSignIn} />
 			</div>
 		);
 	}

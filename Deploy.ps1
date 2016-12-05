@@ -1,6 +1,7 @@
 param (
 	[string]$sqlPassword = $( Read-Host "Sql password" ),
-	[string]$ftpPassword = $( Read-Host "Ftp password" )
+	[string]$ftpPassword = $( Read-Host "Ftp password" ),
+	[string]$jwtSecret = $( Read-Host "Jwt secret" )
 )
 
 Write-Host "Replacing cache busting version in index.html..."
@@ -8,7 +9,7 @@ $contents = Get-Content .\deploy\wwwroot\index.html
 $newContents = $contents | ForEach-Object { $_ -replace '\?v=\d+', ('?v={0:yyyyMMdd}' -f (Get-Date)) }
 $newContents | Set-Content .\deploy\wwwroot\index.html
 
-Write-Host "Replacing connection string in Web.config..."
+Write-Host "Replacing connection string and jwt secret in Web.config..."
 $properties = `
 	"Server=tcp:sheepshead.database.windows.net,1433", `
 	"Initial Catalog=Sheepshead", `
@@ -20,9 +21,11 @@ $properties = `
 	"TrustServerCertificate=False", `
 	"Connection Timeout=30"
 $connectionString = [System.String]::Join(";", $properties)
-$newValue = "connectionString=""$connectionString"""
+$newConnectionString = "connectionString=""$connectionString"""
+$newSecret = "key=""Secret"" value=""$jwtSecret"""
 $contents = Get-Content .\deploy\api\Web.config
-$newContents = $contents | ForEach-Object { $_ -replace 'connectionString=".+"', $newValue }
+$newContents = $contents | ForEach-Object { $_ -replace 'connectionString=".+"', $newConnectionString }
+$newContents = $newContents | ForEach-Object { $_ -replace 'key="Secret" value=".+"', $newSecret }
 $newContents | Set-Content .\deploy\api\Web.config
 
 try {

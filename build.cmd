@@ -1,6 +1,7 @@
 @echo off
 set sqlPassword=%~1
 set ftpPassword=%~2
+set jwtSecret=%~3
 
 call npm install
 call npm run build
@@ -20,4 +21,5 @@ robocopy .\api .\deploy\api ^
 powershell ^
 	-File Deploy.ps1 ^
 	-sqlPassword "%sqlPassword%" ^
-	-ftpPassword "%ftpPassword%"
+	-ftpPassword "%ftpPassword%" ^
+	-jwtSecret "%jwtSecret%"

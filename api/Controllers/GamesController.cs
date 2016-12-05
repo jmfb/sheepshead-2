@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using SheepsheadApi.Models;
 
 namespace SheepsheadApi.Controllers
 {
-	public class GamesController : ApiController
+	public class GamesController : AuthorizedController
 	{
 		[HttpPost]
 		public virtual int UpdateGame([FromBody]GameModel game)
