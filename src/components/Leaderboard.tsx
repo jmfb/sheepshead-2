@@ -24,6 +24,12 @@ export default class Leaderboard extends React.PureComponent<ILeaderboardProps, 
 						<div className={cx(styles.score, { [styles.negative]: score.score < 0 })}>{score.score}</div>
 					</div>
 				))}
+				{scores.length === 0 && (
+					<div>
+						<p>No games.</p>
+						<p>You should play more.</p>
+					</div>
+				)}
 			</div>
 		);
 	}

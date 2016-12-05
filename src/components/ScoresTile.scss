@@ -4,23 +4,23 @@
 	background: #eee;
 	padding: 0.5em 1em;
 	box-shadow: $box-shadow;
+	margin-left: auto;
+	margin-right: auto;
+	width: 16em;
 }
 
 .row {
-	display: block;
+	display: flex;
+	flex-direction: row;
 	margin-bottom: 0.5em;
 }
 
 .player {
-	display: inline-block;
-	width: 11em;
+	margin-right: auto;
 }
 
 .score {
 	color: green;
-	display: inline-block;
-	text-align: right;
-	width: 3em;
 }
 
 .negative {

@@ -411,8 +411,9 @@ from	@games as Games
 	on	Players.GameId = Games.Id
 	inner join Sheepshead.Scores.Users as Users
 	on	Users.Id = Players.UserId
-order by Games.Id,
-	Users.Name;
+order by Games.Id asc,
+	Players.Score desc,
+	Users.Name asc;
 go
 exec Sheepshead.Scores.usp_User_I 'Andrew Bender', 'abender@directs.com';
 exec Sheepshead.Scores.usp_User_I 'Anne Sechtig', 'asechtig@directs.com';
