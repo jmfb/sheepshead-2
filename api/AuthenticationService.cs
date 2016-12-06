@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,17 @@ using SheepsheadApi.Models;
 
 namespace SheepsheadApi
 {
-	public class AuthenticationService
+	public static class AuthenticationService
 	{
 		private const string clientId = "658047002068-gv2gr1jds2d6renups2ir74abb0r061p.apps.googleusercontent.com";
 		private const string clientSecret = "N8ZAIlfOR4fmV1hHqk5JrUVO";
+		private const string audience = "SheepsheadClient";
+		private const string issuer = "SheepsheadApi";
+		private const string signatureAlgorithm = "http://www.w3.org/2001/04/xmldsig-more#hmac-sha256";
+		private const string digestAlgorithm = "http://www.w3.org/2001/04/xmlenc#sha256";
+		private const string accountClaimType = "account";
 
-		public static string GetAuthenticationUrl(string redirectUrl)
+		public static string GetGoogleAuthenticationUrl(string redirectUrl)
 		{
 			var query = HttpUtility.ParseQueryString("");
 			query["redirect_uri"] = redirectUrl;
@@ -30,7 +36,7 @@ namespace SheepsheadApi
 			return $"https://accounts.google.com/o/oauth2/v2/auth?{query}";
 		}
 
-		public static async Task<TokenModel> GetToken(string redirectUrl, string authorizationCode)
+		public static async Task<TokenModel> GetGoogleToken(string redirectUrl, string authorizationCode)
 		{
 			using (var handler = new HttpClientHandler())
 			using (var client = new HttpClient(handler))
@@ -65,40 +71,67 @@ namespace SheepsheadApi
 			}
 		}
 
-		private const string audience = "SheepsheadClient";
-		private const string issuer = "SheepsheadApi";
-		private const string signatureAlgorithm = "http://www.w3.org/2001/04/xmldsig-more#hmac-sha256";
-		private const string digestAlgorithm = "http://www.w3.org/2001/04/xmlenc#sha256";
-		private const string accountClaimType = "account";
-
 		private static string Secret => ConfigurationManager.AppSettings["Secret"];
 		private static byte[] SecretBytes => Encoding.UTF8.GetBytes(Secret);
 		private static SecurityKey Key => new InMemorySymmetricSecurityKey(SecretBytes);
 
-		public static string CreateToken(string account) => new JwtSecurityTokenHandler()
+		public static string CreateAuthorizationToken(AccountModel account) => new JwtSecurityTokenHandler()
 			.WriteToken(new JwtSecurityToken(
 				issuer,
 				audience,
-				new[] { new Claim(accountClaimType, account) },
+				new[]
+				{
+					new Claim(accountClaimType, account.Account)
+				},
 				signingCredentials: new SigningCredentials(Key, signatureAlgorithm, digestAlgorithm)));
 
-		public static string ValidateToken(string token)
+		private static AccountModel ParseToken(string token)
 		{
-			SecurityToken securityToken;
-			var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(
-				token,
-				new TokenValidationParameters
+			try
+			{
+				SecurityToken securityToken;
+				var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(
+					token,
+					new TokenValidationParameters
+					{
+						ValidateIssuer = true,
+						ValidIssuer = issuer,
+						ValidateAudience = true,
+						ValidAudience = audience,
+						ValidateIssuerSigningKey = true,
+						IssuerSigningKey = Key,
+						ValidateLifetime = false
+					},
+					out securityToken);
+				var account = claimsPrincipal.Claims.Single(claim => claim.Type == accountClaimType).Value;
+				return new AccountModel
 				{
-					ValidateIssuer = true,
-					ValidIssuer = issuer,
-					ValidateAudience = true,
-					ValidAudience = audience,
-					ValidateIssuerSigningKey = true,
-					IssuerSigningKey = Key,
-					ValidateLifetime = false
-				},
-				out securityToken);
-			return claimsPrincipal.Claims.Single(claim => claim.Type == accountClaimType).Value;
+					Account = account
+				};
+			}
+			catch (Exception exception)
+			{
+				throw new SecurityException("Invalid authorization token.", exception);
+			}
+		}
+
+		public static AccountModel Authorize(AuthenticationHeaderValue authorization)
+		{
+			if (authorization == null)
+				return null;
+			if (authorization.Scheme != "Token")
+				return null;
+			try
+			{
+				var account = ParseToken(authorization.Parameter);
+				if (!DataBridge.IsValidUser(account.Account))
+					return null;
+				return account;
+			}
+			catch (SecurityException)
+			{
+				return null;
+			}
 		}
 	}
 }

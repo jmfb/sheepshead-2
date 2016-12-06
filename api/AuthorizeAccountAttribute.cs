@@ -7,13 +7,10 @@ namespace SheepsheadApi
 	{
 		protected override bool IsAuthorized(HttpActionContext actionContext)
 		{
-			var header = actionContext.Request.Headers.Authorization;
-			if (header.Scheme != "Token")
+			var account = AuthenticationService.Authorize(actionContext.Request.Headers.Authorization);
+			if (account == null)
 				return false;
-			var account = AuthenticationService.ValidateToken(header.Parameter);
-			if (!DataBridge.IsValidUser(account))
-				return false;
-			actionContext.Request.Properties["Account"] = account;
+			actionContext.Request.Properties["Account"] = account.Account;
 			return true;
 		}
 	}

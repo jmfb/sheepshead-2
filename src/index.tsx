@@ -21,6 +21,7 @@ import CreateUserContainer from './CreateUserContainer';
 import UploadGamesContainer from './UploadGamesContainer';
 import AuthenticateContainer from './AuthenticateContainer';
 import LoginContainer from './LoginContainer';
+import ErrorContainer from './ErrorContainer';
 import './index.scss';
 
 function authenticate(nextState: RouterState, redirect: RedirectFunction) {
@@ -36,6 +37,7 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path='/login' component={LoginContainer} />
 		<Route path='/authenticate' component={AuthenticateContainer} />
+		<Route path='/error' component={ErrorContainer} />
 		<Route path='/' component={ApplicationContainer} onEnter={authenticate}>
 			<IndexRoute component={HomeContainer} />
 			<Route path='leader' component={LeaderContainer}>
