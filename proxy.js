@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const httpProxy = require('http-proxy');
 const proxy = httpProxy.createProxyServer({
@@ -9,6 +10,12 @@ const app = express();
 app.all('/api/*', (req, res) => {
 	proxy.web(req, res);
 });
-app.use(express.static(__dirname + '/web'));
+app.get('/:name.:ext', (req, res) => {
+	const { name, ext } = req.params;
+	res.sendFile(`${name}.${ext}`, { root: path.join(__dirname, 'web') });
+});
+app.get('*', (req, res) => {
+	res.sendFile('index.html', { root: path.join(__dirname, 'web') });
+})
 app.listen(3000);
 console.log('Listening at localhost:3000');
