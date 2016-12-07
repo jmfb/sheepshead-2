@@ -12,3 +12,4 @@ web/*.js.map
 *.publishproj
 deploy
 build-cold.cmd
+build-web-cold.cmd

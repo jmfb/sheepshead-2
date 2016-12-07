@@ -18,6 +18,8 @@ interface IUserSelectState {
 }
 
 export default class UserSelect extends React.PureComponent<IUserSelectProps, IUserSelectState> {
+	private inputElement: HTMLInputElement;
+
 	constructor(props: IUserSelectProps) {
 		super(props);
 		this.state = {
@@ -25,6 +27,10 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 			search: '',
 			selection: 0
 		};
+	}
+
+	setInputElement = (inputElement: HTMLInputElement) => {
+		this.inputElement = inputElement;
 	}
 
 	handleOpen = () => {
@@ -56,6 +62,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 	handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		switch (e.keyCode) {
 			case 13: {
+				this.inputElement.blur();
 				this.handleEnter();
 			} break;
 
@@ -130,6 +137,7 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 							placeholder={placeholder}
 							value={inputValue}
 							autoFocus
+							ref={this.setInputElement}
 							onChange={this.handleSearch}
 							onKeyDown={this.handleKeyDown} />
 					</span>
