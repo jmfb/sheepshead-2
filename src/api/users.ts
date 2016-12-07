@@ -1,13 +1,40 @@
-import { IUser, IMonth, IScore, ICurrentPeriodScores } from '../models';
+import { IUser, IAllUserData, IMonth, IScore, ICurrentPeriodScores } from '../models';
 import { checkStatus, parseJson } from './helpers';
 import * as queryString from 'query-string';
 import * as moment from 'moment';
 
-export function createUser(name: string, account: string) {
-	const query = queryString.stringify({ name, account });
-	return fetch(`/api/Users/CreateUser?${query}`, {
+export function updateUser(name: string, roleId: number, accounts: string[]) {
+	return fetch('/api/Users/UpdateUser', {
 		credentials: 'same-origin',
 		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`,
+			['Content-Type']: 'application/json'
+		},
+		body: JSON.stringify({ name, roleId, accounts })
+	})
+	.then(checkStatus);
+}
+
+export function renameUser(oldName: string, newName: string) {
+	const query = queryString.stringify({ oldName, newName });
+	return fetch(`/api/Users/RenameUser?${query}`, {
+		credentials: 'same-origin',
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
+	})
+	.then(checkStatus);
+}
+
+export function deleteUser(name: string) {
+	const query = queryString.stringify({ name });
+	return fetch(`/api/Users/DeleteUser?${query}`, {
+		credentials: 'same-origin',
+		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
 			Authorization: `Token ${localStorage.getItem('token')}`
@@ -26,6 +53,18 @@ export function getUsers() {
 	})
 	.then(checkStatus)
 	.then<IUser[]>(parseJson);
+}
+
+export function getAllUserData() {
+	return fetch('/api/Users/GetAllUserData', {
+		credentials: 'same-origin',
+		headers: {
+			Accept: 'application/json',
+			Authorization: `Token ${localStorage.getItem('token')}`
+		}
+	})
+	.then(checkStatus)
+	.then<IAllUserData[]>(parseJson);
 }
 
 export function getPeriodScores() {

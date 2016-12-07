@@ -130,10 +130,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\AllUserDataModel.cs" />
     <Compile Include="Models\GameModel.cs" />
     <Compile Include="Models\GamesModel.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\TokenModel.cs" />
+    <Compile Include="Models\UpdateUserModel.cs" />
     <Compile Include="Models\UserInfoModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,9 +143,12 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Sql\0_Database.sql" />
-    <Content Include="Sql\1_Schema.sql" />
-    <Content Include="Sql\2_Data.sql" />
-    <Content Include="Sql\usp_User_I.sql" />
+    <Content Include="Sql\2_Schema.sql" />
+    <Content Include="Sql\1_Data.sql" />
+    <Content Include="Sql\usp_RenameUser_U.sql" />
+    <Content Include="Sql\usp_AllUserData_S.sql" />
+    <Content Include="Sql\usp_User_D.sql" />
+    <Content Include="Sql\usp_User_M.sql" />
     <Content Include="Sql\usp_Users_S.sql" />
     <Content Include="Sql\usp_IsValidUser_S.sql" />
     <Content Include="Sql\usp_PeriodScores_S.sql" />

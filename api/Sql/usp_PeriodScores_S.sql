@@ -5,7 +5,7 @@ if (object_id('Scores.usp_PeriodScores_S') is not null)
 go
 create procedure Scores.usp_PeriodScores_S
 (
-	@account varchar(30),
+	@account varchar(100),
 	@month varchar(10),
 	@year int
 )
@@ -24,7 +24,9 @@ select	Users.Name,
 	MonthRank = convert(int, isnull(MonthScores.[Rank], 0)),
 	YearScore = isnull(YearScores.Score, 0),
 	YearRank = convert(int, isnull(YearScores.[Rank], 0))
-from	Sheepshead.Scores.Users as Users
+from	Sheepshead.Scores.Accounts as Accounts
+	inner join Sheepshead.Scores.Users as Users
+	on	Users.Id = Accounts.UserId
 	left outer join (
 		select	RankedScores.UserId,
 			RankedScores.Score,
@@ -55,5 +57,5 @@ from	Sheepshead.Scores.Users as Users
 			) as RankedScores
 	) as YearScores
 	on	YearScores.UserId = Users.Id
-where	Users.Account = @account;
+where	Accounts.Account = @account;
 go

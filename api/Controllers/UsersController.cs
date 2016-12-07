@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using SheepsheadApi.Models;
 
 namespace SheepsheadApi.Controllers
@@ -8,15 +11,39 @@ namespace SheepsheadApi.Controllers
 	public class UsersController : AuthorizedController
 	{
 		[HttpPost]
-		public virtual void CreateUser(string name, string account)
+		[ResponseType(typeof(void))]
+		public virtual HttpResponseMessage UpdateUser([FromBody]UpdateUserModel user)
 		{
-			DataBridge.CreateUser(name, account);
+			if (user == null)
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "User was null.");
+			if (user.Accounts == null)
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Accounts was null.");
+			DataBridge.UpdateUser(user.Name, user.RoleId, user.Accounts);
+			return Request.CreateResponse(HttpStatusCode.OK);
+		}
+
+		[HttpDelete]
+		public virtual void DeleteUser(string name)
+		{
+			DataBridge.DeleteUser(name);
+		}
+
+		[HttpPost]
+		public virtual void RenameUser(string oldName, string newName)
+		{
+			DataBridge.RenameUser(oldName, newName);
 		}
 
 		[HttpGet]
 		public virtual IEnumerable<UserModel> GetUsers()
 		{
 			return DataBridge.GetUsers().ToList();
+		}
+
+		[HttpGet]
+		public virtual IEnumerable<AllUserDataModel> GetAllUserData()
+		{
+			return DataBridge.GetAllUserdata();
 		}
 
 		[HttpGet]

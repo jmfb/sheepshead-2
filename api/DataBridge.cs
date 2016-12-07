@@ -25,13 +25,43 @@ namespace SheepsheadApi
 				CommandType = CommandType.StoredProcedure
 			};
 
-		public static void CreateUser(string name, string account)
+		public static void UpdateUser(string name, int roleId, IEnumerable<string> accounts)
 		{
 			using (var connection = CreateConnection())
-			using (var command = connection.CreateCommand("usp_User_I"))
+			using (var command = connection.CreateCommand("usp_User_M"))
+			using (var accountTable = new DataTable())
+			{
+				accountTable.Columns.Add("Account", typeof(string));
+				foreach (var account in accounts)
+					accountTable.Rows.Add(account);
+				command.Parameters.AddWithValue("@name", name);
+				command.Parameters.AddWithValue("@roleId", roleId);
+				command.Parameters.Add(new SqlParameter("@accounts", SqlDbType.Structured)
+				{
+					TypeName = "Scores.udt_Accounts",
+					Value = accountTable
+				});
+				command.ExecuteNonQuery();
+			}
+		}
+
+		public static void RenameUser(string oldName, string newName)
+		{
+			using (var connection = CreateConnection())
+			using (var command = connection.CreateCommand("usp_RenameUser_U"))
+			{
+				command.Parameters.AddWithValue("@oldName", oldName);
+				command.Parameters.AddWithValue("@newName", newName);
+				command.ExecuteNonQuery();
+			}
+		}
+
+		public static void DeleteUser(string name)
+		{
+			using (var connection = CreateConnection())
+			using (var command = connection.CreateCommand("usp_User_D"))
 			{
 				command.Parameters.AddWithValue("@name", name);
-				command.Parameters.AddWithValue("@account", account);
 				command.ExecuteNonQuery();
 			}
 		}
@@ -43,8 +73,55 @@ namespace SheepsheadApi
 			using (var reader = command.ExecuteReader())
 			{
 				var nameOrdinal = reader.GetOrdinal("Name");
+				var roleIdOrdinal = reader.GetOrdinal("RoleId");
 				while (reader.Read())
-					yield return new UserModel { Name = (string)reader[nameOrdinal] };
+					yield return new UserModel
+					{
+						Name = (string)reader[nameOrdinal],
+						RoleId = (int)reader[roleIdOrdinal]
+					};
+			}
+		}
+
+		public static IEnumerable<AllUserDataModel> GetAllUserdata()
+		{
+			using (var connection = CreateConnection())
+			using (var command = connection.CreateCommand("usp_AllUserData_S"))
+			using (var reader = command.ExecuteReader())
+			{
+				var idOrdinal = reader.GetOrdinal("Id");
+				var nameOrdinal = reader.GetOrdinal("Name");
+				var roleIdOrdinal = reader.GetOrdinal("RoleId");
+				var totalGameCountOrdinal = reader.GetOrdinal("TotalGameCount");
+				var lifetimeScoreOrdinal = reader.GetOrdinal("LifetimeScore");
+				var lastGameWhenOrdinal = reader.GetOrdinal("LastGameWhen");
+
+				var users = new List<AllUserDataModel>();
+				var accountsById = new Dictionary<int, List<string>>();
+				while (reader.Read())
+				{
+					var accounts = new List<string>();
+					accountsById[(int)reader[idOrdinal]] = accounts;
+					users.Add(new AllUserDataModel
+					{
+						Name = (string)reader[nameOrdinal],
+						RoleId = (int)reader[roleIdOrdinal],
+						TotalGameCount = (int)reader[totalGameCountOrdinal],
+						LifetimeScore = (int)reader[lifetimeScoreOrdinal],
+						LastGameWhen = $"{(DateTime)reader[lastGameWhenOrdinal]:yyyy-MM-dd}",
+						Accounts = accounts
+					});
+				}
+
+				if (!reader.NextResult())
+					throw new InvalidOperationException("Missing result.");
+
+				var userIdOrdinal = reader.GetOrdinal("UserId");
+				var accountOrdinal = reader.GetOrdinal("Account");
+				while (reader.Read())
+					accountsById[(int)reader[userIdOrdinal]].Add((string)reader[accountOrdinal]);
+
+				return users;
 			}
 		}
 
@@ -255,7 +332,6 @@ namespace SheepsheadApi
 					return games;
 				}
 			}
-
 		}
 	}
 }

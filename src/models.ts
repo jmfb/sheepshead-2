@@ -16,6 +16,16 @@ export interface IGames {
 
 export interface IUser {
 	name: string;
+	roleId: number;
+}
+
+export interface IAllUserData {
+	name: string;
+	roleId: number;
+	totalGameCount: number;
+	lifetimeScore: number;
+	lastGameWhen: string | null;
+	accounts: string[];
 }
 
 export interface IPlayer {

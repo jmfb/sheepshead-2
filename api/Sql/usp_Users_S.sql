@@ -11,7 +11,8 @@ set nocount on;
 exec Sheepshead.Scores.usp_Users_S;
 */
 
-select	Name
+select	Name,
+	RoleId
 from	Sheepshead.Scores.Users
 order by Name;
 go

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CreateUser from './pages/CreateUser';
-import { createUser } from './api/users';
+import { updateUser } from './api/users';
 
 interface ICreateUserContainerState {
 	user: string;
@@ -42,7 +42,7 @@ export default class CreateUserContainer extends React.PureComponent<void, ICrea
 			submitting: true,
 			created: user
 		} as ICreateUserContainerState);
-		createUser(user, account).then(() => {
+		updateUser(user, 1, [account]).then(() => {
 			this.setState({
 				submitting: false
 			} as ICreateUserContainerState);

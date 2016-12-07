@@ -11,11 +11,7 @@ export function updateGame(id: number, when: string, scores: IScore[]) {
 			Authorization: `Token ${localStorage.getItem('token')}`,
 			['Content-Type']: 'application/json'
 		},
-		body: JSON.stringify({
-			id,
-			when,
-			scores
-		})
+		body: JSON.stringify({ id, when, scores })
 	})
 	.then(checkStatus)
 	.then<number>(parseJson);
