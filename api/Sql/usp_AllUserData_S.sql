@@ -20,7 +20,7 @@ select	Users.Id,
 from	Sheepshead.Scores.Users as Users
 	cross apply (
 		select	TotalGameCount = count(*),
-			LifetimeScore = sum(Players.Score),
+			LifetimeScore = isnull(sum(Players.Score), 0),
 			LastGameWhen = max(Games.[When])
 		from	Sheepshead.Scores.Players as Players
 			inner join Sheepshead.Scores.Games as Games

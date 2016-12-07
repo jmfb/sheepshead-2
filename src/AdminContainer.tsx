@@ -3,8 +3,8 @@ import { browserHistory } from 'react-router';
 import Administration from './pages/Administration';
 
 export default class AdminContainer extends React.PureComponent<void, void> {
-	handleClickAddUser = () => {
-		browserHistory.push('/admin/user/create');
+	handleClickManageUsers = () => {
+		browserHistory.push('/admin/users');
 	}
 
 	handleClickUploadGames = () => {
@@ -19,7 +19,7 @@ export default class AdminContainer extends React.PureComponent<void, void> {
 	render() {
 		return(
 			<Administration
-				onClickAddUser={this.handleClickAddUser}
+				onClickManageUsers={this.handleClickManageUsers}
 				onClickUploadGames={this.handleClickUploadGames}
 				onClickLogout={this.handleClickLogout} />
 		);

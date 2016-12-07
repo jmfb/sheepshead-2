@@ -102,13 +102,14 @@ namespace SheepsheadApi
 				{
 					var accounts = new List<string>();
 					accountsById[(int)reader[idOrdinal]] = accounts;
+					var lastGameWhen = reader[lastGameWhenOrdinal];
 					users.Add(new AllUserDataModel
 					{
 						Name = (string)reader[nameOrdinal],
 						RoleId = (int)reader[roleIdOrdinal],
 						TotalGameCount = (int)reader[totalGameCountOrdinal],
 						LifetimeScore = (int)reader[lifetimeScoreOrdinal],
-						LastGameWhen = $"{(DateTime)reader[lastGameWhenOrdinal]:yyyy-MM-dd}",
+						LastGameWhen = lastGameWhen is DBNull ? null : $"{(DateTime)lastGameWhen:yyyy-MM-dd}",
 						Accounts = accounts
 					});
 				}

@@ -14,14 +14,17 @@ export interface IGames {
 	moreGames: boolean;
 }
 
+export const roleNames = ['Observer', 'Player', 'Admin'];
+export type IRole = 0 | 1 | 2;
+
 export interface IUser {
 	name: string;
-	roleId: number;
+	roleId: IRole;
 }
 
 export interface IAllUserData {
 	name: string;
-	roleId: number;
+	roleId: IRole;
 	totalGameCount: number;
 	lifetimeScore: number;
 	lastGameWhen: string | null;

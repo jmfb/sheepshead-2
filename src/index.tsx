@@ -22,6 +22,8 @@ import UploadGamesContainer from './UploadGamesContainer';
 import AuthenticateContainer from './AuthenticateContainer';
 import LoginContainer from './LoginContainer';
 import ErrorContainer from './ErrorContainer';
+import ManageUsersContainer from './ManageUsersContainer';
+import EditUserContainer from './EditUserContainer';
 import './index.scss';
 
 function authenticate(nextState: RouterState, redirect: RedirectFunction) {
@@ -47,7 +49,9 @@ ReactDOM.render(
 			</Route>
 			<Route path='admin'>
 				<IndexRoute component={AdminContainer} />
+				<Route path='users' component={ManageUsersContainer} />
 				<Route path='user/create' component={CreateUserContainer} />
+				<Route path='user/edit' component={EditUserContainer} />
 				<Route path='upload' component={UploadGamesContainer} />
 			</Route>
 			<Route path='game/:gameId' component={GameContainer} />

@@ -1,0 +1,48 @@
+@import "../variables";
+
+.root {
+	display: table-row;
+	div {
+		display: table-cell;
+		padding: 3px 5px;
+
+		&.accounts, &.when {
+			@media (max-width: $breakpoint-m - 1) {
+				display: none;
+			}
+		}
+	}
+
+	&:hover {
+		background-color: white;
+		cursor: pointer;
+		border-radius: 4px;
+		box-shadow: $box-shadow;
+	}
+}
+
+.name {
+	&.admin {
+		color: blue;
+		font-weight: bold;
+	}
+
+	&.player {
+	}
+
+	&.observer {
+		color: #999;
+	}
+}
+
+.games {
+	text-align: right;
+}
+
+.score {
+	text-align: right;
+	color: green;
+	&.negative {
+		color: maroon;
+	}
+}
