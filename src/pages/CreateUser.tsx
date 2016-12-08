@@ -29,27 +29,37 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, vo
 	render() {
 		const { user, account, submitting, created, onClickCreate } = this.props;
 		return(
-			<div className={styles.root}>
-				<h1 className={styles.title}>Create User</h1>
-				<div className={styles.label}>Name:</div>
-				<input
-					className={styles.input}
-					type='text'
-					value={user}
-					autoFocus
-					placeholder='e.g. John Doe'
-					onChange={this.handleUpdateUser} />
-				<div className={styles.label}>Account:</div>
-				<input
-					className={styles.input}
-					type='text'
-					value={account}
-					placeholder='e.g. jdoe'
-					onChange={this.handleUpdateAccount} />
-				<div className={styles.bottom}>
-					{!submitting &&
-						<Button type='primary' display='Submit' onClick={onClickCreate} />
-					}
+			<div>
+				<div className={styles.card}>
+					<h1 className={styles.title}>Create User</h1>
+					<div className={styles.form}>
+						<div className={styles.row}>
+							<div className={styles.label}>Name:</div>
+							<input
+								className={styles.input}
+								type='text'
+								value={user}
+								autoFocus
+								placeholder='e.g. John Doe'
+								onChange={this.handleUpdateUser} />
+						</div>
+						<div className={styles.row}>
+							<div className={styles.label}>Account:</div>
+							<input
+								className={styles.input}
+								type='text'
+								value={account}
+								placeholder='e.g. jdoe'
+								onChange={this.handleUpdateAccount} />
+						</div>
+					</div>
+					{!submitting && (
+						<div className={styles.spacer}>
+							<Button type='primary' display='Submit' onClick={onClickCreate} />
+						</div>
+					)}
+				</div>
+				<div className={styles.spacer}>
 					{submitting &&
 						<Banner type='message' display={`Creating ${created}...`} />
 					}

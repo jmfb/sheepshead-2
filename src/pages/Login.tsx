@@ -14,13 +14,16 @@ export default class Login extends React.PureComponent<ILoginProps, void> {
 		return (
 			<div>
 				<main>
-					<h1>Sheepshead Login</h1>
-					<p>Please sign in with your directs.com Google account.</p>
-					<SignInButton style='dark' disabled={signingIn} onClick={onClickSignIn} />
-					<div className={styles.banners}>
-						{signingIn &&
-							<Banner type='message' display='Redirecting to sign in page...' />
-						}
+					<div>
+						<h1>Sheepshead Login</h1>
+						<p>Please sign in with any of your Google accounts.</p>
+						<p>Contact a site administrator to add your account.</p>
+						<SignInButton style='dark' disabled={signingIn} onClick={onClickSignIn} />
+						<div className={styles.banners}>
+							{signingIn &&
+								<Banner type='message' display='Redirecting to sign in page...' />
+							}
+						</div>
 					</div>
 				</main>
 			</div>

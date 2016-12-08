@@ -18,7 +18,9 @@ export default class AuthenticateContainer extends React.PureComponent<void, voi
 		return (
 			<div>
 				<main>
-					<Banner type='message' display='Authenticating...' />
+					<div>
+						<Banner type='message' display='Authenticating...' />
+					</div>
 				</main>
 			</div>
 		);
