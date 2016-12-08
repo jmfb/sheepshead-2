@@ -1,7 +1,23 @@
 @import '../variables';
 
 .root {
+}
+
+.table {
 	display: table;
+}
+
+.filters {
+	display: flex;
+	flex-direction: row;
+}
+
+.roleFilter {
+	margin-top: auto;
+}
+
+.create {
+	margin-left: auto;
 }
 
 .header {

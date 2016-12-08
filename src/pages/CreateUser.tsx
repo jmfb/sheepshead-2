@@ -26,11 +26,13 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, vo
 							value={user}
 							placeholder='e.g. John Doe'
 							autoFocus
+							maxLength={30}
 							onChange={onUpdateUser} />
 						<TextInput
 							label='Account'
 							value={account}
 							placeholder='e.g. jdoe@example.com'
+							maxLength={100}
 							onChange={onUpdateAccount} />
 					</div>
 					{!submitting && (

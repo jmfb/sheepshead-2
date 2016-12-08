@@ -61,6 +61,7 @@ export default class EditUser extends React.PureComponent<IEditUserProps, void> 
 								value={name}
 								placeholder='e.g. John Doe'
 								autoFocus
+								maxLength={30}
 								onChange={onUpdateName} />
 							<div className={styles.row}>
 								<div className={styles.label}>Role:</div>
@@ -76,6 +77,7 @@ export default class EditUser extends React.PureComponent<IEditUserProps, void> 
 									label={`Account ${i + 1}`}
 									value={account}
 									placeholder='e.g. jdoe@example.com'
+									maxLength={100}
 									onChange={this.handleUpdateAccount(i)} />
 							))}
 							<div className={styles.buttons}>

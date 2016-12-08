@@ -5,6 +5,7 @@ interface ITextInputProps {
 	label: string;
 	value: string;
 	placeholder: string;
+	maxLength: number;
 	autoFocus?: boolean;
 	onChange: (value: string) => void;
 }
@@ -16,7 +17,7 @@ export default class TextInput extends React.PureComponent<ITextInputProps, void
 	}
 
 	render() {
-		const { label, value, placeholder, autoFocus } = this.props;
+		const { label, value, placeholder, maxLength, autoFocus } = this.props;
 		return (
 			<div className={styles.root}>
 				<div className={styles.label}>{label}:</div>
@@ -26,6 +27,7 @@ export default class TextInput extends React.PureComponent<ITextInputProps, void
 					value={value}
 					autoFocus={autoFocus}
 					placeholder={placeholder}
+					maxLength={maxLength}
 					onChange={this.handleChange} />
 			</div>
 		);
