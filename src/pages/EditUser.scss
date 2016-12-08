@@ -1,0 +1,66 @@
+@import '../variables';
+
+.root {
+}
+
+.card {
+	background-color: white;
+	border-radius: 1em;
+	box-shadow: $box-shadow;
+	padding: 0.5em;
+	margin-top: 1em;
+}
+
+.title {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 1em;
+}
+
+.form {
+	display: table;
+}
+
+.row {
+	display: table-row;
+	margin-bottom: 0.5em;
+}
+
+.label {
+	display: table-cell;
+}
+
+.dropdown {
+	display: table-cell;
+	border: 0;
+	border-bottom: 1px solid black;
+	margin-left: 0.5em;
+	&:focus {
+		outline: none;
+		border-bottom: 1px solid blue;
+	}
+}
+
+.count {
+	display: table-cell;
+	text-align: right;
+}
+
+.score {
+	display: table-cell;
+	color: green;
+	text-align: right;
+	&.negative {
+		color: maroon;
+	}
+}
+
+.buttons {
+	display: table-row;
+	* {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	* + * {
+		margin-left: 1em;
+	}
+}

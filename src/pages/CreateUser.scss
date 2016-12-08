@@ -17,26 +17,6 @@
 	display: table;
 }
 
-.row {
-	display: table-row;
-	margin-bottom: 0.5em;
-}
-
-.label {
-	display: table-cell;
-}
-
-.input {
-	display: table-cell;
-	border: 0;
-	border-bottom: 1px solid black;
-	margin-left: 0.5em;
-	&:focus {
-		outline: none;
-		border-bottom: 1px solid blue;
-	}
-}
-
 .spacer {
 	margin-top: 1em;
 }

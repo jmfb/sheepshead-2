@@ -7,6 +7,7 @@
 		padding: 3px 5px;
 
 		&.accounts, &.when {
+			white-space: pre-line;
 			@media (max-width: $breakpoint-m - 1) {
 				display: none;
 			}

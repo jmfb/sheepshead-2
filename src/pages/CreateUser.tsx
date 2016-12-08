@@ -1,57 +1,37 @@
 import * as React from 'react';
 import Button from '../components/Button';
 import Banner from '../components/Banner';
+import TextInput from '../components/TextInput';
 import * as styles from './CreateUser.scss';
 
 interface ICreateUserProps {
 	user: string;
 	account: string;
 	submitting: boolean;
-	created: string | null;
 	onUpdateUser: (value: string) => void;
 	onUpdateAccount: (value: string) => void;
 	onClickCreate: () => void;
 }
 
 export default class CreateUser extends React.PureComponent<ICreateUserProps, void> {
-	handleUpdateUser = (e: React.FormEvent<HTMLInputElement>) => {
-		const { onUpdateUser } = this.props;
-		const { value } = e.currentTarget;
-		onUpdateUser(value);
-	}
-
-	handleUpdateAccount = (e: React.FormEvent<HTMLInputElement>) => {
-		const { onUpdateAccount } = this.props;
-		const { value } = e.currentTarget;
-		onUpdateAccount(value);
-	}
-
 	render() {
-		const { user, account, submitting, created, onClickCreate } = this.props;
+		const { user, account, submitting, onUpdateUser, onUpdateAccount, onClickCreate } = this.props;
 		return(
 			<div>
 				<div className={styles.card}>
 					<h1 className={styles.title}>Create User</h1>
 					<div className={styles.form}>
-						<div className={styles.row}>
-							<div className={styles.label}>Name:</div>
-							<input
-								className={styles.input}
-								type='text'
-								value={user}
-								autoFocus
-								placeholder='e.g. John Doe'
-								onChange={this.handleUpdateUser} />
-						</div>
-						<div className={styles.row}>
-							<div className={styles.label}>Account:</div>
-							<input
-								className={styles.input}
-								type='text'
-								value={account}
-								placeholder='e.g. jdoe'
-								onChange={this.handleUpdateAccount} />
-						</div>
+						<TextInput
+							label='Name'
+							value={user}
+							placeholder='e.g. John Doe'
+							autoFocus
+							onChange={onUpdateUser} />
+						<TextInput
+							label='Account'
+							value={account}
+							placeholder='e.g. jdoe@example.com'
+							onChange={onUpdateAccount} />
 					</div>
 					{!submitting && (
 						<div className={styles.spacer}>
@@ -61,10 +41,7 @@ export default class CreateUser extends React.PureComponent<ICreateUserProps, vo
 				</div>
 				<div className={styles.spacer}>
 					{submitting &&
-						<Banner type='message' display={`Creating ${created}...`} />
-					}
-					{!submitting && created !== null &&
-						<Banner type='message' display={`Created ${created}.`} />
+						<Banner type='message' display='Submitting user...' />
 					}
 				</div>
 			</div>

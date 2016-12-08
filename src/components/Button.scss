@@ -40,6 +40,10 @@
 	@include button($color-primary);
 }
 
+.secondary {
+	@include button($color-secondary);
+}
+
 .danger {
 	@include button($color-danger);
 }

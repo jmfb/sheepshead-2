@@ -24,7 +24,7 @@ export default class AllUserData extends React.PureComponent<IAllUserDataProps, 
 				<div className={styles.games}>{totalGameCount}</div>
 				<div className={cx(styles.score, { [styles.negative]: lifetimeScore < 0 })}>{lifetimeScore}</div>
 				<div className={styles.when}>{lastGameWhen || 'Never'}</div>
-				<div className={styles.accounts}>{accounts.join(', ')}</div>
+				<div className={styles.accounts}>{accounts.join('\n')}</div>
 			</div>
 		);
 	}

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as styles from './Button.scss';
 import * as cx from 'classnames';
 
-type ButtonType = 'primary' | 'danger';
+type ButtonType = 'primary' | 'secondary' | 'danger';
 
 interface IButtonProps {
 	className?: string;
