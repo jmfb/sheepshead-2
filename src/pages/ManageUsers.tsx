@@ -18,8 +18,8 @@ export default class ManageUsers extends React.PureComponent<IManageUsersProps, 
 				<Button type='primary' display='Create User' onClick={onClickCreateUser} />
 				<div className={styles.header}>
 					<div>Name</div>
-					<div>Games Played</div>
-					<div>Lifetime Score</div>
+					<div className={styles.count}>Games Played</div>
+					<div className={styles.score}>Lifetime Score</div>
 					<div className={styles.when}>Last Game</div>
 					<div className={styles.accounts}>Accounts</div>
 				</div>

@@ -8,11 +8,23 @@
 	display: table-row;
 	font-weight: 600;
 	div {
+		vertical-align: bottom;
 		display: table-cell;
 		padding: 3px 5px;
 		border-bottom: 1px solid #ccc;
 
-		&.accounts, &.when {
+		&.count, &.score {
+			width: 64px;
+		}
+
+		&.when {
+			min-width: 85px;
+			@media (max-width: $breakpoint-m - 1) {
+				display: none;
+			}
+		}
+
+		&.accounts {
 			@media (max-width: $breakpoint-m - 1) {
 				display: none;
 			}
