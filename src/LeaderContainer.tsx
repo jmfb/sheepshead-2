@@ -2,11 +2,11 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import ScoreView from './pages/ScoreView';
 import Banner from './components/Banner';
-import { ICurrentPeriodScores, IMonth } from './models';
+import { IPeriodScores, IMonth } from './models';
 import { getPeriodScores } from './api/users';
 
 interface ILeaderContainerState {
-	currentScores: ICurrentPeriodScores | null;
+	currentScores: IPeriodScores | null;
 }
 
 export default class LeaderContainer extends React.PureComponent<void, ILeaderContainerState> {

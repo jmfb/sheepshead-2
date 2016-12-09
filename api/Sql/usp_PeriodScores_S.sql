@@ -21,18 +21,25 @@ declare @boy date = dateadd(year, datediff(year, 0, @bom), 0);
 
 select	Users.Name,
 	MonthScore = isnull(MonthScores.Score, 0),
+	MonthGameCount = isnull(MonthScores.GameCount, 0),
 	MonthRank = convert(int, isnull(MonthScores.[Rank], 0)),
 	YearScore = isnull(YearScores.Score, 0),
-	YearRank = convert(int, isnull(YearScores.[Rank], 0))
+	YearGameCount = isnull(YearScores.GameCount, 0),
+	YearRank = convert(int, isnull(YearScores.[Rank], 0)),
+	LifetimeScore = isnull(LifetimeScores.Score, 0),
+	LifetimeGameCount = isnull(LifetimeScores.GameCount, 0),
+	LifetimeRank = convert(int, isnull(LifetimeScores.[Rank], 0))
 from	Sheepshead.Scores.Accounts as Accounts
 	inner join Sheepshead.Scores.Users as Users
 	on	Users.Id = Accounts.UserId
 	left outer join (
 		select	RankedScores.UserId,
 			RankedScores.Score,
+			RankedScores.GameCount,
 			[Rank] = rank() over (order by RankedScores.Score desc)
 		from	(	select	Players.UserId,
-					Score = sum(Players.Score)
+					Score = sum(Players.Score),
+					GameCount = count(*)
 				from	Sheepshead.Scores.Games as Games
 					inner join Sheepshead.Scores.Players as Players
 					on	Players.GameId = Games.Id
@@ -45,9 +52,11 @@ from	Sheepshead.Scores.Accounts as Accounts
 	left outer join (
 		select	RankedScores.UserId,
 			RankedScores.Score,
+			RankedScores.GameCount,
 			[Rank] = rank() over (order by RankedScores.Score desc)
 		from	(	select	Players.UserId,
-					Score = sum(Players.Score)
+					Score = sum(Players.Score),
+					GameCount = count(*)
 				from	Sheepshead.Scores.Games as Games
 					inner join Sheepshead.Scores.Players as Players
 					on	Players.GameId = Games.Id
@@ -57,5 +66,20 @@ from	Sheepshead.Scores.Accounts as Accounts
 			) as RankedScores
 	) as YearScores
 	on	YearScores.UserId = Users.Id
+	left outer join (
+		select	RankedScores.UserId,
+			RankedScores.Score,
+			RankedScores.GameCount,
+			[Rank] = rank() over (order by RankedScores.Score desc)
+		from	(	select	Players.UserId,
+					Score = sum(Players.Score),
+					GameCount = count(*)
+				from	Sheepshead.Scores.Games as Games
+					inner join Sheepshead.Scores.Players as Players
+					on	Players.GameId = Games.Id
+				group by Players.UserId
+			) as RankedScores
+	) as LifetimeScores
+	on	LifetimeScores.UserId = Users.Id
 where	Accounts.Account = @account;
 go

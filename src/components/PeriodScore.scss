@@ -1,0 +1,45 @@
+.root {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.period {
+	font-size: 1.5em;
+}
+
+.count {
+	margin-left: 1em;
+	margin-top: auto;
+	padding-bottom: 4px;
+}
+
+.none {
+	font-style: italic;
+	color: #999;
+}
+
+.scoreAndRank {
+	display: flex;
+	flex-direction: row;
+}
+
+.score {
+	font-size: 3em;
+	margin-left: auto;
+	margin-right: auto;
+	color: green;
+	&.negative {
+		color: maroon;
+	}
+}
+
+.rank {
+	font-size: 3em;
+	margin-left: auto;
+	margin-right: auto;
+}

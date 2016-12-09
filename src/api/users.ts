@@ -1,4 +1,4 @@
-import { IUser, IAllUserData, IMonth, IScore, ICurrentPeriodScores } from '../models';
+import { IUser, IAllUserData, IMonth, IScore, IPeriodScores } from '../models';
 import { checkStatus, parseJson } from './helpers';
 import * as queryString from 'query-string';
 import * as moment from 'moment';
@@ -81,7 +81,7 @@ export function getPeriodScores() {
 		}
 	})
 	.then(checkStatus)
-	.then<ICurrentPeriodScores>(parseJson);
+	.then<IPeriodScores>(parseJson);
 }
 
 export function getMonthScores(month: IMonth) {

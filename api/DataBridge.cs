@@ -155,9 +155,14 @@ namespace SheepsheadApi
 						throw new InvalidOperationException("Missing result.");
 					var name = (string)reader["Name"];
 					var monthScore = (int)reader["MonthScore"];
+					var monthGameCount = (int)reader["MonthGameCount"];
 					var monthRank = (int)reader["MonthRank"];
 					var yearScore = (int)reader["YearScore"];
+					var yearGameCount = (int)reader["YearGameCount"];
 					var yearRank = (int)reader["YearRank"];
+					var lifetimeScore = (int)reader["LifetimeScore"];
+					var lifetimeGameCount = (int)reader["LifetimeGameCount"];
+					var lifetimeRank = (int)reader["LifetimeRank"];
 					return new
 					{
 						User = name,
@@ -165,13 +170,21 @@ namespace SheepsheadApi
 						{
 							Period = new { Month = month, Year = year },
 							Score = monthScore,
+							GameCount = monthGameCount,
 							Rank = monthRank
 						},
 						YearScore = new
 						{
 							Period = year,
 							Score = yearScore,
+							GameCount = yearGameCount,
 							Rank = yearRank
+						},
+						LifetimeScore = new
+						{
+							Score = lifetimeScore,
+							GameCount = lifetimeGameCount,
+							Rank = lifetimeRank
 						}
 					};
 				}

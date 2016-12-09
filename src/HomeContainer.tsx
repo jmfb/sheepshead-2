@@ -1,18 +1,27 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import Home from './pages/Home';
-import { IRole } from './models';
+import { IRole, IPeriodScores } from './models';
+import { getPeriodScores } from './api/users';
 
 interface IHomeContainerState {
 	roleId: IRole;
+	periodScores: IPeriodScores | null;
 }
 
 export default class HomeContainer extends React.PureComponent<void, IHomeContainerState> {
 	constructor(props: void) {
 		super(props);
 		this.state = {
-			roleId: +localStorage.getItem('roleId') as IRole
+			roleId: +localStorage.getItem('roleId') as IRole,
+			periodScores: null
 		};
+	}
+
+	componentDidMount() {
+		getPeriodScores().then(periodScores => {
+			this.setState({ periodScores } as IHomeContainerState);
+		});
 	}
 
 	handleClickCreateGame = () => {
@@ -26,10 +35,10 @@ export default class HomeContainer extends React.PureComponent<void, IHomeContai
 	}
 
 	render() {
-		const { roleId } = this.state;
+		const { roleId, periodScores } = this.state;
 		return(
 			<Home
-				{...{roleId}}
+				{...{roleId, periodScores}}
 				onClickCreateGame={this.handleClickCreateGame}
 				onClickLogout={this.handleClickLogout} />
 		);

@@ -53,15 +53,17 @@ export interface IMonth {
 export type IPeriod = IMonth | number;
 
 export interface IPeriodScore {
-	period: IPeriod;
+	period?: IPeriod;
 	score: number;
+	gameCount: number;
 	rank: number;
 }
 
-export interface ICurrentPeriodScores {
+export interface IPeriodScores {
 	user: string;
 	monthScore: IPeriodScore;
 	yearScore: IPeriodScore;
+	lifetimeScore: IPeriodScore;
 }
 
 export interface IGameReport {
