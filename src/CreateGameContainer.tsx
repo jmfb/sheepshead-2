@@ -1,54 +1,35 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import EditGame from './pages/EditGame';
+import SubmitGame from './pages/SubmitGame';
 import { IUser, IPlayer } from './models';
 import { getUsers } from './api/users';
-import { getGame, updateGame } from './api/games';
+import { updateGame } from './api/games';
+import * as moment from 'moment';
 
-interface IEditGameContainerProps {
-	params: { gameId: string };
-}
-
-interface IEditGameContainerState {
-	gameId: number;
+interface ICreateGameContainerState {
 	users: IUser[] | null;
-	when: string | null;
-	players: IPlayer[] | null;
+	players: IPlayer[];
 	submitting: boolean;
 }
 
-export default class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEditGameContainerState> {
-	constructor(props: IEditGameContainerProps) {
+export default class CreateGameContainer extends React.PureComponent<void, ICreateGameContainerState> {
+	constructor(props: void) {
 		super(props);
 		this.state = {
-			gameId: +props.params.gameId,
 			users: null,
-			when: null,
-			players: null,
+			players: [...new Array(6)].map((_, i) => ({
+				user: null,
+				score: 0,
+				playerNumber: i + 1
+			})),
 			submitting: false
 		};
 	}
 
 	componentDidMount() {
 		getUsers().then(users => {
-			const { gameId } = this.state;
-			getGame(gameId).then(game => {
-				const players = game.scores.map((score, i) => ({
-					user: users.splice(users.findIndex(user => user.name === score.user), 1)[0],
-					score: score.score,
-					playerNumber: i + 1
-				}));
-				this.setState({
-					users,
-					when: game.when,
-					players
-				} as IEditGameContainerState);
-			});
+			this.setState({ users } as ICreateGameContainerState);
 		});
-	}
-
-	handleEditWhen = (when: string) => {
-		this.setState({ when } as IEditGameContainerState);
 	}
 
 	handleSelectUser = (player: IPlayer, user: IUser) => {
@@ -71,7 +52,8 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 		this.setState({
 			users: newUsers,
 			players: newPlayers
-		} as IEditGameContainerState);
+		} as ICreateGameContainerState
+	);
 	}
 
 	handleChangeScore = (player: IPlayer, value: number) => {
@@ -83,25 +65,26 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 			score: player.score + value,
 			playerNumber: player.playerNumber
 		};
-		this.setState({ players: newPlayers } as IEditGameContainerState);
+		this.setState({ players: newPlayers } as ICreateGameContainerState);
 	}
 
 	handleSubmit = () => {
-		const { gameId, when, players } = this.state;
+		const { players } = this.state;
 		const scores = players
+			.filter(player => player.user !== null)
 			.map(player => ({ user: player.user.name, score: player.score }));
-		this.setState({ submitting: true } as IEditGameContainerState);
-		updateGame(gameId, when, scores).then(() => {
+		const when = moment().format('YYYY-MM-DD');
+		this.setState({ submitting: true } as ICreateGameContainerState);
+		updateGame(0, when, scores).then(gameId => {
 			browserHistory.push(`/game/view/${gameId}`);
 		});
 	}
 
 	render() {
-		const { gameId, users, when, players, submitting } = this.state;
+		const { users, players, submitting } = this.state;
 		return(
-			<EditGame
-				{...{gameId, users, when, players, submitting}}
-				onEditWhen={this.handleEditWhen}
+			<SubmitGame
+				{...{users, players, submitting}}
 				onSelectUser={this.handleSelectUser}
 				onChangeScore={this.handleChangeScore}
 				onSubmit={this.handleSubmit} />

@@ -24,6 +24,7 @@ import LoginContainer from './LoginContainer';
 import ErrorContainer from './ErrorContainer';
 import ManageUsersContainer from './ManageUsersContainer';
 import EditUserContainer from './EditUserContainer';
+import CreateGameContainer from './CreateGameContainer';
 import { playerRoleId, adminRoleId } from './models';
 import './index.scss';
 
@@ -75,8 +76,11 @@ ReactDOM.render(
 				<Route path='user/edit' component={EditUserContainer} />
 				<Route path='upload' component={UploadGamesContainer} />
 			</Route>
-			<Route path='game/:gameId' component={GameContainer} />
-			<Route path='edit/:gameId' component={EditGameContainer} onEnter={onlyPlayers} />
+			<Route path='game'>
+				<Route path='create' component={CreateGameContainer} onEnter={onlyPlayers} />
+				<Route path='view/:gameId' component={GameContainer} />
+				<Route path='edit/:gameId' component={EditGameContainer} onEnter={onlyPlayers} />
+			</Route>
 		</Route>
 	</Router>,
 	document.getElementById('root')

@@ -6,7 +6,7 @@ param (
 
 Write-Host "Replacing cache busting version in index.html..."
 $contents = Get-Content .\deploy\wwwroot\index.html
-$newContents = $contents | ForEach-Object { $_ -replace '\?v=\d+', ('?v={0:yyyyMMdd}' -f (Get-Date)) }
+$newContents = $contents | ForEach-Object { $_ -replace '\?v=\d+', ('?v={0:yyyyMMddHHmmss}' -f (Get-Date)) }
 $newContents | Set-Content .\deploy\wwwroot\index.html
 
 Write-Host "Replacing connection string and jwt secret in Web.config..."

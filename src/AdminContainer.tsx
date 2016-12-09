@@ -11,17 +11,11 @@ export default class AdminContainer extends React.PureComponent<void, void> {
 		browserHistory.push('/admin/upload');
 	}
 
-	handleClickLogout = () => {
-		localStorage.removeItem('token');
-		browserHistory.push('/login');
-	}
-
 	render() {
 		return(
 			<Administration
 				onClickManageUsers={this.handleClickManageUsers}
-				onClickUploadGames={this.handleClickUploadGames}
-				onClickLogout={this.handleClickLogout} />
+				onClickUploadGames={this.handleClickUploadGames} />
 		);
 	}
 }

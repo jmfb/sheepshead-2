@@ -16,6 +16,7 @@ export default class ErrorContainer extends React.PureComponent<void, IErrorCont
 
 	handleClickLogout = () => {
 		localStorage.removeItem('token');
+		localStorage.removeItem('roleId');
 		browserHistory.push('/login');
 	}
 

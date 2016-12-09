@@ -5,17 +5,15 @@ import * as styles from './Administration.scss';
 interface IAdministrationProps {
 	onClickManageUsers: () => void;
 	onClickUploadGames: () => void;
-	onClickLogout: () => void;
 }
 
 export default class Administration extends React.PureComponent<IAdministrationProps, void> {
 	render() {
-		const { onClickManageUsers, onClickUploadGames, onClickLogout } = this.props;
+		const { onClickManageUsers, onClickUploadGames } = this.props;
 		return(
-			<div className={styles.root}>
+			<div>
 				<Button className={styles.option} type='primary' display='Manage Users' onClick={onClickManageUsers} />
 				<Button className={styles.option} type='primary' display='Upload Games' onClick={onClickUploadGames} />
-				<Button className={styles.option} type='primary' display='Logout' onClick={onClickLogout} />
 			</div>
 		);
 	}

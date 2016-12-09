@@ -53,7 +53,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 
 	handleEdit = () => {
 		const { gameId } = this.state;
-		browserHistory.push(`/edit/${gameId}`);
+		browserHistory.push(`/game/edit/${gameId}`);
 	}
 
 	handleDelete = () => {

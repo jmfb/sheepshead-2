@@ -44,7 +44,7 @@ export default class GamesContainer extends React.PureComponent<void, IGamesCont
 	}
 
 	handleClickGame = (id: number) => {
-		browserHistory.push(`/game/${id}`);
+		browserHistory.push(`/game/view/${id}`);
 	}
 
 	render() {
