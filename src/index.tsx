@@ -24,9 +24,13 @@ import LoginContainer from './LoginContainer';
 import ErrorContainer from './ErrorContainer';
 import ManageUsersContainer from './ManageUsersContainer';
 import EditUserContainer from './EditUserContainer';
+import { playerRoleId, adminRoleId } from './models';
 import './index.scss';
 
 function authenticate(nextState: RouterState, redirect: RedirectFunction) {
+	if (localStorage.getItem('roleId') == null) {
+		localStorage.removeItem('token');
+	}
 	if (localStorage.getItem('token') == null) {
 		redirect({
 			pathname: '/login',
@@ -34,6 +38,23 @@ function authenticate(nextState: RouterState, redirect: RedirectFunction) {
 		});
 	}
 };
+
+function authorizeRole(minRoleId: number, nextState: RouterState, redirect: RedirectFunction) {
+	if (+localStorage.getItem('roleId') < minRoleId) {
+		redirect({
+			pathname: '/login',
+			state: { returnTo: nextState.location.pathname }
+		});
+	}
+}
+
+function onlyPlayers(nextState: RouterState, redirect: RedirectFunction) {
+	return authorizeRole(playerRoleId, nextState, redirect);
+}
+
+function onlyAdmins(nextState: RouterState, redirect: RedirectFunction) {
+	return authorizeRole(adminRoleId, nextState, redirect);
+}
 
 ReactDOM.render(
 	<Router history={browserHistory}>
@@ -47,7 +68,7 @@ ReactDOM.render(
 				<Route path=':year' component={YearContainer} />
 				<Route path=':year/:month' component={MonthContainer} />
 			</Route>
-			<Route path='admin'>
+			<Route path='admin' onEnter={onlyAdmins}>
 				<IndexRoute component={AdminContainer} />
 				<Route path='users' component={ManageUsersContainer} />
 				<Route path='user/create' component={CreateUserContainer} />
@@ -55,7 +76,7 @@ ReactDOM.render(
 				<Route path='upload' component={UploadGamesContainer} />
 			</Route>
 			<Route path='game/:gameId' component={GameContainer} />
-			<Route path='edit/:gameId' component={EditGameContainer} />
+			<Route path='edit/:gameId' component={EditGameContainer} onEnter={onlyPlayers} />
 		</Route>
 	</Router>,
 	document.getElementById('root')

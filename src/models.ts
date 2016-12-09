@@ -1,3 +1,8 @@
+export interface ILoginModel {
+	token: string;
+	roleId: number;
+}
+
 export interface IScore {
 	user: string;
 	score: number;
@@ -15,6 +20,9 @@ export interface IGames {
 }
 
 export const roleNames = ['Observer', 'Player', 'Admin'];
+export const observerRoleId = 0;
+export const playerRoleId = 1;
+export const adminRoleId = 2;
 export type IRole = 0 | 1 | 2;
 
 export interface IUser {

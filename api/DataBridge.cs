@@ -126,17 +126,17 @@ namespace SheepsheadApi
 			}
 		}
 
-		public static bool IsValidUser(string account)
+		public static int? GetRoleIdByAccount(string account)
 		{
 			using (var connection = CreateConnection())
-			using (var command = connection.CreateCommand("usp_IsValidUser_S"))
+			using (var command = connection.CreateCommand("usp_RoleIdByAccount_S"))
 			{
 				command.Parameters.AddWithValue("@account", account);
 				using (var reader = command.ExecuteReader())
 				{
 					if (!reader.Read())
-						throw new InvalidOperationException("Missing result.");
-					return (bool)reader["IsValidUser"];
+						return null;
+					return (int)reader["RoleId"];
 				}
 			}
 		}

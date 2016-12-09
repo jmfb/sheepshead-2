@@ -11,6 +11,7 @@ namespace SheepsheadApi.Controllers
 	public class UsersController : AuthorizedController
 	{
 		[HttpPost]
+		[AuthorizeRole(Roles.Admin)]
 		[ResponseType(typeof(void))]
 		public virtual HttpResponseMessage UpdateUser([FromBody]UpdateUserModel user)
 		{
@@ -23,12 +24,14 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpDelete]
+		[AuthorizeRole(Roles.Admin)]
 		public virtual void DeleteUser(string name)
 		{
 			DataBridge.DeleteUser(name);
 		}
 
 		[HttpPost]
+		[AuthorizeRole(Roles.Admin)]
 		public virtual void RenameUser(string oldName, string newName)
 		{
 			DataBridge.RenameUser(oldName, newName);
@@ -41,6 +44,7 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpGet]
+		[AuthorizeRole(Roles.Admin)]
 		public virtual IEnumerable<AllUserDataModel> GetAllUserData()
 		{
 			return DataBridge.GetAllUserdata();

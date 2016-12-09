@@ -1,8 +1,8 @@
 ﻿namespace SheepsheadApi.Models
 {
-	public class AccountModel
+	public class LoginModel
 	{
-		public string Account { get; set; }
+		public string Token { get; set; }
 		public int RoleId { get; set; }
 	}
 }

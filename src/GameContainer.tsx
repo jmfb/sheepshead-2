@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import ViewGame from './pages/ViewGame';
-import { IGame } from './models';
+import { IGame, IRole } from './models';
 import { updateGame, getGame, deleteGame } from './api/games';
 
 interface IGameContainerProps {
@@ -9,6 +9,7 @@ interface IGameContainerProps {
 }
 
 interface IGameContainerState {
+	roleId: IRole;
 	gameId: number;
 	game: IGame | null;
 	deleted: boolean;
@@ -19,6 +20,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 	constructor(props: IGameContainerProps) {
 		super(props);
 		this.state = {
+			roleId: +localStorage.getItem('roleId') as IRole,
 			gameId: +props.params.gameId,
 			game: null,
 			deleted: false,
@@ -42,7 +44,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 				game: null,
 				deleted: false,
 				submitting: false
-			});
+			} as IGameContainerState);
 			getGame(nextGameId).then(game => {
 				this.setState({ game } as IGameContainerState);
 			});
@@ -78,10 +80,10 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 	}
 
 	render() {
-		const { game, deleted, submitting } = this.state;
+		const { roleId, game, deleted, submitting } = this.state;
 		return(
 			<ViewGame
-				{...{game, deleted, submitting}}
+				{...{roleId, game, deleted, submitting}}
 				onEdit={this.handleEdit}
 				onDelete={this.handleDelete}
 				onUndoDelete={this.handleUndoDelete} />

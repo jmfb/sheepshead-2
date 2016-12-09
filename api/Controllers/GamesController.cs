@@ -10,6 +10,7 @@ namespace SheepsheadApi.Controllers
 	public class GamesController : AuthorizedController
 	{
 		[HttpPost]
+		[AuthorizeRole(Roles.Player)]
 		[ResponseType(typeof(int))]
 		public virtual HttpResponseMessage UpdateGame([FromBody]GameModel game)
 		{
@@ -30,6 +31,7 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpDelete]
+		[AuthorizeRole(Roles.Player)]
 		public virtual void DeleteGame(int id)
 		{
 			DataBridge.DeleteGame(id);

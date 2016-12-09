@@ -13,7 +13,7 @@ export default class Administration extends React.PureComponent<IAdministrationP
 		const { onClickManageUsers, onClickUploadGames, onClickLogout } = this.props;
 		return(
 			<div className={styles.root}>
-				<Button className={styles.option} type='primary' display='Manags Users' onClick={onClickManageUsers} />
+				<Button className={styles.option} type='primary' display='Manage Users' onClick={onClickManageUsers} />
 				<Button className={styles.option} type='primary' display='Upload Games' onClick={onClickUploadGames} />
 				<Button className={styles.option} type='primary' display='Logout' onClick={onClickLogout} />
 			</div>

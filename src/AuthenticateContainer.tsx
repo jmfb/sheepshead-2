@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import Banner from './components/Banner';
-import { getToken } from './api/auth';
+import { login } from './api/auth';
 import * as queryString from 'query-string';
 
 export default class AuthenticateContainer extends React.PureComponent<void, void> {
 	componentDidMount() {
 		const { code } = queryString.parse(location.search);
 		browserHistory.replace('/authenticate');
-		getToken(code).then(token => {
-			localStorage.setItem('token', token);
+		login(code).then(loginModel => {
+			localStorage.setItem('token', loginModel.token);
+			localStorage.setItem('roleId', loginModel.roleId.toString());
 			browserHistory.push('/');
 		});
 	}

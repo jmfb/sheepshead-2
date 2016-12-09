@@ -121,6 +121,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="AuthorizeAccountAttribute.cs" />
+    <Compile Include="AuthorizeRoleAttribute.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AuthorizedController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
@@ -133,6 +134,8 @@
     <Compile Include="Models\AllUserDataModel.cs" />
     <Compile Include="Models\GameModel.cs" />
     <Compile Include="Models\GamesModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\ScoreModel.cs" />
     <Compile Include="Models\TokenModel.cs" />
     <Compile Include="Models\UpdateUserModel.cs" />
@@ -150,7 +153,7 @@
     <Content Include="Sql\usp_User_D.sql" />
     <Content Include="Sql\usp_User_M.sql" />
     <Content Include="Sql\usp_Users_S.sql" />
-    <Content Include="Sql\usp_IsValidUser_S.sql" />
+    <Content Include="Sql\usp_RoleIdByAccount_S.sql" />
     <Content Include="Sql\usp_PeriodScores_S.sql" />
     <Content Include="Sql\usp_MonthScores_S.sql" />
     <Content Include="Sql\usp_YearScores_S.sql" />

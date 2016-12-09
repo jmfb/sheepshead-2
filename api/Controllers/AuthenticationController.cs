@@ -16,12 +16,13 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpGet]
-		[ResponseType(typeof(string))]
-		public virtual async Task<HttpResponseMessage> GetToken(string redirectUrl, string authorizationCode)
+		[ResponseType(typeof(LoginModel))]
+		public virtual async Task<HttpResponseMessage> Login(string redirectUrl, string authorizationCode)
 		{
 			var googleToken = await AuthenticationService.GetGoogleToken(redirectUrl, authorizationCode);
 			var userInfo = await AuthenticationService.GetUserInfo(googleToken.TokenType, googleToken.AccessToken);
-			if (!DataBridge.IsValidUser(userInfo.Email))
+			var roleId = DataBridge.GetRoleIdByAccount(userInfo.Email);
+			if (roleId == null)
 			{
 				return Request.CreateResponse(
 					HttpStatusCode.Unauthorized,
@@ -30,9 +31,15 @@ namespace SheepsheadApi.Controllers
 			}
 			var account = new AccountModel
 			{
-				Account = userInfo.Email
+				Account = userInfo.Email,
+				RoleId = roleId.Value
 			};
-			return Request.CreateResponse(HttpStatusCode.OK, AuthenticationService.CreateAuthorizationToken(account));
+			var loginModel = new LoginModel
+			{
+				Token = AuthenticationService.CreateAuthorizationToken(account),
+				RoleId = roleId.Value
+			};
+			return Request.CreateResponse(HttpStatusCode.OK, loginModel);
 		}
 	}
 }

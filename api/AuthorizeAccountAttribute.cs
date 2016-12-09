@@ -11,6 +11,7 @@ namespace SheepsheadApi
 			if (account == null)
 				return false;
 			actionContext.Request.Properties["Account"] = account.Account;
+			actionContext.Request.Properties["RoleId"] = account.RoleId;
 			return true;
 		}
 	}

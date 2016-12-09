@@ -23,6 +23,7 @@ namespace SheepsheadApi
 		private const string signatureAlgorithm = "http://www.w3.org/2001/04/xmldsig-more#hmac-sha256";
 		private const string digestAlgorithm = "http://www.w3.org/2001/04/xmlenc#sha256";
 		private const string accountClaimType = "account";
+		private const string roleIdClaimType = "roleId";
 
 		public static string GetGoogleAuthenticationUrl(string redirectUrl)
 		{
@@ -81,7 +82,8 @@ namespace SheepsheadApi
 				audience,
 				new[]
 				{
-					new Claim(accountClaimType, account.Account)
+					new Claim(accountClaimType, account.Account),
+					new Claim(roleIdClaimType, account.RoleId.ToString())
 				},
 				signingCredentials: new SigningCredentials(Key, signatureAlgorithm, digestAlgorithm)));
 
@@ -104,9 +106,11 @@ namespace SheepsheadApi
 					},
 					out securityToken);
 				var account = claimsPrincipal.Claims.Single(claim => claim.Type == accountClaimType).Value;
+				var roleId = claimsPrincipal.Claims.Single(claim => claim.Type == roleIdClaimType).Value;
 				return new AccountModel
 				{
-					Account = account
+					Account = account,
+					RoleId = int.Parse(roleId)
 				};
 			}
 			catch (Exception exception)
@@ -124,7 +128,8 @@ namespace SheepsheadApi
 			try
 			{
 				var account = ParseToken(authorization.Parameter);
-				if (!DataBridge.IsValidUser(account.Account))
+				var roleId = DataBridge.GetRoleIdByAccount(account.Account);
+				if (roleId == null || roleId.Value != account.RoleId)
 					return null;
 				return account;
 			}

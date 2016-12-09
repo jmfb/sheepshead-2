@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
+import { IRole, adminRoleId } from '../models';
 import * as styles from './NavBar.scss';
 
-export default class NavBar extends React.PureComponent<void, void> {
+interface INavBarProps {
+	roleId: IRole;
+}
+
+export default class NavBar extends React.PureComponent<INavBarProps, void> {
 	render() {
+		const { roleId } = this.props;
 		return(
 			<header>
 				<nav>
@@ -15,12 +21,14 @@ export default class NavBar extends React.PureComponent<void, void> {
 								<span className={styles.small}>Score</span>
 							</Link>
 						</li>
-						<li>
-							<Link to='/admin' activeClassName={styles.active}>
-								<span className={styles.large}>Administration</span>
-								<span className={styles.small}>Admin</span>
-							</Link>
-						</li>
+						{roleId === adminRoleId  &&
+							<li>
+								<Link to='/admin' activeClassName={styles.active}>
+									<span className={styles.large}>Administration</span>
+									<span className={styles.small}>Admin</span>
+								</Link>
+							</li>
+						}
 					</ul>
 				</nav>
 			</header>
