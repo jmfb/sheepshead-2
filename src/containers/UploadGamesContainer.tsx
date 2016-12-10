@@ -1,7 +1,7 @@
 import * as React from 'react';
-import UploadGames from './pages/UploadGames';
-import { IGameReport, IGame } from './models';
-import { updateGame } from './api/games';
+import UploadGames from '~/pages/UploadGames';
+import { IGameReport, IGame } from '~/models';
+import { updateGame } from '~/api/games';
 
 interface IUploadGamesContainerState {
 	games: IGame[];
@@ -95,7 +95,7 @@ export default class UploadGamesContainer extends React.PureComponent<void, IUpl
 
 	render() {
 		const { games, pendingFileCount, submitting } = this.state;
-		return(
+		return (
 			<UploadGames
 				{...{games, pendingFileCount, submitting}}
 				onChooseFile={this.handleChooseFile}

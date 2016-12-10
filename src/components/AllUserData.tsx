@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IAllUserData, roleNames } from '../models';
+import { IAllUserData, roleNames } from '~/models';
 import * as styles from './AllUserData.scss';
 import * as cx from 'classnames';
 

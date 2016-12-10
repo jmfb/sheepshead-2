@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PeriodScore from './PeriodScore';
-import { IPeriodScores } from '../models';
+import { IPeriodScores } from '~/models';
 import * as styles from './PeriodScores.scss';
 
 interface IPeriodScoresProps {

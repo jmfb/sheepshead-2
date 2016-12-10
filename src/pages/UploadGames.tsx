@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Game from '../components/Game';
-import Button from '../components/Button';
-import Banner from '../components/Banner';
-import FileInput from '../components/FileInput';
-import { IGame } from '../models';
+import Game from '~/components/Game';
+import Button from '~/components/Button';
+import Banner from '~/components/Banner';
+import FileInput from '~/components/FileInput';
+import { IGame } from '~/models';
 import * as styles from './UploadGames.scss';
 
 interface IUploadGamesProps {

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Button from '../components/Button';
-import PointSpread from '../components/PointSpread';
-import Banner from '../components/Banner';
-import DateDisplay from '../components/DateDisplay';
-import ScoresTile from '../components/ScoresTile';
-import { IGame, IRole, playerRoleId } from '../models';
+import Button from '~/components/Button';
+import PointSpread from '~/components/PointSpread';
+import Banner from '~/components/Banner';
+import DateDisplay from '~/components/DateDisplay';
+import ScoresTile from '~/components/ScoresTile';
+import { IGame, IRole, playerRoleId } from '~/models';
 import * as styles from './ViewGame.scss';
 
 interface IViewGameProps {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import MonthView from './pages/MonthView';
-import { IMonth, IScore } from './models';
-import { getMonthScores } from './api/users';
+import MonthView from '~/pages/MonthView';
+import { IMonth, IScore } from '~/models';
+import { getMonthScores } from '~/api/users';
 import * as moment from 'moment';
 
 interface IMonthContainerProps {
@@ -70,7 +70,7 @@ export default class MonthContainer extends React.PureComponent<IMonthContainerP
 
 	render() {
 		const { month, scores } = this.state;
-		return(
+		return (
 			<MonthView
 				{...{month, scores}}
 				onClickPreviousMonth={this.handleClickPreviousMonth}

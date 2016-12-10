@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import Banner from './components/Banner';
-import { login } from './api/auth';
+import Banner from '~/components/Banner';
+import { login } from '~/api/auth';
 import * as queryString from 'query-string';
 
 export default class AuthenticateContainer extends React.PureComponent<void, void> {

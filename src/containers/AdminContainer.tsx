@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import Administration from './pages/Administration';
+import Administration from '~/pages/Administration';
 
 export default class AdminContainer extends React.PureComponent<void, void> {
 	handleClickManageUsers = () => {
@@ -12,7 +12,7 @@ export default class AdminContainer extends React.PureComponent<void, void> {
 	}
 
 	render() {
-		return(
+		return (
 			<Administration
 				onClickManageUsers={this.handleClickManageUsers}
 				onClickUploadGames={this.handleClickUploadGames} />

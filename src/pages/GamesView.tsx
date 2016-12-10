@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Banner from '../components/Banner';
-import Button from '../components/Button';
-import Game from '../components/Game';
-import { IGame } from '../models';
+import Banner from '~/components/Banner';
+import Button from '~/components/Button';
+import Game from '~/components/Game';
+import { IGame } from '~/models';
 import * as styles from './GamesView.scss';
 
 interface IGamesViewProps {

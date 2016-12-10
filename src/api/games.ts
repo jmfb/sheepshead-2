@@ -1,5 +1,5 @@
-import { IScore, IGame, IGames } from '../models';
-import { checkStatus, parseJson } from './helpers';
+import { IScore, IGame, IGames } from '~/models';
+import { checkStatus, parseJson, authHeader } from './helpers';
 import * as queryString from 'query-string';
 
 export function updateGame(id: number, when: string, scores: IScore[]) {
@@ -8,7 +8,7 @@ export function updateGame(id: number, when: string, scores: IScore[]) {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`,
+			Authorization: authHeader(),
 			['Content-Type']: 'application/json'
 		},
 		body: JSON.stringify({ id, when, scores })
@@ -23,7 +23,7 @@ export function getGame(id: number) {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)
@@ -37,7 +37,7 @@ export function deleteGame(id: number) {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus);
@@ -49,7 +49,7 @@ export function getGames(skip: number, take: number) {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)

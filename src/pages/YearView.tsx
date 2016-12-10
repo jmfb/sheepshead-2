@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Banner from '../components/Banner';
-import PeriodNavigator from '../components/PeriodNavigator';
-import Leaderboard from '../components/Leaderboard';
-import { IScore } from '../models';
+import Banner from '~/components/Banner';
+import PeriodNavigator from '~/components/PeriodNavigator';
+import Leaderboard from '~/components/Leaderboard';
+import { IScore } from '~/models';
 import * as styles from './YearView.scss';
 
 interface IYearViewProps {

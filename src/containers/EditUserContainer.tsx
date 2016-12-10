@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import EditUser from './pages/EditUser';
-import { IAllUserData, IRole } from './models';
-import { renameUser, updateUser, deleteUser } from './api/users';
+import EditUser from '~/pages/EditUser';
+import { IAllUserData, IRole } from '~/models';
+import { renameUser, updateUser, deleteUser } from '~/api/users';
 
 interface IEditUserContainerState {
 	originalName: string;

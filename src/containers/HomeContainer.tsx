@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import Home from './pages/Home';
-import { IRole, IPeriodScores } from './models';
-import { getPeriodScores } from './api/users';
+import Home from '~/pages/Home';
+import { IRole, IPeriodScores } from '~/models';
+import { getPeriodScores } from '~/api/users';
 
 interface IHomeContainerState {
 	roleId: IRole;
@@ -36,7 +36,7 @@ export default class HomeContainer extends React.PureComponent<void, IHomeContai
 
 	render() {
 		const { roleId, periodScores } = this.state;
-		return(
+		return (
 			<Home
 				{...{roleId, periodScores}}
 				onClickCreateGame={this.handleClickCreateGame}

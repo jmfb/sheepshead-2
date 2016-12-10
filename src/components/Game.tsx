@@ -2,7 +2,7 @@ import * as React from 'react';
 import DateDisplay from './DateDisplay';
 import PointSpread from './PointSpread';
 import ScoresTile from './ScoresTile';
-import { IGame } from '../models';
+import { IGame } from '~/models';
 import * as cx from 'classnames';
 import * as styles from './Game.scss';
 

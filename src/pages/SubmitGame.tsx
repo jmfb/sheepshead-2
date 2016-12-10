@@ -1,9 +1,9 @@
 import * as React from 'react';
-import PlayerControl from '../components/PlayerControl';
-import PointSpread from '../components/PointSpread';
-import Banner from '../components/Banner';
-import Button from '../components/Button';
-import { IUser, IPlayer } from '../models';
+import PlayerControl from '~/components/PlayerControl';
+import PointSpread from '~/components/PointSpread';
+import Banner from '~/components/Banner';
+import Button from '~/components/Button';
+import { IUser, IPlayer } from '~/models';
 import { sum } from 'lodash';
 import * as styles from './SubmitGame.scss';
 

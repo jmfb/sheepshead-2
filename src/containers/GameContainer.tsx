@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import ViewGame from './pages/ViewGame';
-import { IGame, IRole } from './models';
-import { updateGame, getGame, deleteGame } from './api/games';
+import ViewGame from '~/pages/ViewGame';
+import { IGame, IRole } from '~/models';
+import { updateGame, getGame, deleteGame } from '~/api/games';
 
 interface IGameContainerProps {
 	params: { gameId: string };
@@ -81,7 +81,7 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 
 	render() {
 		const { roleId, game, deleted, submitting } = this.state;
-		return(
+		return (
 			<ViewGame
 				{...{roleId, game, deleted, submitting}}
 				onEdit={this.handleEdit}

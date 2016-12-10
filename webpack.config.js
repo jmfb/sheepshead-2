@@ -1,5 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const path = require('path');
 
 const sassConfig = {
 	sourceMap: true
@@ -27,7 +28,15 @@ module.exports = {
 	devtool: 'source-map',
 
 	resolve: {
-		extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+		alias: {
+			'~': path.join(__dirname, 'src')
+		},
+		extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
+		modulesDirectories: [path.join(__dirname, 'node_modules')]
+	},
+
+	resolveLoader: {
+		modulesDirectories: [path.join(__dirname, 'node_modules')]
 	},
 
 	module: {

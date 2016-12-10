@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IUser } from '../models';
+import { IUser } from '~/models';
 import * as styles from './UserSelect.scss';
 import * as cx from 'classnames';
 

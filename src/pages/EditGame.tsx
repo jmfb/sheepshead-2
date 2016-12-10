@@ -1,10 +1,10 @@
 import * as React from 'react';
-import DateButton from '../components/DateButton';
-import PlayerControl from '../components/PlayerControl';
-import Button from '../components/Button';
-import PointSpread from '../components/PointSpread';
-import Banner from '../components/Banner';
-import { IUser, IPlayer } from '../models';
+import DateButton from '~/components/DateButton';
+import PlayerControl from '~/components/PlayerControl';
+import Button from '~/components/Button';
+import PointSpread from '~/components/PointSpread';
+import Banner from '~/components/Banner';
+import { IUser, IPlayer } from '~/models';
 import { sum } from 'lodash';
 import * as styles from './EditGame.scss';
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Button from '../components/Button';
-import Banner from '../components/Banner';
-import PeriodScores from '../components/PeriodScores';
-import { IRole, playerRoleId, IPeriodScores } from '../models';
+import Button from '~/components/Button';
+import Banner from '~/components/Banner';
+import PeriodScores from '~/components/PeriodScores';
+import { IRole, playerRoleId, IPeriodScores } from '~/models';
 import * as styles from './Home.scss';
 
 interface IHomeProps {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
-import { IRole, adminRoleId } from '../models';
+import { IRole, adminRoleId } from '~/models';
 import * as styles from './NavBar.scss';
 
 interface INavBarProps {

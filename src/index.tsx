@@ -8,23 +8,23 @@ import {
 	RedirectFunction,
 	browserHistory
 } from 'react-router';
-import ApplicationContainer from './ApplicationContainer';
-import HomeContainer from './HomeContainer';
-import LeaderContainer from './LeaderContainer';
-import AdminContainer from './AdminContainer';
-import GameContainer from './GameContainer';
-import EditGameContainer from './EditGameContainer';
-import YearContainer from './YearContainer';
-import MonthContainer from './MonthContainer';
-import GamesContainer from './GamesContainer';
-import CreateUserContainer from './CreateUserContainer';
-import UploadGamesContainer from './UploadGamesContainer';
-import AuthenticateContainer from './AuthenticateContainer';
-import LoginContainer from './LoginContainer';
-import ErrorContainer from './ErrorContainer';
-import ManageUsersContainer from './ManageUsersContainer';
-import EditUserContainer from './EditUserContainer';
-import CreateGameContainer from './CreateGameContainer';
+import ApplicationContainer from './containers/ApplicationContainer';
+import HomeContainer from './containers/HomeContainer';
+import LeaderContainer from './containers/LeaderContainer';
+import AdminContainer from './containers/AdminContainer';
+import GameContainer from './containers/GameContainer';
+import EditGameContainer from './containers/EditGameContainer';
+import YearContainer from './containers/YearContainer';
+import MonthContainer from './containers/MonthContainer';
+import GamesContainer from './containers/GamesContainer';
+import CreateUserContainer from './containers/CreateUserContainer';
+import UploadGamesContainer from './containers/UploadGamesContainer';
+import AuthenticateContainer from './containers/AuthenticateContainer';
+import LoginContainer from './containers/LoginContainer';
+import ErrorContainer from './containers/ErrorContainer';
+import ManageUsersContainer from './containers/ManageUsersContainer';
+import EditUserContainer from './containers/EditUserContainer';
+import CreateGameContainer from './containers/CreateGameContainer';
 import { playerRoleId, adminRoleId } from './models';
 import './index.scss';
 

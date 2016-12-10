@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Banner from '../components/Banner';
-import PeriodNavigator from '../components/PeriodNavigator';
-import Leaderboard from '../components/Leaderboard';
-import { IMonth, IScore } from '../models';
+import Banner from '~/components/Banner';
+import PeriodNavigator from '~/components/PeriodNavigator';
+import Leaderboard from '~/components/Leaderboard';
+import { IMonth, IScore } from '~/models';
 import * as styles from './MonthView.scss';
 
 interface IMonthViewProps {

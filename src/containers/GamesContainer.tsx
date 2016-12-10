@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import GamesView from './pages/GamesView';
-import { IGame } from './models';
-import { getGames } from './api/games';
+import GamesView from '~/pages/GamesView';
+import { IGame } from '~/models';
+import { getGames } from '~/api/games';
 
 interface IGamesContainerState {
 	games: IGame[];
@@ -49,7 +49,7 @@ export default class GamesContainer extends React.PureComponent<void, IGamesCont
 
 	render() {
 		const { games, moreGames, loading } = this.state;
-		return(
+		return (
 			<GamesView
 				{...{games, moreGames, loading}}
 				onLoadMoreGames={this.handleLoadMoreGames}

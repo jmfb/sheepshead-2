@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import EditGame from './pages/EditGame';
-import { IUser, IPlayer } from './models';
-import { getUsers } from './api/users';
-import { getGame, updateGame } from './api/games';
+import EditGame from '~/pages/EditGame';
+import { IUser, IPlayer } from '~/models';
+import { getUsers } from '~/api/users';
+import { getGame, updateGame } from '~/api/games';
 
 interface IEditGameContainerProps {
 	params: { gameId: string };
@@ -98,7 +98,7 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 
 	render() {
 		const { gameId, users, when, players, submitting } = this.state;
-		return(
+		return (
 			<EditGame
 				{...{gameId, users, when, players, submitting}}
 				onEditWhen={this.handleEditWhen}

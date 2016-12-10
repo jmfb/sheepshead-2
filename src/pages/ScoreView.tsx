@@ -1,6 +1,6 @@
 import * as React from 'react';
-import PeriodRank from '../components/PeriodRank';
-import { IPeriodScore, IMonth } from '../models';
+import PeriodRank from '~/components/PeriodRank';
+import { IPeriodScore, IMonth } from '~/models';
 import * as styles from './ScoreView.scss';
 
 interface IScoreViewProps {

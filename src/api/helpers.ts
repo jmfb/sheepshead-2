@@ -18,6 +18,11 @@ export function checkStatus(response: Response) {
 	}
 }
 
-export function parseJson(response: Response): Promise<any> {
+export function parseJson(response: Response) {
 	return response.json();
+}
+
+export function authHeader() {
+	const token = localStorage.getItem('token');
+	return `Token ${token}`;
 }

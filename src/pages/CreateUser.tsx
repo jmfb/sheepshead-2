@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Button from '../components/Button';
-import Banner from '../components/Banner';
-import TextInput from '../components/TextInput';
+import Button from '~/components/Button';
+import Banner from '~/components/Banner';
+import TextInput from '~/components/TextInput';
 import * as styles from './CreateUser.scss';
 
 interface ICreateUserProps {

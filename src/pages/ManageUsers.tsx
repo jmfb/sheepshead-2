@@ -1,7 +1,7 @@
 import * as React from 'react';
-import AllUserData from '../components/AllUserData';
-import Button from '../components/Button';
-import { IAllUserData } from '../models';
+import AllUserData from '~/components/AllUserData';
+import Button from '~/components/Button';
+import { IAllUserData } from '~/models';
 import * as styles from './ManageUsers.scss';
 
 interface IManageUsersProps {

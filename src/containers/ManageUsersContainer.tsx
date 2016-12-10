@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import ManageUsers from './pages/ManageUsers';
-import { IAllUserData } from './models';
-import { getAllUserData } from './api/users';
+import ManageUsers from '~/pages/ManageUsers';
+import { IAllUserData } from '~/models';
+import { getAllUserData } from '~/api/users';
 
 interface IManageUsersContainerState {
 	users: IAllUserData[];

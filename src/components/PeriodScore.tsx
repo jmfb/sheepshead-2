@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPeriodScore } from '../models';
+import { IPeriodScore } from '~/models';
 import * as styles from './PeriodScore.scss';
 import * as cx from 'classnames';
 

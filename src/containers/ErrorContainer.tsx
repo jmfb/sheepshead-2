@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import ErrorView from './pages/ErrorView';
+import ErrorView from '~/pages/ErrorView';
 
 interface IErrorContainerState {
 	status: number;

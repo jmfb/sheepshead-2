@@ -1,6 +1,6 @@
 import * as React from 'react';
-import SignInButton from '../components/SignInButton';
-import Banner from '../components/Banner';
+import SignInButton from '~/components/SignInButton';
+import Banner from '~/components/Banner';
 import * as styles from './Login.scss';
 
 interface ILoginProps {

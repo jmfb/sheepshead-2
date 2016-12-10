@@ -1,7 +1,7 @@
 import * as React from 'react';
 import UserSelect from './UserSelect';
 import ScorePicker from './ScorePicker';
-import { IUser, IPlayer } from '../models';
+import { IUser, IPlayer } from '~/models';
 import * as styles from './PlayerControl.scss';
 
 interface IPlayerControlProps {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IScore } from '../models';
+import { IScore } from '~/models';
 import * as cx from 'classnames';
 import * as styles from './Leaderboard.scss';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Login from './pages/Login';
-import { getAuthenticationUrl } from './api/auth';
+import Login from '~/pages/Login';
+import { getAuthenticationUrl } from '~/api/auth';
 
 interface ILoginContainerState {
 	signingIn: boolean;

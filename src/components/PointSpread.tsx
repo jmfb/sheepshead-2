@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPlayer, IScore } from '../models';
+import { IPlayer, IScore } from '~/models';
 import { sum } from 'lodash';
 import * as styles from './PointSpread.scss';
 

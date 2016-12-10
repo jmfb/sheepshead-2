@@ -1,5 +1,5 @@
-import { IUser, IAllUserData, IMonth, IScore, IPeriodScores } from '../models';
-import { checkStatus, parseJson } from './helpers';
+import { IUser, IAllUserData, IMonth, IScore, IPeriodScores } from '~/models';
+import { checkStatus, parseJson, authHeader } from './helpers';
 import * as queryString from 'query-string';
 import * as moment from 'moment';
 
@@ -9,7 +9,7 @@ export function updateUser(name: string, roleId: number, accounts: string[]) {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`,
+			Authorization: authHeader(),
 			['Content-Type']: 'application/json'
 		},
 		body: JSON.stringify({ name, roleId, accounts })
@@ -24,7 +24,7 @@ export function renameUser(oldName: string, newName: string) {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus);
@@ -37,7 +37,7 @@ export function deleteUser(name: string) {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus);
@@ -48,7 +48,7 @@ export function getUsers() {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)
@@ -60,7 +60,7 @@ export function getAllUserData() {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)
@@ -77,7 +77,7 @@ export function getPeriodScores() {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)
@@ -93,7 +93,7 @@ export function getMonthScores(month: IMonth) {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)
@@ -106,7 +106,7 @@ export function getYearScores(year: number) {
 		credentials: 'same-origin',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Token ${localStorage.getItem('token')}`
+			Authorization: authHeader()
 		}
 	})
 	.then(checkStatus)

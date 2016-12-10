@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import SubmitGame from './pages/SubmitGame';
-import { IUser, IPlayer } from './models';
-import { getUsers } from './api/users';
-import { updateGame } from './api/games';
+import SubmitGame from '~/pages/SubmitGame';
+import { IUser, IPlayer } from '~/models';
+import { getUsers } from '~/api/users';
+import { updateGame } from '~/api/games';
 import * as moment from 'moment';
 
 interface ICreateGameContainerState {
@@ -82,7 +82,7 @@ export default class CreateGameContainer extends React.PureComponent<void, ICrea
 
 	render() {
 		const { users, players, submitting } = this.state;
-		return(
+		return (
 			<SubmitGame
 				{...{users, players, submitting}}
 				onSelectUser={this.handleSelectUser}

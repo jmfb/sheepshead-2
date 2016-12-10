@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import CreateUser from './pages/CreateUser';
-import { updateUser } from './api/users';
+import CreateUser from '~/pages/CreateUser';
+import { updateUser } from '~/api/users';
 
 interface ICreateUserContainerState {
 	user: string;
@@ -37,7 +37,7 @@ export default class CreateUserContainer extends React.PureComponent<void, ICrea
 
 	render() {
 		const { user, account, submitting } = this.state;
-		return(
+		return (
 			<CreateUser
 				{...{user, account, submitting}}
 				onUpdateUser={this.handleUpdateUser}

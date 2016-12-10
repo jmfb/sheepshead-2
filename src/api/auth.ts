@@ -1,6 +1,6 @@
 import * as queryString from 'query-string';
 import { checkStatus, parseJson } from './helpers';
-import { ILoginModel } from '../models';
+import { ILoginModel } from '~/models';
 
 const redirectUrl = `${location.origin}/authenticate`;
 

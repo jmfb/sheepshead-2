@@ -1,9 +1,9 @@
 import * as React from 'react';
-import TextInput from '../components/TextInput';
-import Button from '../components/Button';
-import Banner from '../components/Banner';
-import DateDisplay from '../components/DateDisplay';
-import { IRole, roleNames } from '../models';
+import TextInput from '~/components/TextInput';
+import Button from '~/components/Button';
+import Banner from '~/components/Banner';
+import DateDisplay from '~/components/DateDisplay';
+import { IRole, roleNames } from '~/models';
 import * as styles from './EditUser.scss';
 import * as cx from 'classnames';
 
