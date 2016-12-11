@@ -105,8 +105,8 @@ export default class UserSelect extends React.PureComponent<IUserSelectProps, IU
 		const { users } = this.props;
 		const { open, search } = this.state;
 		return users === null ? [] : open ?
-			users.filter(user => user.name.toLowerCase().indexOf(search.toLowerCase()) >= 0).slice(0, 5) :
-			users.slice(0, 5);
+			users.filter(user => user.name.toLowerCase().indexOf(search.toLowerCase()) >= 0).slice(0, 7) :
+			users.slice(0, 7);
 	}
 
 	getSelectedIndex = (count: number) => {

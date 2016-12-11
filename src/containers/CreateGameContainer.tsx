@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import SubmitGame from '~/pages/SubmitGame';
-import { IUser, IPlayer } from '~/models';
+import { IUser, IPlayer, playerRoleId } from '~/models';
 import { getUsers } from '~/api/users';
 import { updateGame } from '~/api/games';
 import * as moment from 'moment';
@@ -28,7 +28,8 @@ export default class CreateGameContainer extends React.PureComponent<void, ICrea
 
 	componentDidMount() {
 		getUsers().then(users => {
-			this.setState({ users } as ICreateGameContainerState);
+			const activeUsers = users.filter(user => user.roleId >= playerRoleId);
+			this.setState({ users: activeUsers } as ICreateGameContainerState);
 		});
 	}
 
