@@ -1,35 +1,47 @@
 import * as React from 'react';
-import PeriodRank from '~/components/PeriodRank';
-import { IPeriodScore, IMonth } from '~/models';
+import Banner from '~/components/Banner';
+import Leaderboard from '~/components/Leaderboard';
+import Game from '~/components/Game';
+import PointSpread from '~/components/PointSpread';
+import { IMonth, IGame, IScore } from '~/models';
 import * as styles from './ScoreView.scss';
 
 interface IScoreViewProps {
-	user: string;
-	monthScore: IPeriodScore;
-	yearScore: IPeriodScore;
-	onClickMonth: () => void;
-	onClickYear: () => void;
+	month: IMonth;
+	game: IGame | null;
+	monthScores: IScore[] | null;
+	yearScores: IScore[] | null;
 };
 
 export default class ScoreView extends React.PureComponent<IScoreViewProps, void> {
 	render() {
-		const { user, monthScore, yearScore, onClickMonth, onClickYear } = this.props;
-		const month = monthScore.period as IMonth;
-		const year = yearScore.period as number;
+		const { month, game, monthScores, yearScores } = this.props;
 		return(
 			<div className={styles.root}>
-				<h1 className={styles.title}>{user}</h1>
-				<PeriodRank
-					period={month.month}
-					score={monthScore.score}
-					rank={monthScore.rank}
-					onClick={onClickMonth} />
-				<PeriodRank
-					period={year.toString()}
-					score={yearScore.score}
-					rank={yearScore.rank}
-					onClick={onClickYear} />
-				{this.props.children}
+				{game === null ?
+					<Banner type='message' display='Loading last game...' /> :
+					<Game {...{game}} />
+				}
+				<div className={styles.card}>
+					<div className={styles.title}>{month.month}</div>
+					{monthScores === null ?
+						<Banner type='message' display='Loading month scores...' /> :
+						<Leaderboard scores={monthScores} />
+					}
+					{monthScores !== null &&
+						<PointSpread scores={monthScores} />
+					}
+				</div>
+				<div className={styles.card}>
+					<div className={styles.title}>{month.year}</div>
+					{yearScores === null ?
+						<Banner type='message' display='Loading year scores...' /> :
+						<Leaderboard scores={yearScores} />
+					}
+					{yearScores !== null &&
+						<PointSpread scores={yearScores} />
+					}
+				</div>
 			</div>
 		);
 	}

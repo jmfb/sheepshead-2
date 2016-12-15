@@ -1,54 +1,42 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import ScoreView from '~/pages/ScoreView';
-import Banner from '~/components/Banner';
-import { IPeriodScores, IMonth } from '~/models';
-import { getPeriodScores } from '~/api/users';
+import Button from '~/components/Button';
+import * as moment from 'moment';
 
-interface ILeaderContainerState {
-	currentScores: IPeriodScores | null;
-}
-
-export default class LeaderContainer extends React.PureComponent<void, ILeaderContainerState> {
-	constructor(props: any) {
-		super(props);
-		this.state = { currentScores: null };
-	}
-
-	componentDidMount() {
-		getPeriodScores().then(currentScores => {
-			this.setState({ currentScores });
-		});
+export default class LeaderContainer extends React.PureComponent<void, void> {
+	handleClickCurrent = () => {
+		browserHistory.push('/leader');
 	}
 
 	handleClickMonth = () => {
-		const { currentScores } = this.state;
-		const { monthScore } = currentScores;
-		const month = monthScore.period as IMonth;
-		browserHistory.push(`/leader/${month.year}/${month.month}`);
+		const now = moment();
+		browserHistory.push(`/leader/${now.year()}/${now.format('MMMM')}`);
 	}
 
 	handleClickYear = () => {
-		const { currentScores } = this.state;
-		const { yearScore } = currentScores;
-		const year = yearScore.period as number;
-		browserHistory.push(`/leader/${year}`);
+		const now = moment();
+		browserHistory.push(`/leader/${now.year()}`);
+	}
+
+	handleClickLifetime = () => {
+		browserHistory.push('/leader/lifetime');
+	}
+
+	handleClickGames = () => {
+		browserHistory.push('/leader/games');
 	}
 
 	render() {
-		const { currentScores } = this.state;
-		if (currentScores === null) {
-			return(
-				<Banner type='message' display='Loading scores...' />
-			);
-		}
-		const { user, monthScore, yearScore } = currentScores;
 		const { children } = this.props;
 		return (
-			<ScoreView
-				{...{user, monthScore, yearScore, children}}
-				onClickMonth={this.handleClickMonth}
-				onClickYear={this.handleClickYear} />
+			<div>
+				<Button type='primary' display='Current' onClick={this.handleClickCurrent} />
+				<Button type='primary' display='Month' onClick={this.handleClickMonth} />
+				<Button type='primary' display='Year' onClick={this.handleClickYear} />
+				<Button type='primary' display='Lifetime' onClick={this.handleClickLifetime} />
+				<Button type='primary' display='Games' onClick={this.handleClickGames} />
+				{children}
+			</div>
 		);
 	}
 }

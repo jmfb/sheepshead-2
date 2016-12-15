@@ -148,6 +148,7 @@
     <Content Include="Sql\0_Database.sql" />
     <Content Include="Sql\2_Schema.sql" />
     <Content Include="Sql\1_Data.sql" />
+    <Content Include="Sql\usp_LifetimeScores_S.sql" />
     <Content Include="Sql\usp_RenameUser_U.sql" />
     <Content Include="Sql\usp_AllUserData_S.sql" />
     <Content Include="Sql\usp_User_D.sql" />

@@ -57,6 +57,12 @@ namespace SheepsheadApi.Controllers
 		}
 
 		[HttpGet]
+		public virtual IEnumerable<ScoreModel> GetLifetimeScores()
+		{
+			return DataBridge.GetLifetimeScores().ToList();
+		}
+
+		[HttpGet]
 		public virtual IEnumerable<ScoreModel> GetMonthScores(string month, int year)
 		{
 			return DataBridge.GetMonthScores(month, year).ToList();

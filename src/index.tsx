@@ -25,6 +25,8 @@ import ErrorContainer from './containers/ErrorContainer';
 import ManageUsersContainer from './containers/ManageUsersContainer';
 import EditUserContainer from './containers/EditUserContainer';
 import CreateGameContainer from './containers/CreateGameContainer';
+import LifetimeContainer from './containers/LifetimeContainer';
+import DefaultLeaderContainer from './containers/DefaultLeaderContainer';
 import { playerRoleId, adminRoleId } from './models';
 import './index.scss';
 
@@ -65,7 +67,9 @@ ReactDOM.render(
 		<Route path='/' component={ApplicationContainer} onEnter={authenticate}>
 			<IndexRoute component={HomeContainer} />
 			<Route path='leader' component={LeaderContainer}>
-				<IndexRoute component={GamesContainer} />
+				<IndexRoute component={DefaultLeaderContainer} />
+				<Route path='games' component={GamesContainer} />
+				<Route path='lifetime' component={LifetimeContainer} />
 				<Route path=':year' component={YearContainer} />
 				<Route path=':year/:month' component={MonthContainer} />
 			</Route>

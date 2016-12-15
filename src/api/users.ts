@@ -112,3 +112,15 @@ export function getYearScores(year: number) {
 	.then(checkStatus)
 	.then<IScore[]>(parseJson);
 }
+
+export function getLifetimeScores() {
+	return fetch('/api/Users/GetLifetimeScores', {
+		credentials: 'same-origin',
+		headers: {
+			Accept: 'application/json',
+			Authorization: authHeader()
+		}
+	})
+	.then(checkStatus)
+	.then<IScore[]>(parseJson);
+}

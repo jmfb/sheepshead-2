@@ -2,6 +2,7 @@ import * as React from 'react';
 import Banner from '~/components/Banner';
 import PeriodNavigator from '~/components/PeriodNavigator';
 import Leaderboard from '~/components/Leaderboard';
+import PointSpread from '~/components/PointSpread';
 import { IMonth, IScore } from '~/models';
 import * as styles from './MonthView.scss';
 
@@ -25,6 +26,9 @@ export default class MonthView extends React.PureComponent<IMonthViewProps, void
 				{scores === null ?
 					<Banner type='message' display='Loading scores...' /> :
 					<Leaderboard scores={scores} />
+				}
+				{scores !== null &&
+					<PointSpread scores={scores} />
 				}
 			</div>
 		);

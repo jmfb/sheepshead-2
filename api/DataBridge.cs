@@ -191,6 +191,23 @@ namespace SheepsheadApi
 			}
 		}
 
+		public static IEnumerable<ScoreModel> GetLifetimeScores()
+		{
+			using (var connection = CreateConnection())
+			using (var command = connection.CreateCommand("usp_LifetimeScores_S"))
+			using (var reader = command.ExecuteReader())
+			{
+				var nameOrdinal = reader.GetOrdinal("Name");
+				var scoreOrdinal = reader.GetOrdinal("Score");
+				while (reader.Read())
+					yield return new ScoreModel
+					{
+						User = (string)reader[nameOrdinal],
+						Score = (int)reader[scoreOrdinal]
+					};
+			}
+		}
+
 		public static IEnumerable<ScoreModel> GetMonthScores(string month, int year)
 		{
 			using (var connection = CreateConnection())
