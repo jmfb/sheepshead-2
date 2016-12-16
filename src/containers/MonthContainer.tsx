@@ -2,7 +2,7 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import MonthView from '~/pages/MonthView';
 import { IMonth, IScore } from '~/models';
-import { getMonthScores } from '~/api/users';
+import { getMonthScores } from '~/api/scores';
 import * as moment from 'moment';
 
 interface IMonthContainerProps {

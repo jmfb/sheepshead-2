@@ -125,6 +125,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AuthorizedController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
+    <Compile Include="Controllers\ScoresController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataBridge.cs" />
     <Compile Include="Global.asax.cs">

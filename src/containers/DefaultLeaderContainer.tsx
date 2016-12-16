@@ -2,7 +2,7 @@ import * as React from 'react';
 import ScoreView from '~/pages/ScoreView';
 import { IMonth, IGame, IScore } from '~/models';
 import { getGames } from '~/api/games';
-import { getMonthScores, getYearScores } from '~/api/users';
+import { getMonthScores, getYearScores } from '~/api/scores';
 import * as moment from 'moment';
 
 interface IDefaultLeaderContainerState {

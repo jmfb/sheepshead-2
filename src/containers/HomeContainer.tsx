@@ -2,7 +2,7 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import Home from '~/pages/Home';
 import { IRole, IPeriodScores } from '~/models';
-import { getPeriodScores } from '~/api/users';
+import { getPeriodScores } from '~/api/scores';
 
 interface IHomeContainerState {
 	roleId: IRole;

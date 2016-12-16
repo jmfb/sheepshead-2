@@ -49,29 +49,5 @@ namespace SheepsheadApi.Controllers
 		{
 			return DataBridge.GetAllUserdata();
 		}
-
-		[HttpGet]
-		public virtual object GetPeriodScores(string month, int year)
-		{
-			return DataBridge.GetPeriodScores(Account, month, year);
-		}
-
-		[HttpGet]
-		public virtual IEnumerable<ScoreModel> GetLifetimeScores()
-		{
-			return DataBridge.GetLifetimeScores().ToList();
-		}
-
-		[HttpGet]
-		public virtual IEnumerable<ScoreModel> GetMonthScores(string month, int year)
-		{
-			return DataBridge.GetMonthScores(month, year).ToList();
-		}
-
-		[HttpGet]
-		public virtual IEnumerable<ScoreModel> GetYearScores(int year)
-		{
-			return DataBridge.GetYearScores(year).ToList();
-		}
 	}
 }

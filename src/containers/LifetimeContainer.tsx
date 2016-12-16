@@ -1,7 +1,7 @@
 import * as React from 'react';
 import LifetimeView from '~/pages/LifetimeView';
 import { IScore } from '~/models';
-import { getLifetimeScores } from '~/api/users';
+import { getLifetimeScores } from '~/api/scores';
 
 interface ILifetimeContainerState {
 	scores: IScore[] | null;

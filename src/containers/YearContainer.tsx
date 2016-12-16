@@ -2,7 +2,7 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import YearView from '~/pages/YearView';
 import { IScore } from '~/models';
-import { getYearScores } from '~/api/users';
+import { getYearScores } from '~/api/scores';
 
 interface IYearContainerProps {
 	params: { year: string };
