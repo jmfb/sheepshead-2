@@ -15,9 +15,9 @@ export default class PeriodScores extends React.PureComponent<IPeriodScoresProps
 			<div className={styles.root}>
 				<h1>{user}</h1>
 				<div className={styles.table}>
-					<PeriodScore periodScore={monthScore} />
-					<PeriodScore periodScore={yearScore} />
-					<PeriodScore periodScore={lifetimeScore} />
+					<PeriodScore id={1} periodScore={monthScore} />
+					<PeriodScore id={2} periodScore={yearScore} />
+					<PeriodScore id={3} periodScore={lifetimeScore} />
 				</div>
 			</div>
 		);
