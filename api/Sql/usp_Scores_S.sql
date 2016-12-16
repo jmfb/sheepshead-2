@@ -16,7 +16,7 @@ set nocount on;
 exec Sheepshead.Scores.usp_Scores_S 'jacobb', '2016-01-01', '2017-01-01';
 */
 
-select	Games.Id,
+select	GameId = Games.Id,
 	Games.[When],
 	Players.Score
 from	Sheepshead.Scores.Accounts as Accounts

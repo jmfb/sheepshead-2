@@ -4,21 +4,27 @@
 }
 
 .row {
+	display: flex;
+	flex-direction: row;
 }
 
 .period {
 	font-weight: bold;
+	flex-grow: 1;
 }
 
 .count {
+	flex-grow: 1;
 }
 
 .none {
+	flex-grow: 3;
 	font-style: italic;
 	color: #999;
 }
 
 .score {
+	flex-grow: 1;
 	text-align: right;
 	color: green;
 	&.negative {
@@ -27,5 +33,12 @@
 }
 
 .rank {
+	flex-grow: 1;
 	text-align: right;
+}
+
+.graph {
+	width: 100%;
+	height: 100px;
+	background-color: #eee;
 }

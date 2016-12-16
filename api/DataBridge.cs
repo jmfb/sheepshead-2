@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.Configuration;
 using SheepsheadApi.Models;
 
@@ -144,7 +145,7 @@ namespace SheepsheadApi
 		public static IEnumerable<GameScoreModel> GetScores(string account, DateTime startDate, DateTime endDateExclusive)
 		{
 			using (var connection = CreateConnection())
-			using (var command = connection.CreateCommand())
+			using (var command = connection.CreateCommand("usp_Scores_S"))
 			{
 				command.Parameters.AddWithValue("@account", account);
 				command.Parameters.AddWithValue("@startDate", startDate);
@@ -198,7 +199,7 @@ namespace SheepsheadApi
 							Period = new { Month = month, Year = year },
 							Score = monthScore,
 							GameCount = monthGameCount,
-							GameScores = GetScores(account, beginningOfMonth, beginningOfMonth.AddMonths(1)),
+							GameScores = GetScores(account, beginningOfMonth, beginningOfMonth.AddMonths(1)).ToList(),
 							Rank = monthRank
 						},
 						YearScore = new
@@ -206,14 +207,14 @@ namespace SheepsheadApi
 							Period = year,
 							Score = yearScore,
 							GameCount = yearGameCount,
-							GameScores = GetScores(account, beginningOfYear, beginningOfYear.AddYears(1)),
+							GameScores = GetScores(account, beginningOfYear, beginningOfYear.AddYears(1)).ToList(),
 							Rank = yearRank
 						},
 						LifetimeScore = new
 						{
 							Score = lifetimeScore,
 							GameCount = lifetimeGameCount,
-							GameScores = GetScores(account, new DateTime(1900, 1, 1), DateTime.Today.AddDays(1)),
+							GameScores = GetScores(account, new DateTime(1900, 1, 1), DateTime.Today.AddDays(1)).ToList(),
 							Rank = lifetimeRank
 						}
 					};
