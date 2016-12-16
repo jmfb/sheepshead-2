@@ -1,7 +1,24 @@
-import { IMonth, IScore, IPeriodScores } from '~/models';
+import { IMonth, IScore, IPeriodScores, IGameScore } from '~/models';
 import { checkStatus, parseJson, authHeader } from './helpers';
 import * as queryString from 'query-string';
 import * as moment from 'moment';
+
+export function getScores(account: string, startDate: moment.Moment, endDateExclusive: moment.Moment) {
+	const query = queryString.stringify({
+		account,
+		startDate: startDate.format('yyyy-MM-dd'),
+		endDateExclusive: endDateExclusive.format('yyyy-MM-dd')
+	});
+	return fetch(`/api/Scores/GetScores?${query}`, {
+		credentials: 'same-origin',
+		headers: {
+			Accept: 'application/json',
+			Authorization: authHeader()
+		}
+	})
+	.then(checkStatus)
+	.then<IGameScore[]>(parseJson);
+}
 
 export function getPeriodScores() {
 	const now = moment();

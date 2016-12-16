@@ -19,6 +19,12 @@ export interface IGames {
 	moreGames: boolean;
 }
 
+export interface IGameScore {
+	gameId: number;
+	when: string;
+	score: number;
+}
+
 export const roleNames = ['Observer', 'Player', 'Admin'];
 export const observerRoleId = 0;
 export const playerRoleId = 1;
@@ -56,6 +62,7 @@ export interface IPeriodScore {
 	period?: IPeriod;
 	score: number;
 	gameCount: number;
+	gameScores: IGameScore[];
 	rank: number;
 }
 

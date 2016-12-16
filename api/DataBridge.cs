@@ -141,8 +141,35 @@ namespace SheepsheadApi
 			}
 		}
 
+		public static IEnumerable<GameScoreModel> GetScores(string account, DateTime startDate, DateTime endDateExclusive)
+		{
+			using (var connection = CreateConnection())
+			using (var command = connection.CreateCommand())
+			{
+				command.Parameters.AddWithValue("@account", account);
+				command.Parameters.AddWithValue("@startDate", startDate);
+				command.Parameters.AddWithValue("@endDateExclusive", endDateExclusive);
+				using (var reader = command.ExecuteReader())
+				{
+					var gameIdOrdinal = reader.GetOrdinal("GameId");
+					var whenOrdinal = reader.GetOrdinal("When");
+					var scoreOrdinal = reader.GetOrdinal("Score");
+					while (reader.Read())
+						yield return new GameScoreModel
+						{
+							GameId = (int)reader[gameIdOrdinal],
+							When = $"{(DateTime)reader[whenOrdinal]:yyyy-MM-dd}",
+							Score = (int)reader[scoreOrdinal]
+						};
+				}
+			}
+		}
+
 		public static object GetPeriodScores(string account, string month, int year)
 		{
+			var beginningOfMonth = DateTime.Parse($"{month} 1, {year}");
+			var beginningOfYear = DateTime.Parse($"{year}-01-01");
+
 			using (var connection = CreateConnection())
 			using (var command = connection.CreateCommand("usp_PeriodScores_S"))
 			{
@@ -171,6 +198,7 @@ namespace SheepsheadApi
 							Period = new { Month = month, Year = year },
 							Score = monthScore,
 							GameCount = monthGameCount,
+							GameScores = GetScores(account, beginningOfMonth, beginningOfMonth.AddMonths(1)),
 							Rank = monthRank
 						},
 						YearScore = new
@@ -178,12 +206,14 @@ namespace SheepsheadApi
 							Period = year,
 							Score = yearScore,
 							GameCount = yearGameCount,
+							GameScores = GetScores(account, beginningOfYear, beginningOfYear.AddYears(1)),
 							Rank = yearRank
 						},
 						LifetimeScore = new
 						{
 							Score = lifetimeScore,
 							GameCount = lifetimeGameCount,
+							GameScores = GetScores(account, new DateTime(1900, 1, 1), DateTime.Today.AddDays(1)),
 							Rank = lifetimeRank
 						}
 					};
