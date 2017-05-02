@@ -12,7 +12,7 @@ try {
 	$sessionOptions = New-Object WinSCP.SessionOptions -Property @{
 		Protocol = [WinSCP.Protocol]::Ftp
 		HostName = "waws-prod-sn1-059.ftp.azurewebsites.windows.net"
-		UserName = "sheepshead__cold\SheepsheadScores"
+		UserName = "sheepshead__cold\DietScores"
 		Password = $ftpPassword
 	}
 	$session = New-Object WinSCP.Session
