@@ -1,0 +1,18 @@
+.root {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 4px;
+}
+
+.name {
+	margin-left: 1em;
+}
+
+.score {
+	width: 4em;
+	text-align: right;
+	color: green;
+	&.negative {
+		color: maroon;
+	}
+}

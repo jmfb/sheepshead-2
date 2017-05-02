@@ -18,6 +18,7 @@ import YearContainer from './containers/YearContainer';
 import MonthContainer from './containers/MonthContainer';
 import GamesContainer from './containers/GamesContainer';
 import CreateUserContainer from './containers/CreateUserContainer';
+import PayoutsContainer from './containers/PayoutsContainer';
 import UploadGamesContainer from './containers/UploadGamesContainer';
 import AuthenticateContainer from './containers/AuthenticateContainer';
 import LoginContainer from './containers/LoginContainer';
@@ -78,6 +79,7 @@ ReactDOM.render(
 				<Route path='users' component={ManageUsersContainer} />
 				<Route path='user/create' component={CreateUserContainer} />
 				<Route path='user/edit' component={EditUserContainer} />
+				<Route path='payouts/:year/:month' component={PayoutsContainer} />
 				<Route path='upload' component={UploadGamesContainer} />
 			</Route>
 			<Route path='game'>

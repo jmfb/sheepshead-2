@@ -1,0 +1,21 @@
+@import "../variables";
+
+.root {
+	background-color: white;
+	border-radius: 1em;
+	box-shadow: $box-shadow;
+	padding: 0.5em;
+	margin-top: 1em;
+}
+
+.title {
+	font-size: 1.5em;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 0.25em;
+}
+
+.section {
+	font-size: 1.5em;
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
