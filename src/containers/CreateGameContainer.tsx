@@ -50,11 +50,19 @@ export default class CreateGameContainer extends React.PureComponent<void, ICrea
 			newUsers.push(player.user);
 		}
 
+		const selectedCount = newPlayers.filter(p => p.user != null).length;
+		if (selectedCount === newPlayers.length) {
+			newPlayers.push({
+				user: null,
+				score: 0,
+				playerNumber: selectedCount + 1
+			});
+		}
+
 		this.setState({
 			users: newUsers,
 			players: newPlayers
-		} as ICreateGameContainerState
-	);
+		} as ICreateGameContainerState);
 	}
 
 	handleChangeScore = (player: IPlayer, value: number) => {
