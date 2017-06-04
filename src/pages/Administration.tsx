@@ -14,8 +14,8 @@ export default class Administration extends React.PureComponent<IAdministrationP
 		return(
 			<div>
 				<Button className={styles.option} type='primary' display='Manage Users' onClick={onClickManageUsers} />
-				<Button className={styles.option} type='primary' display='Payouts' onClick={onClickPayouts} />
-				<Button className={styles.option} type='primary' display='Upload Games' onClick={onClickUploadGames} />
+				<Button className={styles.option} type='secondary' display='Payouts' onClick={onClickPayouts} />
+				<Button className={styles.option} type='secondary' display='Upload Games' onClick={onClickUploadGames} />
 			</div>
 		);
 	}

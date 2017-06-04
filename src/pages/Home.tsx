@@ -24,7 +24,7 @@ export default class Home extends React.PureComponent<IHomeProps, void> {
 					<Banner type='message' display='Loading profile...' /> :
 					<PeriodScores {...{periodScores}} />
 				}
-				<Button className={styles.option} type='primary' display='Logout' onClick={onClickLogout} />
+				<Button className={styles.option} type='secondary' display='Logout' onClick={onClickLogout} />
 			</div>
 		);
 	}
