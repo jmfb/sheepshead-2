@@ -13,6 +13,24 @@ function cssConfig(modules) {
 	};
 }
 
+const postCssOptions = {
+	sourceMap: true,
+	plugins: () => [
+		autoprefixer({
+			browsers: [
+				'Android 2.3',
+				'Android >= 4',
+				'Chrome >= 35',
+				'Firefox >= 31',
+				'Explorer >= 10',
+				'iOS >= 7',
+				'Opera >= 12',
+				'Safari >= 7.1'
+			]
+		})
+	]
+};
+
 module.exports = {
 	entry: [
 		'core-js/es6/promise',
@@ -20,6 +38,7 @@ module.exports = {
 		'whatwg-fetch',
 		'./src/index.tsx'
 	],
+
 	output: {
 		filename: 'bundle.js',
 		path: __dirname + '/web'
@@ -27,31 +46,33 @@ module.exports = {
 
 	devtool: 'source-map',
 
+	stats: {
+		chlidren: false
+	},
+
 	resolve: {
 		alias: {
 			'~': path.join(__dirname, 'src')
 		},
-		extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
-		modulesDirectories: [path.join(__dirname, 'node_modules')]
-	},
-
-	resolveLoader: {
-		modulesDirectories: [path.join(__dirname, 'node_modules')]
+		extensions: ['.ts', '.tsx', '.js', '.jsx']
 	},
 
 	module: {
-		preLoaders: [
+		rules: [
 			{
 				test: /\.js$/,
+				enforce: 'pre',
 				loader: 'source-map-loader'
 			},
 			{
 				test: /\.tsx?$/,
+				enforce: 'pre',
 				loader: 'tslint-loader',
+				options: {
+					typeCheck: true
+				},
 				include: /src/
-			}
-		],
-		loaders: [
+			},
 			{
 				test: /\.tsx?$/,
 				loader: 'ts-loader',
@@ -59,36 +80,34 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('style-loader', [
-					`css-loader?${JSON.stringify(cssConfig(true))}`,
-					'postcss-loader',
-					`sass-loader?${JSON.stringify(sassConfig)}`
-				]),
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [{
+						loader: `css-loader?${JSON.stringify(cssConfig(true))}`
+					}, {
+						loader: 'postcss-loader',
+						options: postCssOptions
+					}, {
+						loader: `sass-loader?${JSON.stringify(sassConfig)}`
+					}]
+				}),
 				include: /src/
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('style-loader', [
-					`css-loader?${JSON.stringify(cssConfig(false))}`,
-					'postcss-loader'
-				]),
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [{
+						loader: `css-loader?${JSON.stringify(cssConfig(false))}`
+					}, {
+						loader: 'postcss-loader',
+						options: postCssOptions
+					}]
+				}),
 				include: /node_modules/
 			}
 		]
 	},
-
-	postcss: [autoprefixer({
-		browsers: [
-			'Android 2.3',
-			'Android >= 4',
-			'Chrome >= 35',
-			'Firefox >= 31',
-			'Explorer >= 10',
-			'iOS >= 7',
-			'Opera >= 12',
-			'Safari >= 7.1'
-		]
-	})],
 
 	plugins: [
 		new ExtractTextPlugin('style.css')

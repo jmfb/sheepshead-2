@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 import CreateUser from '~/pages/CreateUser';
 import { updateUser } from '~/api/users';
+
+interface ICreateUserContainerProps {
+	history: History;
+}
 
 interface ICreateUserContainerState {
 	user: string;
@@ -9,8 +14,8 @@ interface ICreateUserContainerState {
 	submitting: boolean;
 }
 
-export default class CreateUserContainer extends React.PureComponent<void, ICreateUserContainerState> {
-	constructor(props: any) {
+class CreateUserContainer extends React.PureComponent<ICreateUserContainerProps, ICreateUserContainerState> {
+	constructor(props: ICreateUserContainerProps) {
 		super(props);
 		this.state = {
 			user: '',
@@ -20,18 +25,19 @@ export default class CreateUserContainer extends React.PureComponent<void, ICrea
 	}
 
 	handleUpdateUser = (value: string) => {
-		this.setState({ user: value } as ICreateUserContainerState);
+		this.setState({ user: value });
 	}
 
 	handleUpdateAccount = (value: string) => {
-		this.setState({ account: value } as ICreateUserContainerState);
+		this.setState({ account: value });
 	}
 
 	handleCreateUser = () => {
+		const { history } = this.props;
 		const { user, account } = this.state;
-		this.setState({ submitting: true } as ICreateUserContainerState);
+		this.setState({ submitting: true });
 		updateUser(user, 1, [account].filter(a => a !== '')).then(() => {
-			browserHistory.push('/admin/users');
+			history.push('/admin/users');
 		});
 	}
 
@@ -42,7 +48,10 @@ export default class CreateUserContainer extends React.PureComponent<void, ICrea
 				{...{user, account, submitting}}
 				onUpdateUser={this.handleUpdateUser}
 				onUpdateAccount={this.handleUpdateAccount}
-				onClickCreate={this.handleCreateUser} />
+				onClickCreate={this.handleCreateUser}
+				/>
 		);
 	}
 }
+
+export default withRouter(CreateUserContainer);

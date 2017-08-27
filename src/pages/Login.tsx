@@ -8,7 +8,7 @@ interface ILoginProps {
 	onClickSignIn: () => void;
 }
 
-export default class Login extends React.PureComponent<ILoginProps, void> {
+export default class Login extends React.PureComponent<ILoginProps> {
 	render() {
 		const { signingIn, onClickSignIn } = this.props;
 		return (
@@ -18,7 +18,11 @@ export default class Login extends React.PureComponent<ILoginProps, void> {
 						<h1>Sheepshead Login</h1>
 						<p>Please sign in with any of your Google accounts.</p>
 						<p>Contact a site administrator to add your account.</p>
-						<SignInButton style='dark' disabled={signingIn} onClick={onClickSignIn} />
+						<SignInButton
+							style='dark'
+							disabled={signingIn}
+							onClick={onClickSignIn}
+							/>
 						<div className={styles.banners}>
 							{signingIn &&
 								<Banner type='message' display='Redirecting to sign in page...' />

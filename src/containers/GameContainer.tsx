@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter, match } from 'react-router-dom';
+import { History } from 'history';
 import ViewGame from '~/pages/ViewGame';
 import { IGame, IRole } from '~/models';
 import { updateGame, getGame, deleteGame } from '~/api/games';
 
 interface IGameContainerProps {
-	params: { gameId: string };
+	match: match<{ gameId: string }>;
+	history: History;
 }
 
 interface IGameContainerState {
@@ -16,12 +18,12 @@ interface IGameContainerState {
 	submitting: boolean;
 }
 
-export default class GameContainer extends React.PureComponent<IGameContainerProps, IGameContainerState> {
+class GameContainer extends React.PureComponent<IGameContainerProps, IGameContainerState> {
 	constructor(props: IGameContainerProps) {
 		super(props);
 		this.state = {
 			roleId: +localStorage.getItem('roleId') as IRole,
-			gameId: +props.params.gameId,
+			gameId: +props.match.params.gameId,
 			game: null,
 			deleted: false,
 			submitting: false
@@ -31,13 +33,13 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 	componentDidMount() {
 		const { gameId } = this.state;
 		getGame(gameId).then(game => {
-			this.setState({ game } as IGameContainerState);
+			this.setState({ game });
 		});
 	}
 
 	componentWillReceiveProps(nextProps: IGameContainerProps) {
 		const { gameId } = this.state;
-		const nextGameId = +nextProps.params.gameId;
+		const nextGameId = +nextProps.match.params.gameId;
 		if (gameId !== nextGameId) {
 			this.setState({
 				gameId: nextGameId,
@@ -46,36 +48,37 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 				submitting: false
 			} as IGameContainerState);
 			getGame(nextGameId).then(game => {
-				this.setState({ game } as IGameContainerState);
+				this.setState({ game });
 			});
 		}
 	}
 
 	handleEdit = () => {
+		const { history } = this.props;
 		const { gameId } = this.state;
-		browserHistory.push(`/game/edit/${gameId}`);
+		history.push(`/game/edit/${gameId}`);
 	}
 
 	handleDelete = () => {
 		const { gameId } = this.state;
-		this.setState({ submitting: true } as IGameContainerState);
+		this.setState({ submitting: true });
 		deleteGame(gameId).then(() => {
 			this.setState({
 				deleted: true,
 				submitting: false
-			} as IGameContainerState);
+			});
 		});
 	}
 
 	handleUndoDelete = () => {
 		const { game } = this.state;
 		const { id, when, scores } = game;
-		this.setState({ submitting: true } as IGameContainerState);
+		this.setState({ submitting: true });
 		updateGame(id, when, scores).then(() => {
 			this.setState({
 				deleted: false,
 				submitting: false
-			} as IGameContainerState);
+			});
 		});
 	}
 
@@ -86,7 +89,10 @@ export default class GameContainer extends React.PureComponent<IGameContainerPro
 				{...{roleId, game, deleted, submitting}}
 				onEdit={this.handleEdit}
 				onDelete={this.handleDelete}
-				onUndoDelete={this.handleUndoDelete} />
+				onUndoDelete={this.handleUndoDelete}
+				/>
 		);
 	}
 }
+
+export default withRouter(GameContainer);

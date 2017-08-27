@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 import EditUser from '~/pages/EditUser';
 import { IAllUserData, IRole } from '~/models';
 import { renameUser, updateUser, deleteUser } from '~/api/users';
+
+interface IEditUserContainerProps {
+	history: History;
+}
 
 interface IEditUserContainerState {
 	originalName: string;
@@ -15,14 +20,14 @@ interface IEditUserContainerState {
 	submitting: boolean;
 }
 
-export default class EditUserContainer extends React.PureComponent<void, IEditUserContainerState> {
-	constructor(props: void) {
+class EditUserContainer extends React.PureComponent<IEditUserContainerProps, IEditUserContainerState> {
+	constructor(props: IEditUserContainerProps) {
 		super(props);
-		const state = browserHistory.getCurrentLocation().state as IAllUserData;
+		const state = props.history.location.state as IAllUserData;
 		if (state) {
 			this.state = Object.assign({ originalName: state.name, submitting: false }, state);
 		} else {
-			browserHistory.push('/admin/users');
+			props.history.push('/admin/users');
 		}
 	}
 
@@ -62,17 +67,19 @@ export default class EditUserContainer extends React.PureComponent<void, IEditUs
 	}
 
 	handleClickDelete = () => {
+		const { history } = this.props;
 		const { originalName } = this.state;
 		this.setState({ submitting: true } as IEditUserContainerState);
 		deleteUser(originalName).then(() => {
-			browserHistory.push('/admin/users');
+			history.push('/admin/users');
 		});
 	}
 
 	saveChanges = () => {
+		const { history } = this.props;
 		const { name, roleId, accounts } = this.state;
 		updateUser(name, roleId, accounts).then(() => {
-			browserHistory.push('/admin/users');
+			history.push('/admin/users');
 		});
 	}
 
@@ -86,7 +93,10 @@ export default class EditUserContainer extends React.PureComponent<void, IEditUs
 				onUpdateAccount={this.handleUpdateAccount}
 				onAddAccount={this.handleAddAccount}
 				onClickSubmit={this.handleClickSubmit}
-				onClickDelete={this.handleClickDelete} />
+				onClickDelete={this.handleClickDelete}
+				/>
 		);
 	}
 }
+
+export default withRouter(EditUserContainer);

@@ -6,8 +6,8 @@ interface ILoginContainerState {
 	signingIn: boolean;
 }
 
-export default class LoginContainer extends React.PureComponent<void, ILoginContainerState> {
-	constructor(props: void) {
+export default class LoginContainer extends React.PureComponent<{}, ILoginContainerState> {
+	constructor(props: {}) {
 		super(props);
 		this.state = { signingIn: false };
 	}
@@ -24,7 +24,8 @@ export default class LoginContainer extends React.PureComponent<void, ILoginCont
 		return (
 			<Login
 				{...{signingIn}}
-				onClickSignIn={this.handleClickSignIn} />
+				onClickSignIn={this.handleClickSignIn}
+				/>
 		);
 	}
 }

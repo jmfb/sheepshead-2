@@ -9,7 +9,7 @@ interface IErrorViewProps {
 	onClickLogout: () => void;
 }
 
-export default class ErrorView extends React.PureComponent<IErrorViewProps, void> {
+export default class ErrorView extends React.PureComponent<IErrorViewProps> {
 	render() {
 		const { status, statusText, onClickLogout } = this.props;
 		return (

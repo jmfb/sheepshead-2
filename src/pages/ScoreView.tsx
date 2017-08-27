@@ -11,9 +11,9 @@ interface IScoreViewProps {
 	game: IGame | null;
 	monthScores: IScore[] | null;
 	yearScores: IScore[] | null;
-};
+}
 
-export default class ScoreView extends React.PureComponent<IScoreViewProps, void> {
+export default class ScoreView extends React.PureComponent<IScoreViewProps> {
 	render() {
 		const { month, game, monthScores, yearScores } = this.props;
 		return(

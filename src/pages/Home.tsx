@@ -12,7 +12,7 @@ interface IHomeProps {
 	onClickLogout: () => void;
 }
 
-export default class Home extends React.PureComponent<IHomeProps, void> {
+export default class Home extends React.PureComponent<IHomeProps> {
 	render() {
 		const { roleId, periodScores, onClickCreateGame, onClickLogout } = this.props;
 		return (

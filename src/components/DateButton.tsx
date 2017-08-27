@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as DatePicker from 'react-datepicker';
+import DatePicker from 'react-datepicker';
 import * as moment from 'moment';
 import * as styles from './DateButton.scss';
 
@@ -10,7 +10,7 @@ interface ICustomDateButtonProps {
 	onClick?: React.EventHandler<React.MouseEvent<HTMLButtonElement>>;
 }
 
-class CustomDateButton extends React.Component<ICustomDateButtonProps, void> {
+class CustomDateButton extends React.Component<ICustomDateButtonProps> {
 	render() {
 		const { value } = this.props;
 		return(
@@ -28,7 +28,7 @@ interface IDateButtonProps {
 	onChange: (value: string) => void;
 }
 
-export default class DateButton extends React.PureComponent<IDateButtonProps, void> {
+export default class DateButton extends React.PureComponent<IDateButtonProps> {
 	handleEdit = (date?: moment.Moment) => {
 		const { onChange } = this.props;
 		onChange(date.utc().format('YYYY-MM-DD'));

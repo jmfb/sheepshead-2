@@ -12,7 +12,7 @@ interface IData {
 	total: number;
 }
 
-export default class ScoreGraph extends React.PureComponent<IScoreGraphProps, void> {
+export default class ScoreGraph extends React.PureComponent<IScoreGraphProps> {
 	private rootNode: SVGElement;
 
 	componentWillUpdate() {

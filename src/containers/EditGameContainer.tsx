@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { Redirect, withRouter, match } from 'react-router-dom';
+import { History } from 'history';
 import EditGame from '~/pages/EditGame';
-import { IUser, IPlayer } from '~/models';
+import { IUser, IPlayer, playerRoleId } from '~/models';
 import { getUsers } from '~/api/users';
 import { getGame, updateGame } from '~/api/games';
 
 interface IEditGameContainerProps {
-	params: { gameId: string };
+	match: match<{ gameId: string }>;
+	history: History;
 }
 
 interface IEditGameContainerState {
@@ -15,17 +17,19 @@ interface IEditGameContainerState {
 	when: string | null;
 	players: IPlayer[] | null;
 	submitting: boolean;
+	isAuthenticated: boolean;
 }
 
-export default class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEditGameContainerState> {
+class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEditGameContainerState> {
 	constructor(props: IEditGameContainerProps) {
 		super(props);
 		this.state = {
-			gameId: +props.params.gameId,
+			gameId: +props.match.params.gameId,
 			users: null,
 			when: null,
 			players: null,
-			submitting: false
+			submitting: false,
+			isAuthenticated: +localStorage.getItem('roleId') >= playerRoleId
 		};
 	}
 
@@ -87,24 +91,33 @@ export default class EditGameContainer extends React.PureComponent<IEditGameCont
 	}
 
 	handleSubmit = () => {
+		const { history } = this.props;
 		const { gameId, when, players } = this.state;
 		const scores = players
 			.map(player => ({ user: player.user.name, score: player.score }));
 		this.setState({ submitting: true } as IEditGameContainerState);
 		updateGame(gameId, when, scores).then(() => {
-			browserHistory.push(`/game/view/${gameId}`);
+			history.push(`/game/view/${gameId}`);
 		});
 	}
 
 	render() {
-		const { gameId, users, when, players, submitting } = this.state;
+		const { gameId, users, when, players, submitting, isAuthenticated } = this.state;
+		if (!isAuthenticated) {
+			return (
+				<Redirect to='/login' />
+			);
+		}
 		return (
 			<EditGame
 				{...{gameId, users, when, players, submitting}}
 				onEditWhen={this.handleEditWhen}
 				onSelectUser={this.handleSelectUser}
 				onChangeScore={this.handleChangeScore}
-				onSubmit={this.handleSubmit} />
+				onSubmit={this.handleSubmit}
+				/>
 		);
 	}
 }
+
+export default withRouter(EditGameContainer);

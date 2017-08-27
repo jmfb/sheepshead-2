@@ -8,7 +8,7 @@ interface IAllUserDataProps {
 	onClickUser: (user: IAllUserData) => void;
 }
 
-export default class AllUserData extends React.PureComponent<IAllUserDataProps, void> {
+export default class AllUserData extends React.PureComponent<IAllUserDataProps> {
 	handleClick = () => {
 		const { user, onClickUser } = this.props;
 		onClickUser(user);

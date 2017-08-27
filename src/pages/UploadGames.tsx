@@ -14,7 +14,7 @@ interface IUploadGamesProps {
 	onClickSubmit: () => void;
 }
 
-export default class UploadGames extends React.PureComponent<IUploadGamesProps, void> {
+export default class UploadGames extends React.PureComponent<IUploadGamesProps> {
 	constructor(props: IUploadGamesProps) {
 		super(props);
 	}

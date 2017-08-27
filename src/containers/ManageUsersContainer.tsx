@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 import ManageUsers from '~/pages/ManageUsers';
 import { IAllUserData } from '~/models';
 import { getAllUserData } from '~/api/users';
+
+interface IManageUsersContainerProps {
+	history: History;
+}
 
 interface IManageUsersContainerState {
 	users: IAllUserData[];
@@ -17,8 +22,8 @@ const roleFilters: { [key: string]: number[] } = {
 	['Admin']: [2]
 };
 
-export default class ManageUsersContainer extends React.PureComponent<void, IManageUsersContainerState> {
-	constructor(props: void) {
+class ManageUsersContainer extends React.PureComponent<IManageUsersContainerProps, IManageUsersContainerState> {
+	constructor(props: IManageUsersContainerProps) {
 		super(props);
 		this.state = {
 			users: [],
@@ -37,11 +42,13 @@ export default class ManageUsersContainer extends React.PureComponent<void, IMan
 	}
 
 	handleClickCreateUser = () => {
-		browserHistory.push('/admin/user/create');
+		const { history } = this.props;
+		history.push('/admin/user/create');
 	}
 
 	handleClickUser = (user: IAllUserData) => {
-		browserHistory.push({
+		const { history } = this.props;
+		history.push({
 			pathname: '/admin/user/edit',
 			state: user
 		});
@@ -61,7 +68,10 @@ export default class ManageUsersContainer extends React.PureComponent<void, IMan
 				{...{users, roleFilter}}
 				onChangeRoleFilter={this.handleChangeRoleFilter}
 				onClickCreateUser={this.handleClickCreateUser}
-				onClickUser={this.handleClickUser} />
+				onClickUser={this.handleClickUser}
+				/>
 		);
 	}
 }
+
+export default withRouter(ManageUsersContainer);

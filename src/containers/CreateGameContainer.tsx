@@ -1,19 +1,25 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { Redirect, withRouter } from 'react-router-dom';
+import { History } from 'history';
 import SubmitGame from '~/pages/SubmitGame';
 import { IUser, IPlayer, playerRoleId } from '~/models';
 import { getUsers } from '~/api/users';
 import { updateGame } from '~/api/games';
 import * as moment from 'moment';
 
+interface ICreateGameContainerProps {
+	history: History;
+}
+
 interface ICreateGameContainerState {
 	users: IUser[] | null;
 	players: IPlayer[];
 	submitting: boolean;
+	isAuthenticated: boolean;
 }
 
-export default class CreateGameContainer extends React.PureComponent<void, ICreateGameContainerState> {
-	constructor(props: void) {
+class CreateGameContainer extends React.PureComponent<ICreateGameContainerProps, ICreateGameContainerState> {
+	constructor(props: ICreateGameContainerProps) {
 		super(props);
 		this.state = {
 			users: null,
@@ -22,7 +28,8 @@ export default class CreateGameContainer extends React.PureComponent<void, ICrea
 				score: 0,
 				playerNumber: i + 1
 			})),
-			submitting: false
+			submitting: false,
+			isAuthenticated: +localStorage.getItem('roleId') >= playerRoleId
 		};
 	}
 
@@ -78,6 +85,7 @@ export default class CreateGameContainer extends React.PureComponent<void, ICrea
 	}
 
 	handleSubmit = () => {
+		const { history } = this.props;
 		const { players } = this.state;
 		const scores = players
 			.filter(player => player.user !== null)
@@ -85,18 +93,26 @@ export default class CreateGameContainer extends React.PureComponent<void, ICrea
 		const when = moment().format('YYYY-MM-DD');
 		this.setState({ submitting: true } as ICreateGameContainerState);
 		updateGame(0, when, scores).then(gameId => {
-			browserHistory.push(`/game/view/${gameId}`);
+			history.push(`/game/view/${gameId}`);
 		});
 	}
 
 	render() {
-		const { users, players, submitting } = this.state;
+		const { users, players, submitting, isAuthenticated } = this.state;
+		if (!isAuthenticated) {
+			return (
+				<Redirect to='/login' />
+			);
+		}
 		return (
 			<SubmitGame
 				{...{users, players, submitting}}
 				onSelectUser={this.handleSelectUser}
 				onChangeScore={this.handleChangeScore}
-				onSubmit={this.handleSubmit} />
+				onSubmit={this.handleSubmit}
+				/>
 		);
 	}
 }
+
+export default withRouter(CreateGameContainer);

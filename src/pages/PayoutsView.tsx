@@ -11,7 +11,7 @@ interface IPayoutsViewProps {
 	users: IAllUserData[] | null;
 }
 
-export default class PayoutsView extends React.PureComponent<IPayoutsViewProps, void> {
+export default class PayoutsView extends React.PureComponent<IPayoutsViewProps> {
 	render() {
 		const { scores } = this.props;
 		return(

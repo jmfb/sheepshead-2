@@ -10,7 +10,7 @@ interface ITextInputProps {
 	onChange: (value: string) => void;
 }
 
-export default class TextInput extends React.PureComponent<ITextInputProps, void> {
+export default class TextInput extends React.PureComponent<ITextInputProps> {
 	handleChange = (e: React.FormEvent<HTMLInputElement>) => {
 		const { onChange } = this.props;
 		onChange(e.currentTarget.value);

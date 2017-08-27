@@ -13,7 +13,7 @@ interface ICreateUserProps {
 	onClickCreate: () => void;
 }
 
-export default class CreateUser extends React.PureComponent<ICreateUserProps, void> {
+export default class CreateUser extends React.PureComponent<ICreateUserProps> {
 	render() {
 		const { user, account, submitting, onUpdateUser, onUpdateAccount, onClickCreate } = this.props;
 		return(

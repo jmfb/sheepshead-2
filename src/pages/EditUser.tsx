@@ -23,7 +23,7 @@ interface IEditUserProps {
 	submitting: boolean;
 }
 
-export default class EditUser extends React.PureComponent<IEditUserProps, void> {
+export default class EditUser extends React.PureComponent<IEditUserProps> {
 	handleUpdateRole = (e: React.FormEvent<HTMLSelectElement>) => {
 		const { onUpdateRole } = this.props;
 		onUpdateRole(+e.currentTarget.value as IRole);

@@ -7,8 +7,8 @@ interface ILifetimeContainerState {
 	scores: IScore[] | null;
 }
 
-export default class LifetimeContainer extends React.PureComponent<void, ILifetimeContainerState> {
-	constructor(props: void) {
+export default class LifetimeContainer extends React.PureComponent<{}, ILifetimeContainerState> {
+	constructor(props: {}) {
 		super(props);
 		this.state = { scores: null };
 	}

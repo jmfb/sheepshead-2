@@ -7,7 +7,7 @@ interface ILeaderboardProps {
 	scores: IScore[];
 }
 
-export default class Leaderboard extends React.PureComponent<ILeaderboardProps, void> {
+export default class Leaderboard extends React.PureComponent<ILeaderboardProps> {
 	computeRank = (score: number) => {
 		const { scores } = this.props;
 		return 1 + scores.filter(s => s.score > score).length;

@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 import GamesView from '~/pages/GamesView';
 import { IGame } from '~/models';
 import { getGames } from '~/api/games';
+
+interface IGamesContainerProps {
+	history: History;
+}
 
 interface IGamesContainerState {
 	games: IGame[];
@@ -10,8 +15,8 @@ interface IGamesContainerState {
 	loading: boolean;
 }
 
-export default class GamesContainer extends React.PureComponent<void, IGamesContainerState> {
-	constructor(props: any) {
+class GamesContainer extends React.PureComponent<IGamesContainerProps, IGamesContainerState> {
+	constructor(props: IGamesContainerProps) {
 		super(props);
 		this.state = {
 			games: [],
@@ -21,7 +26,7 @@ export default class GamesContainer extends React.PureComponent<void, IGamesCont
 	}
 
 	componentDidMount() {
-		this.setState({ loading: true } as IGamesContainerState);
+		this.setState({ loading: true });
 		getGames(0, 10).then(games => {
 			this.setState({
 				games: games.games,
@@ -32,7 +37,7 @@ export default class GamesContainer extends React.PureComponent<void, IGamesCont
 	}
 
 	handleLoadMoreGames = () => {
-		this.setState({ loading: true } as IGamesContainerState);
+		this.setState({ loading: true });
 		const { games } = this.state;
 		getGames(games.length, 10).then(newGames => {
 			this.setState({
@@ -44,7 +49,8 @@ export default class GamesContainer extends React.PureComponent<void, IGamesCont
 	}
 
 	handleClickGame = (id: number) => {
-		browserHistory.push(`/game/view/${id}`);
+		const { history } = this.props;
+		history.push(`/game/view/${id}`);
 	}
 
 	render() {
@@ -53,7 +59,10 @@ export default class GamesContainer extends React.PureComponent<void, IGamesCont
 			<GamesView
 				{...{games, moreGames, loading}}
 				onLoadMoreGames={this.handleLoadMoreGames}
-				onClickGame={this.handleClickGame} />
+				onClickGame={this.handleClickGame}
+				/>
 		);
 	}
 }
+
+export default withRouter(GamesContainer);

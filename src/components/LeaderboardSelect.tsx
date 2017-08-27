@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IndexLink, Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import * as styles from './LeaderboardSelect.scss';
 
 interface ILeaderboardSelectProps {
@@ -7,16 +7,16 @@ interface ILeaderboardSelectProps {
 	month: string;
 }
 
-export default class LeaderboardSelect extends React.PureComponent<ILeaderboardSelectProps, void> {
+export default class LeaderboardSelect extends React.PureComponent<ILeaderboardSelectProps> {
 	render() {
 		const { year, month } = this.props;
 		return (
 			<ul className={styles.root}>
-				<li><IndexLink to='/leader' activeClassName={styles.active}>Current</IndexLink></li>
-				<li><Link to={`/leader/${year}/${month}`} activeClassName={styles.active}>Month</Link></li>
-				<li><Link to={`/leader/${year}`} activeClassName={styles.active}>Year</Link></li>
-				<li><Link to='/leader/lifetime' activeClassName={styles.active}>Lifetime</Link></li>
-				<li><Link to='/leader/games' activeClassName={styles.active}>Games</Link></li>
+				<li><NavLink to='/leader' activeClassName={styles.active}>Current</NavLink></li>
+				<li><NavLink to={`/leader/${year}/${month}`} activeClassName={styles.active}>Month</NavLink></li>
+				<li><NavLink to={`/leader/${year}`} activeClassName={styles.active}>Year</NavLink></li>
+				<li><NavLink to='/leader/lifetime' activeClassName={styles.active}>Lifetime</NavLink></li>
+				<li><NavLink to='/leader/games' activeClassName={styles.active}>Games</NavLink></li>
 			</ul>
 		);
 	}

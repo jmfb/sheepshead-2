@@ -11,7 +11,7 @@ interface IGameProps {
 	onClick?: () => void;
 }
 
-export default class Game extends React.PureComponent<IGameProps, void> {
+export default class Game extends React.PureComponent<IGameProps> {
 	render() {
 		const { game, onClick } = this.props;
 		return(

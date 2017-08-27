@@ -8,7 +8,7 @@ interface IAdministrationProps {
 	onClickUploadGames: () => void;
 }
 
-export default class Administration extends React.PureComponent<IAdministrationProps, void> {
+export default class Administration extends React.PureComponent<IAdministrationProps> {
 	render() {
 		const { onClickManageUsers, onClickPayouts, onClickUploadGames } = this.props;
 		return(

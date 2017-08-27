@@ -6,7 +6,7 @@ interface IDateDisplayProps {
 	value: string;
 }
 
-export default class DateDisplay extends React.PureComponent<IDateDisplayProps, void> {
+export default class DateDisplay extends React.PureComponent<IDateDisplayProps> {
 	render() {
 		const { value } = this.props;
 		const display = moment(value).utc().format('dddd, MMMM Do YYYY');

@@ -10,7 +10,7 @@ interface IPeriodScoreProps {
 	periodScore: IPeriodScore;
 }
 
-export default class PeriodScore extends React.PureComponent<IPeriodScoreProps, void> {
+export default class PeriodScore extends React.PureComponent<IPeriodScoreProps> {
 	getPeriod = () => {
 		const { periodScore } = this.props;
 		const { period } = periodScore;

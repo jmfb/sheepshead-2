@@ -7,7 +7,7 @@ interface IPeriodNavigatorProps {
 	onClickNextPeriod: () => void;
 }
 
-export default class PeriodNavigator extends React.PureComponent<IPeriodNavigatorProps, void> {
+export default class PeriodNavigator extends React.PureComponent<IPeriodNavigatorProps> {
 	render() {
 		const { period, onClickPreviousPeriod, onClickNextPeriod } = this.props;
 		return(

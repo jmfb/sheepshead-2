@@ -7,7 +7,7 @@ interface IPayoutProps {
 	score: number;
 }
 
-export default class Payout extends React.PureComponent<IPayoutProps, void> {
+export default class Payout extends React.PureComponent<IPayoutProps> {
 	render() {
 		const { name, score } = this.props;
 		return (

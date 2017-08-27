@@ -9,7 +9,7 @@ interface ILifetimeViewProps {
 	scores: IScore[] | null;
 }
 
-export default class LifetimeView extends React.PureComponent<ILifetimeViewProps, void> {
+export default class LifetimeView extends React.PureComponent<ILifetimeViewProps> {
 	render() {
 		const { scores } = this.props;
 		return (

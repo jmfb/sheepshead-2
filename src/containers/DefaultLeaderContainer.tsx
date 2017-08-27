@@ -12,8 +12,8 @@ interface IDefaultLeaderContainerState {
 	yearScores: IScore[] | null;
 }
 
-export default class DefaultLeaderContainer extends React.PureComponent<void, IDefaultLeaderContainerState> {
-	constructor(props: void) {
+export default class DefaultLeaderContainer extends React.PureComponent<{}, IDefaultLeaderContainerState> {
+	constructor(props: {}) {
 		super(props);
 		const now = moment();
 		this.state = {

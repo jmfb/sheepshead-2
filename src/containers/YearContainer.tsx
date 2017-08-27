@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter, match } from 'react-router-dom';
+import { History } from 'history';
 import YearView from '~/pages/YearView';
 import { IScore } from '~/models';
 import { getYearScores } from '~/api/scores';
 
 interface IYearContainerProps {
-	params: { year: string };
+	match: match<{ year: string }>;
+	history: History;
 }
 
 interface IYearContainerState {
@@ -13,11 +15,11 @@ interface IYearContainerState {
 	scores: IScore[] | null;
 }
 
-export default class YearContainer extends React.PureComponent<IYearContainerProps, IYearContainerState> {
+class YearContainer extends React.PureComponent<IYearContainerProps, IYearContainerState> {
 	constructor(props: IYearContainerProps) {
 		super(props);
 		this.state = {
-			year: +props.params.year,
+			year: +props.match.params.year,
 			scores: null
 		};
 	}
@@ -25,32 +27,34 @@ export default class YearContainer extends React.PureComponent<IYearContainerPro
 	componentDidMount() {
 		const { year } = this.state;
 		getYearScores(year).then(scores => {
-			this.setState({ scores } as IYearContainerState);
+			this.setState({ scores });
 		});
 	}
 
 	componentWillReceiveProps(nextProps: IYearContainerProps) {
 		const { year } = this.state;
-		const nextYear = +nextProps.params.year;
+		const nextYear = +nextProps.match.params.year;
 		if (year !== nextYear) {
 			this.setState({
 				year: nextYear,
 				scores: null
 			});
 			getYearScores(nextYear).then(scores => {
-				this.setState({ scores } as IYearContainerState);
+				this.setState({ scores });
 			});
 		}
 	}
 
 	handleClickPreviousYear = () => {
+		const { history } = this.props;
 		const { year } = this.state;
-		browserHistory.push(`/leader/${year - 1}`);
+		history.push(`/leader/${year - 1}`);
 	}
 
 	handleClickNextYear = () => {
+		const { history } = this.props;
 		const { year } = this.state;
-		browserHistory.push(`/leader/${year + 1}`);
+		history.push(`/leader/${year + 1}`);
 	}
 
 	render() {
@@ -59,7 +63,10 @@ export default class YearContainer extends React.PureComponent<IYearContainerPro
 			<YearView
 				{...{year, scores}}
 				onClickPreviousYear={this.handleClickPreviousYear}
-				onClickNextYear={this.handleClickNextYear} />
+				onClickNextYear={this.handleClickNextYear}
+				/>
 		);
 	}
 }
+
+export default withRouter(YearContainer);

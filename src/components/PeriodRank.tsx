@@ -9,7 +9,7 @@ interface IPeriodRankProps {
 	onClick: () => void;
 }
 
-export default class PeriodRank extends React.PureComponent<IPeriodRankProps, void> {
+export default class PeriodRank extends React.PureComponent<IPeriodRankProps> {
 	render() {
 		const { period, score, rank, onClick } = this.props;
 		return(

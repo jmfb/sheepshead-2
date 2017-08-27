@@ -7,7 +7,7 @@ interface IPeriodScoresProps {
 	periodScores: IPeriodScores;
 }
 
-export default class PeriodScores extends React.PureComponent<IPeriodScoresProps, void> {
+export default class PeriodScores extends React.PureComponent<IPeriodScoresProps> {
 	render() {
 		const { periodScores } = this.props;
 		const { user, monthScore, yearScore, lifetimeScore } = periodScores;

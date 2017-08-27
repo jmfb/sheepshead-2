@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { match } from 'react-router-dom';
 import PayoutsView from '~/pages/PayoutsView';
 import { IMonth, IScore, IAllUserData } from '~/models';
 import { getMonthScores } from '~/api/scores';
 import { getAllUserData } from '~/api/users';
 
 interface IPayoutsContainerProps {
-	params: { month: string, year: string };
+	match: match<{ month: string, year: string }>;
 }
 
 interface IPayoutsContainerState {
@@ -19,8 +20,8 @@ export default class PayoutsContainer extends React.PureComponent<IPayoutsContai
 		super(props);
 		this.state = {
 			month: {
-				year: +props.params.year,
-				month: props.params.month
+				year: +props.match.params.year,
+				month: props.match.params.month
 			},
 			scores: null,
 			users: null

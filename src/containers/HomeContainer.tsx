@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 import Home from '~/pages/Home';
 import { IRole, IPeriodScores } from '~/models';
 import { getPeriodScores } from '~/api/scores';
+
+interface IHomeContainerProps {
+	history: History;
+}
 
 interface IHomeContainerState {
 	roleId: IRole;
 	periodScores: IPeriodScores | null;
 }
 
-export default class HomeContainer extends React.PureComponent<void, IHomeContainerState> {
-	constructor(props: void) {
+class HomeContainer extends React.PureComponent<IHomeContainerProps, IHomeContainerState> {
+	constructor(props: IHomeContainerProps) {
 		super(props);
 		this.state = {
 			roleId: +localStorage.getItem('roleId') as IRole,
@@ -20,18 +25,20 @@ export default class HomeContainer extends React.PureComponent<void, IHomeContai
 
 	componentDidMount() {
 		getPeriodScores().then(periodScores => {
-			this.setState({ periodScores } as IHomeContainerState);
+			this.setState({ periodScores });
 		});
 	}
 
 	handleClickCreateGame = () => {
-		browserHistory.push('/game/create');
+		const { history } = this.props;
+		history.push('/game/create');
 	}
 
 	handleClickLogout = () => {
+		const { history } = this.props;
 		localStorage.removeItem('token');
 		localStorage.removeItem('roleId');
-		browserHistory.push('/login');
+		history.push('/login');
 	}
 
 	render() {
@@ -40,7 +47,10 @@ export default class HomeContainer extends React.PureComponent<void, IHomeContai
 			<Home
 				{...{roleId, periodScores}}
 				onClickCreateGame={this.handleClickCreateGame}
-				onClickLogout={this.handleClickLogout} />
+				onClickLogout={this.handleClickLogout}
+				/>
 		);
 	}
 }
+
+export default withRouter(HomeContainer);

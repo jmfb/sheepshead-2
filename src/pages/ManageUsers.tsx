@@ -12,7 +12,7 @@ interface IManageUsersProps {
 	onClickUser: (user: IAllUserData) => void;
 }
 
-export default class ManageUsers extends React.PureComponent<IManageUsersProps, void> {
+export default class ManageUsers extends React.PureComponent<IManageUsersProps> {
 	handleChangeRoleFilter = (e: React.FormEvent<HTMLSelectElement>) => {
 		const { onChangeRoleFilter } = this.props;
 		onChangeRoleFilter(e.currentTarget.value);

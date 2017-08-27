@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 import ErrorView from '~/pages/ErrorView';
+
+interface IErrorContainerProps {
+	history: History;
+}
 
 interface IErrorContainerState {
 	status: number;
@@ -8,16 +13,17 @@ interface IErrorContainerState {
 	error: any;
 }
 
-export default class ErrorContainer extends React.PureComponent<void, IErrorContainerState> {
-	constructor(props: void) {
+class ErrorContainer extends React.Component<IErrorContainerProps, IErrorContainerState> {
+	constructor(props: IErrorContainerProps) {
 		super(props);
-		this.state = browserHistory.getCurrentLocation().state as IErrorContainerState;
+		this.state = { ...props.history.location.state };
 	}
 
 	handleClickLogout = () => {
+		const { history } = this.props;
 		localStorage.removeItem('token');
 		localStorage.removeItem('roleId');
-		browserHistory.push('/login');
+		history.push('/login');
 	}
 
 	render() {
@@ -25,7 +31,10 @@ export default class ErrorContainer extends React.PureComponent<void, IErrorCont
 		return (
 			<ErrorView
 				{...{status, statusText, error}}
-				onClickLogout={this.handleClickLogout} />
+				onClickLogout={this.handleClickLogout}
+				/>
 		);
 	}
 }
+
+export default withRouter(ErrorContainer);

@@ -7,7 +7,7 @@ interface IScoresTileProps {
 	scores: IScore[];
 }
 
-export default class ScoresTile extends React.PureComponent<IScoresTileProps, void> {
+export default class ScoresTile extends React.PureComponent<IScoresTileProps> {
 	render() {
 		const { scores } = this.props;
 		return(
