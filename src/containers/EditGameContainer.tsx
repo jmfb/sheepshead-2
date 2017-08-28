@@ -1,14 +1,28 @@
 import * as React from 'react';
 import { Redirect, withRouter, match } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { History } from 'history';
 import EditGame from '~/pages/EditGame';
 import { IUser, IPlayer, playerRoleId } from '~/models';
 import { getUsers } from '~/api/users';
 import { getGame, updateGame } from '~/api/games';
+import { IState } from '~/reducers';
 
-interface IEditGameContainerProps {
+interface IEditGameContainerOwnProps {
 	match: match<{ gameId: string }>;
 	history: History;
+}
+
+interface IEditGameContainerStateProps {
+	isAuthenticated: boolean;
+}
+
+type IEditGameContainerProps = IEditGameContainerOwnProps & IEditGameContainerStateProps;
+
+function mapStateToProps(state: IState): IEditGameContainerStateProps {
+	return {
+		isAuthenticated: state.currentUser.roleId >= playerRoleId
+	};
 }
 
 interface IEditGameContainerState {
@@ -17,7 +31,6 @@ interface IEditGameContainerState {
 	when: string | null;
 	players: IPlayer[] | null;
 	submitting: boolean;
-	isAuthenticated: boolean;
 }
 
 class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEditGameContainerState> {
@@ -28,8 +41,7 @@ class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEd
 			users: null,
 			when: null,
 			players: null,
-			submitting: false,
-			isAuthenticated: +localStorage.getItem('roleId') >= playerRoleId
+			submitting: false
 		};
 	}
 
@@ -102,7 +114,8 @@ class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEd
 	}
 
 	render() {
-		const { gameId, users, when, players, submitting, isAuthenticated } = this.state;
+		const { isAuthenticated } = this.props;
+		const { gameId, users, when, players, submitting } = this.state;
 		if (!isAuthenticated) {
 			return (
 				<Redirect to='/login' />
@@ -120,4 +133,4 @@ class EditGameContainer extends React.PureComponent<IEditGameContainerProps, IEd
 	}
 }
 
-export default withRouter(EditGameContainer);
+export default connect(mapStateToProps)(withRouter(EditGameContainer));

@@ -1,17 +1,30 @@
 import * as React from 'react';
 import { withRouter, match } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { History } from 'history';
 import ViewGame from '~/pages/ViewGame';
 import { IGame, IRole } from '~/models';
 import { updateGame, getGame, deleteGame } from '~/api/games';
+import { IState } from '~/reducers';
 
-interface IGameContainerProps {
+interface IGameContainerOwnProps {
 	match: match<{ gameId: string }>;
 	history: History;
 }
 
-interface IGameContainerState {
+interface IGameContainerStateProps {
 	roleId: IRole;
+}
+
+type IGameContainerProps = IGameContainerOwnProps & IGameContainerStateProps;
+
+function mapStateToProps(state: IState): IGameContainerStateProps {
+	return {
+		roleId: state.currentUser.roleId
+	};
+}
+
+interface IGameContainerState {
 	gameId: number;
 	game: IGame | null;
 	deleted: boolean;
@@ -22,7 +35,6 @@ class GameContainer extends React.PureComponent<IGameContainerProps, IGameContai
 	constructor(props: IGameContainerProps) {
 		super(props);
 		this.state = {
-			roleId: +localStorage.getItem('roleId') as IRole,
 			gameId: +props.match.params.gameId,
 			game: null,
 			deleted: false,
@@ -83,7 +95,8 @@ class GameContainer extends React.PureComponent<IGameContainerProps, IGameContai
 	}
 
 	render() {
-		const { roleId, game, deleted, submitting } = this.state;
+		const { roleId } = this.props;
+		const { game, deleted, submitting } = this.state;
 		return (
 			<ViewGame
 				{...{roleId, game, deleted, submitting}}
@@ -95,4 +108,4 @@ class GameContainer extends React.PureComponent<IGameContainerProps, IGameContai
 	}
 }
 
-export default withRouter(GameContainer);
+export default connect(mapStateToProps)(withRouter(GameContainer));

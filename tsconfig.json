@@ -8,7 +8,6 @@
 		"noUnusedParameters": true,
 		"target": "es6",
 		"jsx": "react",
-		"types": ["whatwg-fetch"],
 		"baseUrl": "./src",
 		"paths": {
 			"~/*": ["./*"]

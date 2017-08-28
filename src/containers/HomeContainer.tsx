@@ -1,16 +1,41 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { History } from 'history';
 import Home from '~/pages/Home';
 import { IRole, IPeriodScores } from '~/models';
 import { getPeriodScores } from '~/api/scores';
+import { setCurrentUser } from '~/actions';
+import { IState } from '~/reducers';
 
-interface IHomeContainerProps {
+interface IHomeContainerOwnProps {
 	history: History;
 }
 
-interface IHomeContainerState {
+interface IHomeContainerStateProps {
 	roleId: IRole;
+}
+
+interface IHomeContainerDispatchProps {
+	setCurrentUser: (roleId: IRole | null, token: string | null) => void;
+}
+
+type IHomeContainerProps =
+	IHomeContainerOwnProps &
+	IHomeContainerStateProps &
+	IHomeContainerDispatchProps;
+
+function mapStateToProps(state: IState): IHomeContainerStateProps {
+	return {
+		roleId: state.currentUser.roleId
+	};
+}
+
+const mapDispatchToProps: IHomeContainerDispatchProps = {
+	setCurrentUser
+};
+
+interface IHomeContainerState {
 	periodScores: IPeriodScores | null;
 }
 
@@ -18,7 +43,6 @@ class HomeContainer extends React.PureComponent<IHomeContainerProps, IHomeContai
 	constructor(props: IHomeContainerProps) {
 		super(props);
 		this.state = {
-			roleId: +localStorage.getItem('roleId') as IRole,
 			periodScores: null
 		};
 	}
@@ -35,14 +59,14 @@ class HomeContainer extends React.PureComponent<IHomeContainerProps, IHomeContai
 	}
 
 	handleClickLogout = () => {
-		const { history } = this.props;
-		localStorage.removeItem('token');
-		localStorage.removeItem('roleId');
+		const { history, setCurrentUser } = this.props;
+		setCurrentUser(null, null);
 		history.push('/login');
 	}
 
 	render() {
-		const { roleId, periodScores } = this.state;
+		const { roleId } = this.props;
+		const { periodScores } = this.state;
 		return (
 			<Home
 				{...{roleId, periodScores}}
@@ -53,4 +77,4 @@ class HomeContainer extends React.PureComponent<IHomeContainerProps, IHomeContai
 	}
 }
 
-export default withRouter(HomeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HomeContainer));

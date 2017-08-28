@@ -1,21 +1,34 @@
 import * as React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { History } from 'history';
 import SubmitGame from '~/pages/SubmitGame';
 import { IUser, IPlayer, playerRoleId } from '~/models';
 import { getUsers } from '~/api/users';
 import { updateGame } from '~/api/games';
+import { IState } from '~/reducers';
 import * as moment from 'moment';
 
-interface ICreateGameContainerProps {
+interface ICreateGameContainerOwnProps {
 	history: History;
 }
+
+interface ICreateGameContainerStateProps {
+	isAuthenticated: boolean;
+}
+
+function mapStateToProps(state: IState): ICreateGameContainerStateProps {
+	return {
+		isAuthenticated: state.currentUser.roleId >= playerRoleId
+	};
+}
+
+type ICreateGameContainerProps = ICreateGameContainerOwnProps & ICreateGameContainerStateProps;
 
 interface ICreateGameContainerState {
 	users: IUser[] | null;
 	players: IPlayer[];
 	submitting: boolean;
-	isAuthenticated: boolean;
 }
 
 class CreateGameContainer extends React.PureComponent<ICreateGameContainerProps, ICreateGameContainerState> {
@@ -28,8 +41,7 @@ class CreateGameContainer extends React.PureComponent<ICreateGameContainerProps,
 				score: 0,
 				playerNumber: i + 1
 			})),
-			submitting: false,
-			isAuthenticated: +localStorage.getItem('roleId') >= playerRoleId
+			submitting: false
 		};
 	}
 
@@ -98,7 +110,8 @@ class CreateGameContainer extends React.PureComponent<ICreateGameContainerProps,
 	}
 
 	render() {
-		const { users, players, submitting, isAuthenticated } = this.state;
+		const { isAuthenticated } = this.props;
+		const { users, players, submitting } = this.state;
 		if (!isAuthenticated) {
 			return (
 				<Redirect to='/login' />
@@ -115,4 +128,4 @@ class CreateGameContainer extends React.PureComponent<ICreateGameContainerProps,
 	}
 }
 
-export default withRouter(CreateGameContainer);
+export default connect(mapStateToProps)(withRouter(CreateGameContainer));

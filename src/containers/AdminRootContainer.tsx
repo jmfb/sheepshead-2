@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { IState } from '~/reducers';
 import AdminContainer from '~/containers/AdminContainer';
 import ManageUsersContainer from '~/containers/ManageUsersContainer';
 import CreateUserContainer from '~/containers/CreateUserContainer';
@@ -8,20 +10,19 @@ import PayoutsContainer from '~/containers/PayoutsContainer';
 import UploadGamesContainer from '~/containers/UploadGamesContainer';
 import { adminRoleId } from '~/models';
 
-interface IAdminRootContainerState {
+interface IAdminRootContainerProps {
 	isAuthenticated: boolean;
 }
 
-export default class AdminRootContainer extends React.PureComponent<{}, IAdminRootContainerState> {
-	constructor(props: {}) {
-		super(props);
-		this.state = {
-			isAuthenticated: +localStorage.getItem('roleId') >= adminRoleId
-		};
-	}
+function mapStateToProps(state: IState): IAdminRootContainerProps {
+	return {
+		isAuthenticated: state.currentUser.roleId >= adminRoleId
+	};
+}
 
+class AdminRootContainer extends React.PureComponent<IAdminRootContainerProps> {
 	render() {
-		const { isAuthenticated } = this.state;
+		const { isAuthenticated } = this.props;
 		if (!isAuthenticated) {
 			return (
 				<Redirect to='/login' />
@@ -39,3 +40,5 @@ export default class AdminRootContainer extends React.PureComponent<{}, IAdminRo
 		);
 	}
 }
+
+export default connect(mapStateToProps)(AdminRootContainer);

@@ -1,11 +1,24 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { History } from 'history';
 import ErrorView from '~/pages/ErrorView';
+import { setCurrentUser } from '~/actions';
+import { IRole } from '~/models';
 
-interface IErrorContainerProps {
+interface IErrorContainerOwnProps {
 	history: History;
 }
+
+interface IErrorContainerDispatchProps {
+	setCurrentUser: (roleId: IRole | null, token: string | null) => void;
+}
+
+type IErrorContainerProps = IErrorContainerOwnProps & IErrorContainerDispatchProps;
+
+const mapDispatchToProps: IErrorContainerDispatchProps = {
+	setCurrentUser
+};
 
 interface IErrorContainerState {
 	status: number;
@@ -20,9 +33,8 @@ class ErrorContainer extends React.Component<IErrorContainerProps, IErrorContain
 	}
 
 	handleClickLogout = () => {
-		const { history } = this.props;
-		localStorage.removeItem('token');
-		localStorage.removeItem('roleId');
+		const { history, setCurrentUser } = this.props;
+		setCurrentUser(null, null);
 		history.push('/login');
 	}
 
@@ -37,4 +49,4 @@ class ErrorContainer extends React.Component<IErrorContainerProps, IErrorContain
 	}
 }
 
-export default withRouter(ErrorContainer);
+export default connect(null, mapDispatchToProps)(withRouter(ErrorContainer));

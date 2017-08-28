@@ -1,34 +1,29 @@
 import * as React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NavBar from '~/components/NavBar';
 import HomeContainer from '~/containers/HomeContainer';
 import LeaderContainer from '~/containers/LeaderContainer';
 import AdminRootContainer from '~/containers/AdminRootContainer';
 import GameRootContainer from '~/containers/GameRootContainer';
+import { IState } from '~/reducers';
 import { IRole } from '~/models';
 
-interface IApplicationContainerState {
-	roleId: IRole;
-	isAuthenticated: boolean;
+interface IApplicationContainerProps {
+	roleId: IRole | null;
+	token: string | null;
 }
 
-export default class ApplicationContainer extends React.PureComponent<{}, IApplicationContainerState> {
-	constructor(props: {}) {
-		super(props);
-		const roleId = localStorage.getItem('roleId');
-		if (roleId == null) {
-			localStorage.removeItem('token');
-		}
-		const token = localStorage.getItem('token');
-		this.state = {
-			roleId: +roleId as IRole,
-			isAuthenticated: token !== null
-		};
-	}
+function mapStateToProps(state: IState): IApplicationContainerProps {
+	const { currentUser } = state;
+	const { roleId, token } = currentUser;
+	return { roleId, token };
+}
 
+class ApplicationContainer extends React.PureComponent<IApplicationContainerProps> {
 	render() {
-		const { roleId, isAuthenticated } = this.state;
-		if (!isAuthenticated) {
+		const { roleId, token } = this.props;
+		if (roleId == null || token == null) {
 			return (
 				<Redirect to='/login' />
 			);
@@ -48,3 +43,5 @@ export default class ApplicationContainer extends React.PureComponent<{}, IAppli
 		);
 	}
 }
+
+export default connect(mapStateToProps)(ApplicationContainer);

@@ -1,22 +1,34 @@
 import * as React from 'react';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import { History } from 'history';
 import Banner from '~/components/Banner';
 import { login } from '~/api/auth';
+import { setCurrentUser } from '~/actions';
+import { IRole } from '~/models';
 import * as queryString from 'query-string';
 
-interface IAuthenticateContainerProps {
+interface IAuthenticateContainerOwnProps {
 	history: History;
 }
 
+interface IAuthenticateContainerDispatchProps {
+	setCurrentUser: (roleId: IRole | null, token: string | null) => void;
+}
+
+const mapDispatchToProps: IAuthenticateContainerDispatchProps = {
+	setCurrentUser
+};
+
+type IAuthenticateContainerProps = IAuthenticateContainerOwnProps & IAuthenticateContainerDispatchProps;
+
 class AuthenticateContainer extends React.PureComponent<IAuthenticateContainerProps> {
 	componentDidMount() {
-		const { history } = this.props;
+		const { history, setCurrentUser } = this.props;
 		const { code } = queryString.parse(location.search);
 		history.replace('/authenticate');
 		login(code).then(loginModel => {
-			localStorage.setItem('token', loginModel.token);
-			localStorage.setItem('roleId', loginModel.roleId.toString());
+			setCurrentUser(loginModel.roleId as IRole, loginModel.token);
 			history.push('/');
 		});
 	}
@@ -34,4 +46,4 @@ class AuthenticateContainer extends React.PureComponent<IAuthenticateContainerPr
 	}
 }
 
-export default withRouter(AuthenticateContainer);
+export default connect(null, mapDispatchToProps)(withRouter(AuthenticateContainer));
