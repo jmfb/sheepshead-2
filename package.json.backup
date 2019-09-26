@@ -1,0 +1,63 @@
+{
+  "name": "sheepshead-2",
+  "version": "1.0.0",
+  "description": "Sheepshead score tracker.",
+  "main": "index.tsx",
+  "repository": {
+    "url": "sheepshead-2",
+    "type": "git"
+  },
+  "author": "Jacob Buysse",
+  "license": "MIT",
+  "dependencies": {
+    "@types/classnames": "0.0.32",
+    "@types/d3": "^4.10.0",
+    "@types/lodash": "^4.14.74",
+    "@types/pluralize": "0.0.27",
+    "@types/query-string": "^3.0.28",
+    "@types/react": "^16.0.5",
+    "@types/react-datepicker": "^0.52.1",
+    "@types/react-dom": "^15.5.4",
+    "@types/react-redux": "^5.0.5",
+    "@types/react-router": "^4.0.15",
+    "@types/react-router-dom": "^4.0.7",
+    "classnames": "^2.2.5",
+    "core-js": "^2.5.0",
+    "d3": "^4.10.0",
+    "history": "^4.7.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "pluralize": "^3.1.0",
+    "query-string": "^4.3.4",
+    "react": "^15.6.1",
+    "react-datepicker": "^0.53.0",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "typescript": "^2.5.1",
+    "webpack": "^3.5.5",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.2",
+    "css-loader": "^0.28.5",
+    "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "http-proxy": "^1.15.2",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.6",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "ts-loader": "^2.3.4",
+    "tslint": "^5.7.0",
+    "tslint-loader": "^3.5.3"
+  },
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack",
+    "proxy": "node proxy.js"
+  }
+}
